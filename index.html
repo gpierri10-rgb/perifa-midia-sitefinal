@@ -3,208 +3,298 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Perifa Mídia | Em breve</title>
-  <meta name="description" content="As favelas e periferias do Brasil vão ganhar uma nova mídia.">
+  <title>Perifa Mídia | OOH Periférico no Brasil</title>
+  <meta name="description" content="As favelas e periferias do Brasil vão ganhar uma nova mídia. A Perifa Mídia conecta território, dados, cultura, bem-estar e impacto em escala nacional.">
+  <meta property="og:title" content="Perifa Mídia | OOH Periférico no Brasil">
+  <meta property="og:description" content="As favelas e periferias do Brasil vão ganhar uma nova mídia.">
+  <meta property="og:type" content="website">
   <style>
-    :root {
+    :root{
       --black:#000000;
       --green:#90988B;
+      --green-dark:#737C6D;
       --ice:#E8E7E2;
+      --ice-2:#F3F2EE;
       --violet:#5E23E1;
-      --white:#ffffff;
-      --max:1180px;
+      --text:#111111;
+      --muted:#565656;
+      --line:rgba(0,0,0,.14);
+      --max:1320px;
+      --radius:22px;
     }
 
-    * { box-sizing:border-box; }
-
-    html { scroll-behavior:smooth; }
-
-    body {
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
       margin:0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family:Arial, Helvetica, sans-serif;
       background:var(--ice);
       color:var(--black);
+      overflow-x:hidden;
     }
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    button,input{font-family:inherit}
 
-    a { color:inherit; text-decoration:none; }
-    img { max-width:100%; display:block; }
-
-    .hero {
-      min-height:860px;
-      position:relative;
-      overflow:hidden;
+    .nav{
+      position:fixed;
+      top:0;left:0;right:0;
+      z-index:50;
+      height:82px;
+      background:rgba(232,231,226,.92);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(0,0,0,.12);
+    }
+    .nav-inner{
+      max-width:1480px;
+      margin:0 auto;
+      height:100%;
+      padding:0 40px;
       display:flex;
       align-items:center;
-      background:
-        linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.72) 34%, rgba(0,0,0,.12) 68%, rgba(0,0,0,.05) 100%),
-        url("hero-perifa-praca.png");
-      background-size:cover;
-      background-position:center;
-      color:var(--ice);
-      padding:80px 40px;
+      justify-content:space-between;
+      gap:34px;
     }
-
-    .hero:after {
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.18));
-      pointer-events:none;
-    }
-
-    .hero-wrap {
-      width:min(1320px, 100%);
-      margin:0 auto;
-      position:relative;
-      z-index:2;
-      display:grid;
-      grid-template-columns:.75fr 1fr;
-      gap:60px;
-      align-items:center;
-    }
-
-    .hero-copy {
-      position:relative;
-      padding-left:34px;
-    }
-
-    .hero-copy:before {
-      content:"";
-      position:absolute;
-      left:0;
-      top:0;
-      bottom:0;
-      width:3px;
-      background:var(--violet);
-      box-shadow:0 0 20px rgba(94,35,225,.55);
-    }
-
-    .logo {
-      width:150px;
-      height:88px;
+    .nav-logo{
+      width:220px;
+      height:72px;
       object-fit:cover;
       object-position:center;
-      margin-bottom:44px;
-      filter:contrast(1.1);
+      filter:contrast(1.05);
     }
-
-    h1 {
-      margin:0;
-      font-size:clamp(48px, 6.7vw, 92px);
-      line-height:.9;
-      letter-spacing:-.075em;
+    .nav-links{
+      display:flex;
+      gap:46px;
+      align-items:center;
+      font-size:13px;
+      line-height:1;
+      font-weight:900;
       text-transform:uppercase;
-      font-weight:950;
-      color:var(--ice);
-      text-shadow:0 10px 40px rgba(0,0,0,.35);
+      color:#333;
+      letter-spacing:-.015em;
     }
-
-    h1 .green { color:var(--green); }
-    h1 .violet { color:var(--violet); }
-
-    .lead {
-      margin:34px 0 0;
-      max-width:520px;
-      font-size:21px;
-      line-height:1.25;
-      font-weight:750;
-      color:var(--ice);
+    .nav-links a{
+      opacity:.85;
+      transition:.2s ease;
     }
-
-    .sublead {
-      margin:24px 0 0;
-      max-width:520px;
-      font-size:20px;
-      line-height:1.3;
-      color:var(--ice);
-      font-weight:500;
-    }
-
-    .btn {
-      margin-top:46px;
+    .nav-links a:hover{opacity:1;color:var(--green-dark)}
+    .nav-cta{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:34px;
-      padding:22px 38px;
-      min-width:330px;
+      gap:28px;
+      height:50px;
+      min-width:210px;
+      border:1px solid var(--green);
+      color:var(--green);
+      padding:0 26px;
+      font-size:13px;
+      font-weight:950;
+      text-transform:uppercase;
+      transition:.2s ease;
+    }
+    .nav-cta:hover{background:var(--green);color:var(--ice)}
+    .nav-cta span{font-size:24px;line-height:0}
+
+    .hero{
+      min-height:940px;
+      position:relative;
+      display:flex;
+      align-items:center;
+      padding:145px 40px 130px;
+      background:
+        linear-gradient(90deg, rgba(232,231,226,.98) 0%, rgba(232,231,226,.83) 36%, rgba(232,231,226,.30) 58%, rgba(232,231,226,.02) 100%),
+        url("hero-perifa-praca.png");
+      background-size:cover;
+      background-position:center right;
+      overflow:hidden;
+    }
+    .hero:after{
+      content:"";
+      position:absolute;
+      left:0;right:0;bottom:0;
+      height:260px;
+      background:linear-gradient(180deg, transparent, rgba(232,231,226,.92));
+      pointer-events:none;
+    }
+    .hero-wrap{
+      width:min(var(--max),100%);
+      margin:0 auto;
+      position:relative;
+      z-index:2;
+    }
+    .hero-copy{max-width:680px}
+    .eyebrow{
+      margin:0 0 18px;
+      font-size:15px;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      font-weight:950;
+      color:#333;
+    }
+    .accent-line{
+      width:54px;
+      height:4px;
+      background:var(--violet);
+      margin-bottom:34px;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(54px,6vw,96px);
+      line-height:.9;
+      letter-spacing:-.078em;
+      text-transform:uppercase;
+      font-weight:950;
+      color:var(--black);
+    }
+    h1 .green, h2 .green, h3 .green{color:var(--green)}
+    h1 .violet, h2 .violet, h3 .violet{color:var(--violet)}
+    .lead{
+      margin:34px 0 0;
+      max-width:540px;
+      font-size:21px;
+      line-height:1.25;
+      font-weight:850;
+      color:#111;
+    }
+    .sublead{
+      margin:22px 0 0;
+      max-width:590px;
+      font-size:20px;
+      line-height:1.4;
+      color:#4d4d4d;
+      font-weight:650;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:28px;
+      min-width:278px;
+      padding:20px 36px;
       border:0;
       background:var(--green);
       color:var(--ice);
+      font-size:14px;
       font-weight:950;
       text-transform:uppercase;
-      letter-spacing:-.03em;
+      letter-spacing:-.02em;
       transition:.2s ease;
+      cursor:pointer;
     }
-
-    .btn:hover {
-      background:var(--violet);
-      transform:translateY(-2px);
+    .btn:hover{background:var(--violet);transform:translateY(-2px)}
+    .btn span{font-size:25px;line-height:0}
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:34px;
     }
-
-    .btn span {
-      font-size:30px;
-      line-height:0;
-    }
-
-    .section-ice {
-      background:var(--ice);
+    .btn.secondary{
+      background:transparent;
+      border:1px solid var(--black);
       color:var(--black);
-      padding:92px 40px;
+    }
+    .btn.secondary:hover{
+      color:var(--ice);
+      background:var(--black);
     }
 
-    .grid {
-      max-width:var(--max);
-      margin:0 auto;
+    .quick-stats{
+      position:absolute;
+      z-index:5;
+      left:50%;bottom:0;
+      transform:translateX(-50%);
+      width:min(1260px, calc(100% - 80px));
+      min-height:128px;
       display:grid;
-      grid-template-columns:1.25fr .75fr;
-      gap:86px;
+      grid-template-columns:repeat(4,1fr);
+      background:rgba(232,231,226,.86);
+      border:1px solid rgba(0,0,0,.12);
+      backdrop-filter:blur(14px);
+      box-shadow:0 24px 70px rgba(0,0,0,.12);
+    }
+    .stat{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:22px;
+      padding:28px 20px;
+      border-right:1px solid rgba(0,0,0,.16);
+    }
+    .stat:last-child{border-right:0}
+    .stat-icon{
+      width:44px;height:44px;
+      border:3px solid var(--green);
+      border-radius:12px;
+      flex:0 0 auto;
+    }
+    .stat strong{
+      display:block;
+      color:var(--green);
+      font-size:58px;
+      line-height:.8;
+      letter-spacing:-.07em;
+      font-weight:950;
+    }
+    .stat span{
+      display:block;
+      margin-top:8px;
+      font-size:14px;
+      line-height:1;
+      text-transform:uppercase;
+      font-weight:950;
+    }
+
+    .section{padding:104px 40px}
+    .wrap{width:min(var(--max),100%);margin:0 auto}
+    .section-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:90px;
       align-items:center;
     }
-
-    h2 {
+    h2{
       margin:0;
-      font-size:clamp(44px, 5.8vw, 78px);
+      font-size:clamp(44px,5.2vw,78px);
       line-height:.92;
       letter-spacing:-.075em;
       text-transform:uppercase;
       font-weight:950;
+      color:var(--black);
     }
-
-    h2 .green { color:var(--green); }
-    h2 .violet { color:var(--violet); }
-
-    .side {
+    .body-big{
+      margin:0;
+      font-size:24px;
+      line-height:1.22;
+      letter-spacing:-.04em;
+      font-weight:750;
+      color:#222;
+    }
+    .side{
       border-left:1px solid var(--green);
       padding-left:74px;
       font-size:22px;
       line-height:1.28;
       font-weight:750;
     }
+    .side p{margin:0 0 28px}
+    .side p:last-child{margin-bottom:0}
+    .side strong{color:var(--green)}
 
-    .side strong { color:var(--green); }
-
-    .green-band {
-      padding:76px 40px;
-      background:
-        linear-gradient(90deg, rgba(144,152,139,.97), rgba(144,152,139,.92)),
-        url("hero-perifa-praca.png");
-      background-size:cover;
-      background-position:center;
+    .green-band{
+      padding:82px 40px;
+      background:var(--green);
       color:var(--ice);
     }
-
-    .green-band h2 {
-      color:var(--ice);
-    }
-
-    .values {
+    .green-band h2{color:var(--ice)}
+    .green-band .section-grid{gap:60px}
+    .values{
       display:grid;
       grid-template-columns:repeat(5,1fr);
       gap:0;
     }
-
-    .value {
+    .value{
       min-height:132px;
       display:flex;
       flex-direction:column;
@@ -213,175 +303,220 @@
       gap:16px;
       text-align:center;
       border-left:1px solid rgba(232,231,226,.42);
+      color:var(--ice);
+      font-size:14px;
       font-weight:950;
       text-transform:uppercase;
-      color:var(--ice);
     }
-
-    .ico {
-      width:42px;
-      height:42px;
+    .ico{
+      width:42px;height:42px;
       border:3px solid var(--ice);
       border-radius:12px;
       position:relative;
     }
-
-    .value:nth-child(1) .ico:after {
+    .value:first-child .ico:after{
       content:"";
       position:absolute;
-      width:12px;
-      height:12px;
-      border-radius:50%;
+      right:-5px;bottom:-5px;
+      width:10px;height:10px;
       background:var(--violet);
-      right:-5px;
-      bottom:-5px;
+      border-radius:50%;
     }
 
-    .mosaic {
+    .mosaic{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       background:var(--ice);
       border-top:1px solid rgba(0,0,0,.16);
       border-bottom:1px solid rgba(0,0,0,.16);
     }
-
-    .tile {
+    .tile{
       position:relative;
-      min-height:292px;
+      min-height:310px;
+      display:flex;
+      align-items:center;
+      padding:38px;
       overflow:hidden;
       border-right:1px solid rgba(0,0,0,.14);
       border-bottom:1px solid rgba(0,0,0,.14);
-      display:flex;
-      align-items:center;
-      padding:36px;
       background:var(--ice);
     }
-
-    .tile:before {
+    .tile:before{
       content:"";
       position:absolute;
       inset:0;
       background:
-        linear-gradient(90deg, rgba(232,231,226,.92), rgba(232,231,226,.28)),
+        linear-gradient(90deg, rgba(232,231,226,.94), rgba(232,231,226,.38)),
         url("hero-perifa-praca.png");
       background-size:cover;
       background-position:center;
       filter:grayscale(.08) contrast(1.02);
-      opacity:.9;
+      opacity:.92;
       transition:.35s ease;
     }
-
-    .tile:nth-child(even):before {
+    .tile:nth-child(even):before{
       background:
-        linear-gradient(90deg, rgba(0,0,0,.86), rgba(0,0,0,.34)),
+        linear-gradient(90deg, rgba(0,0,0,.84), rgba(0,0,0,.32)),
         url("hero-perifa-praca.png");
       background-size:cover;
       background-position:center;
       opacity:.82;
     }
-
-    .tile:nth-child(4):before {
-      background:
-        linear-gradient(90deg, rgba(232,231,226,.9), rgba(232,231,226,.35)),
-        url("marca-perifa-aplicacao.png");
-      background-size:cover;
-      background-position:center;
-    }
-
-    .tile:hover:before {
-      transform:scale(1.06);
-    }
-
-    .tile h3 {
+    .tile:hover:before{transform:scale(1.06)}
+    .tile h3{
       position:relative;
       z-index:1;
       margin:0;
       color:var(--black);
-      font-size:42px;
+      font-size:44px;
       line-height:.92;
       letter-spacing:-.07em;
       text-transform:uppercase;
       font-weight:950;
     }
-
-    .tile:nth-child(even) h3 {
-      color:var(--ice);
-    }
-
-    .tile h3:after {
+    .tile:nth-child(even) h3{color:var(--ice)}
+    .tile h3:after{
       content:"";
       display:block;
-      width:52px;
-      height:5px;
+      width:52px;height:5px;
       background:var(--violet);
       margin-top:20px;
     }
 
-    .numbers {
-      background:var(--ice);
-      padding:82px 40px;
-    }
-
-    .numbers-grid {
-      max-width:var(--max);
-      margin:0 auto;
+    .cards{
       display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:0;
-      border-top:1px solid rgba(0,0,0,.14);
-      border-bottom:1px solid rgba(0,0,0,.14);
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:46px;
     }
-
-    .number {
-      text-align:center;
-      padding:46px 26px;
-      border-right:1px solid rgba(0,0,0,.22);
+    .card{
+      background:var(--ice-2);
+      border:1px solid rgba(0,0,0,.12);
+      padding:34px;
+      min-height:300px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
     }
-
-    .number:last-child { border-right:0; }
-
-    .number-icon {
-      width:42px;
-      height:42px;
-      margin:0 auto 22px;
-      border:3px solid var(--violet);
-      border-radius:12px;
-    }
-
-    .number strong {
-      display:block;
+    .card-number{
       color:var(--green);
-      font-size:80px;
-      line-height:.8;
-      letter-spacing:-.08em;
+      font-size:18px;
       font-weight:950;
-      margin-bottom:18px;
+      margin-bottom:30px;
     }
-
-    .number span {
-      display:block;
-      color:var(--black);
-      font-size:24px;
-      line-height:1;
-      letter-spacing:-.05em;
+    .card h3{
+      margin:0 0 18px;
+      font-size:34px;
+      line-height:.92;
+      letter-spacing:-.06em;
       text-transform:uppercase;
       font-weight:950;
     }
+    .card p{
+      margin:0;
+      font-size:17px;
+      line-height:1.35;
+      color:#4a4a4a;
+      font-weight:650;
+    }
 
-    .soon {
+    .perifa-praca{
       position:relative;
       overflow:hidden;
-      padding:100px 40px 58px;
+      padding:120px 40px;
       background:
-        linear-gradient(180deg, rgba(232,231,226,.78), rgba(232,231,226,.96)),
+        linear-gradient(90deg, rgba(0,0,0,.86), rgba(0,0,0,.35)),
+        url("hero-perifa-praca.png");
+      background-size:cover;
+      background-position:center;
+      color:var(--ice);
+    }
+    .perifa-praca .content{
+      width:min(var(--max),100%);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:.75fr 1fr;
+      gap:70px;
+      align-items:end;
+    }
+    .perifa-praca h2{color:var(--ice)}
+    .perifa-praca p{
+      margin:26px 0 0;
+      max-width:560px;
+      font-size:22px;
+      line-height:1.28;
+      font-weight:720;
+      color:var(--ice);
+    }
+    .feature-list{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:36px;
+    }
+    .feature{
+      border:1px solid rgba(232,231,226,.26);
+      padding:22px;
+      background:rgba(0,0,0,.32);
+      backdrop-filter:blur(10px);
+      font-weight:900;
+      text-transform:uppercase;
+      color:var(--ice);
+    }
+    .feature b{color:var(--green)}
+
+    .use-cases{
+      background:var(--ice);
+    }
+    .case-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+      margin-top:46px;
+    }
+    .case{
+      min-height:220px;
+      border:1px solid rgba(0,0,0,.12);
+      padding:26px;
+      background:var(--ice-2);
+    }
+    .case h3{
+      margin:0 0 22px;
+      color:var(--green-dark);
+      font-size:22px;
+      line-height:1;
+      letter-spacing:-.04em;
+      text-transform:uppercase;
+      font-weight:950;
+    }
+    .case ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:10px;
+      color:#333;
+      font-weight:750;
+    }
+    .case li:before{
+      content:"•";
+      color:var(--violet);
+      margin-right:10px;
+    }
+
+    .soon{
+      position:relative;
+      overflow:hidden;
+      padding:108px 40px 58px;
+      background:
+        linear-gradient(180deg, rgba(232,231,226,.82), rgba(232,231,226,.97)),
         url("hero-perifa-praca.png");
       background-size:cover;
       background-position:center bottom;
       text-align:center;
       color:var(--black);
     }
-
-    .soon .kicker {
+    .kicker{
       color:var(--green);
       font-size:26px;
       line-height:1;
@@ -390,30 +525,25 @@
       font-weight:950;
       letter-spacing:-.04em;
     }
-
-    .soon h2 {
-      color:var(--black);
-      max-width:940px;
+    .soon h2{
+      max-width:960px;
       margin:0 auto 20px;
     }
-
-    .soon p {
+    .soon p{
       margin:0 auto 32px;
-      max-width:580px;
+      max-width:640px;
       font-size:20px;
       font-weight:750;
     }
-
-    .form {
+    .form{
       display:flex;
       justify-content:center;
-      max-width:720px;
-      margin:0 auto 76px;
+      max-width:760px;
+      margin:0 auto 80px;
       border:1px solid rgba(0,0,0,.35);
-      background:rgba(232,231,226,.8);
+      background:rgba(232,231,226,.85);
     }
-
-    .form input {
+    .form input{
       flex:1;
       min-width:0;
       background:var(--ice);
@@ -423,26 +553,23 @@
       font-size:17px;
       outline:0;
     }
-
-    .form button {
+    .form button{
       border:0;
       background:var(--green);
       color:var(--ice);
       padding:0 34px;
+      font-size:15px;
       font-weight:950;
       text-transform:uppercase;
-      font-size:15px;
       cursor:pointer;
+      transition:.2s ease;
     }
+    .form button:hover{background:var(--violet)}
 
-    .form button:hover {
-      background:var(--violet);
-    }
-
-    footer {
+    footer{
       border-top:1px solid rgba(0,0,0,.18);
       padding-top:34px;
-      max-width:var(--max);
+      width:min(var(--max),100%);
       margin:0 auto;
       display:grid;
       grid-template-columns:170px 1fr 1.5fr;
@@ -450,155 +577,115 @@
       align-items:center;
       text-align:left;
     }
-
-    footer img {
+    footer img{
       width:150px;
       height:84px;
       object-fit:cover;
       object-position:center;
     }
-
-    footer p {
+    footer p{
       margin:0;
       text-transform:uppercase;
       font-weight:950;
       line-height:1.1;
     }
-
-    .cities {
+    .cities{
       text-transform:uppercase;
       font-size:14px;
       line-height:1.7;
       font-weight:750;
       text-align:center;
     }
+    .cities b{color:var(--violet);margin:0 10px}
 
-    .cities b {
-      color:var(--violet);
-      margin:0 10px;
-    }
-
-    @media(max-width:920px) {
-      .hero {
-        min-height:780px;
-      }
-
-      .hero-wrap {
-        grid-template-columns:1fr;
-      }
-
-      .grid {
-        grid-template-columns:1fr;
-      }
-
-      .side {
-        padding-left:28px;
-      }
-
-      .values {
-        grid-template-columns:1fr 1fr;
-      }
-
-      .mosaic {
-        grid-template-columns:1fr;
-      }
-
-      .numbers-grid {
-        grid-template-columns:1fr 1fr;
-      }
-
-      .number:nth-child(2) {
-        border-right:0;
-      }
-
-      footer {
-        grid-template-columns:1fr;
-        text-align:center;
-      }
-
-      footer img {
-        margin:auto;
-      }
-    }
-
-    @media(max-width:620px) {
-      .hero {
-        padding:70px 22px;
-      }
-
-      .hero-copy {
-        padding-left:24px;
-      }
-
-      .logo {
-        width:130px;
-      }
-
-      h1 {
-        font-size:48px;
-      }
-
-      h2 {
-        font-size:42px;
-      }
-
-      .btn {
-        min-width:0;
+    @media(max-width:1100px){
+      .nav-links{display:none}
+      .hero{min-height:860px}
+      .quick-stats{
+        position:relative;
+        left:auto;bottom:auto;
+        transform:none;
         width:100%;
+        grid-template-columns:1fr 1fr;
       }
-
-      .values,
-      .numbers-grid {
+      .section-grid,
+      .perifa-praca .content{
         grid-template-columns:1fr;
       }
+      .values{grid-template-columns:1fr 1fr}
+      .mosaic{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}
+      .case-grid{grid-template-columns:1fr 1fr}
+      footer{grid-template-columns:1fr;text-align:center}
+      footer img{margin:auto}
+    }
 
-      .number {
-        border-right:0;
-        border-bottom:1px solid rgba(0,0,0,.16);
-      }
-
-      .form {
-        flex-direction:column;
-      }
-
-      .form button {
-        padding:22px;
-      }
+    @media(max-width:640px){
+      .nav{height:74px}
+      .nav-inner{padding:0 20px}
+      .nav-logo{width:150px;height:56px}
+      .nav-cta{min-width:auto;padding:0 16px;font-size:12px}
+      .nav-cta span{display:none}
+      .hero{padding:112px 22px 62px;min-height:760px}
+      h1{font-size:48px}
+      h2{font-size:42px}
+      .lead,.sublead{font-size:17px}
+      .hero-actions{display:block}
+      .btn{width:100%;margin-top:14px}
+      .quick-stats{grid-template-columns:1fr}
+      .stat{border-right:0;border-bottom:1px solid rgba(0,0,0,.12)}
+      .section,.green-band,.perifa-praca,.soon{padding-left:22px;padding-right:22px}
+      .side{padding-left:24px}
+      .values,.case-grid,.feature-list{grid-template-columns:1fr}
+      .form{flex-direction:column}
+      .form button{padding:22px}
     }
   </style>
 </head>
 
 <body>
+  <header class="nav">
+    <div class="nav-inner">
+      <img class="nav-logo" src="logo-perifa-midia.png" alt="Perifa Mídia">
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#sobre">Sobre</a>
+        <a href="#proposito">Propósito</a>
+        <a href="#fazemos">O que fazemos</a>
+        <a href="#perifa-praca">Perifa Praça</a>
+        <a href="#impacto">Impacto</a>
+        <a href="#convite">Contato</a>
+      </nav>
+      <a class="nav-cta" href="#convite">Quero ser avisado <span>→</span></a>
+    </div>
+  </header>
+
   <main>
-    <section class="hero">
+    <section class="hero" id="sobre">
       <div class="hero-wrap">
         <div class="hero-copy">
-          <img class="logo" src="logo-perifa-midia.png" alt="Perifa Mídia">
-
-          <h1>
-            As favelas e periferias do Brasil vão ganhar
-            <span class="green">uma nova mídia</span><span class="violet">.</span>
-          </h1>
-
-          <p class="lead">
-            Estamos construindo uma nova visão para o OOH periférico brasileiro.
-          </p>
-
-          <p class="sublead">
-            Uma plataforma que conecta território, dados, cultura, bem-estar e impacto em escala nacional.
-          </p>
-
-          <a class="btn" href="#convite">Quero ser avisado <span>→</span></a>
+          <div class="eyebrow">A mídia que representa o Brasil real.</div>
+          <div class="accent-line"></div>
+          <h1>As favelas e periferias do Brasil vão ganhar <span class="green">uma nova mídia</span><span class="violet">.</span></h1>
+          <p class="lead">Estamos construindo uma nova visão para o OOH periférico brasileiro.</p>
+          <p class="sublead">Uma plataforma que conecta território, dados, cultura, bem-estar e impacto em escala nacional.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#convite">Quero ser avisado <span>→</span></a>
+            <a class="btn secondary" href="#perifa-praca">Conhecer o conceito <span>↓</span></a>
+          </div>
         </div>
+      </div>
+
+      <div class="quick-stats" id="impacto">
+        <div class="stat"><div class="stat-icon"></div><div><strong>27</strong><span>Estados</span></div></div>
+        <div class="stat"><div class="stat-icon"></div><div><strong>320</strong><span>Cidades</span></div></div>
+        <div class="stat"><div class="stat-icon"></div><div><strong>+4.000</strong><span>Pontos</span></div></div>
+        <div class="stat"><div class="stat-icon"></div><div><strong>+40</strong><span>Milhões de impactos</span></div></div>
       </div>
     </section>
 
-    <section class="section-ice">
-      <div class="grid">
-        <h2>
-          <span class="violet">76%</span> do Brasil nunca teve um ecossistema de mídia pensado para ele.
-        </h2>
-
+    <section class="section" id="proposito">
+      <div class="wrap section-grid">
+        <h2><span class="violet">76%</span> do Brasil nunca teve um ecossistema de mídia pensado para ele.</h2>
         <div class="side">
           <p>O mercado ocupou os mesmos espaços durante décadas.</p>
           <p><strong>Nós estamos construindo novos.</strong></p>
@@ -607,9 +694,8 @@
     </section>
 
     <section class="green-band">
-      <div class="grid">
+      <div class="wrap section-grid">
         <h2>Não é apenas OOH<span class="violet">.</span></h2>
-
         <div class="values">
           <div class="value"><div class="ico"></div>Território</div>
           <div class="value"><div class="ico"></div>Presença</div>
@@ -620,7 +706,7 @@
       </div>
     </section>
 
-    <section class="mosaic">
+    <section class="mosaic" id="fazemos">
       <article class="tile"><h3>Perifa<br>Praça</h3></article>
       <article class="tile"><h3>OOH<br>Periférico</h3></article>
       <article class="tile"><h3>Cria.<br>Dores</h3></article>
@@ -629,20 +715,80 @@
       <article class="tile"><h3>Mobilidade</h3></article>
     </section>
 
-    <section class="numbers">
-      <div class="numbers-grid">
-        <div class="number"><div class="number-icon"></div><strong>27</strong><span>Estados</span></div>
-        <div class="number"><div class="number-icon"></div><strong>320</strong><span>Cidades</span></div>
-        <div class="number"><div class="number-icon"></div><strong>+4.000</strong><span>Pontos</span></div>
-        <div class="number"><div class="number-icon"></div><strong>+40</strong><span>Milhões de impactos</span></div>
+    <section class="section">
+      <div class="wrap">
+        <h2>Um ecossistema feito para ocupar a rotina real.</h2>
+        <div class="cards">
+          <article class="card">
+            <div>
+              <div class="card-number">01</div>
+              <h3>OOH Periférico</h3>
+            </div>
+            <p>Presença em territórios de alta circulação com formatos pensados para a jornada real de consumo.</p>
+          </article>
+          <article class="card">
+            <div>
+              <div class="card-number">02</div>
+              <h3>Dados e mensuração</h3>
+            </div>
+            <p>Inteligência territorial para planejar, ativar e acompanhar campanhas com mais precisão.</p>
+          </article>
+          <article class="card">
+            <div>
+              <div class="card-number">03</div>
+              <h3>Cultura e comunidade</h3>
+            </div>
+            <p>Campanhas que nascem dentro do território, com linguagem, legitimidade e impacto.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="perifa-praca" id="perifa-praca">
+      <div class="content">
+        <div>
+          <div class="eyebrow" style="color:var(--ice)">Produto proprietário</div>
+          <div class="accent-line"></div>
+          <h2>Perifa Praça</h2>
+          <p>A primeira rede de espaços de bem-estar patrocináveis dentro das periferias brasileiras.</p>
+          <p>Mais do que mídia, uma presença física permanente que combina saúde, esporte, convivência e comunicação de marcas.</p>
+        </div>
+        <div class="feature-list">
+          <div class="feature"><b>01</b><br>Infraestrutura permanente</div>
+          <div class="feature"><b>02</b><br>Fluxo real de comunidade</div>
+          <div class="feature"><b>03</b><br>DOOH, ativações e creators</div>
+          <div class="feature"><b>04</b><br>Impacto social mensurável</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section use-cases">
+      <div class="wrap">
+        <h2>Onde marcas podem fazer diferença.</h2>
+        <div class="case-grid">
+          <article class="case">
+            <h3>Saúde</h3>
+            <ul><li>Farmácias</li><li>Planos de saúde</li><li>Bem-estar</li></ul>
+          </article>
+          <article class="case">
+            <h3>Esporte</h3>
+            <ul><li>Varejo esportivo</li><li>Marcas de performance</li><li>Academias</li></ul>
+          </article>
+          <article class="case">
+            <h3>Consumo</h3>
+            <ul><li>Alimentos</li><li>Bebidas</li><li>Higiene e beleza</li></ul>
+          </article>
+          <article class="case">
+            <h3>Serviços</h3>
+            <ul><li>Bancos</li><li>Fintechs</li><li>Telecom e apps</li></ul>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="soon" id="convite">
       <div class="kicker">Em breve</div>
-
       <h2>Um novo conceito de OOH periférico no Brasil.</h2>
-
       <p>Cadastre-se para conhecer antes do lançamento.</p>
 
       <form class="form">
@@ -652,9 +798,7 @@
 
       <footer>
         <img src="logo-perifa-midia.png" alt="Perifa Mídia">
-
         <p>A mídia que representa<br>o Brasil real.</p>
-
         <div class="cities">
           São Paulo <b>•</b> Rio de Janeiro <b>•</b> Salvador <b>•</b> Belo Horizonte <b>•</b> Recife<br>
           Brasília <b>•</b> Fortaleza <b>•</b> Goiânia

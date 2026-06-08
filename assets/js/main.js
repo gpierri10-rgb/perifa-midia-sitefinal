@@ -46,6 +46,16 @@ leadForm?.addEventListener("submit", (event) => {
     return;
   }
 
-  message.textContent = "Obrigado. Vamos avisar você sobre o lançamento.";
+  const result = window.PerifaCRM?.upsertLead({
+    email,
+    interest: "Convite lançamento",
+    source: "Site",
+    status: "Novo",
+    notes: "Cadastro feito pelo formulário público da landing page."
+  });
+
+  message.textContent = result?.created
+    ? "Cadastro salvo. Vamos avisar você sobre o lançamento."
+    : "Esse e-mail já estava no CRM. Atualizamos o cadastro.";
   leadForm.reset();
 });

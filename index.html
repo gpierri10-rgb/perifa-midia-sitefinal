@@ -1,810 +1,427 @@
 <!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Perifa Mídia | OOH Periférico no Brasil</title>
-  <meta name="description" content="As favelas e periferias do Brasil vão ganhar uma nova mídia. A Perifa Mídia conecta território, dados, cultura, bem-estar e impacto em escala nacional.">
-  <meta property="og:title" content="Perifa Mídia | OOH Periférico no Brasil">
-  <meta property="og:description" content="As favelas e periferias do Brasil vão ganhar uma nova mídia.">
-  <meta property="og:type" content="website">
-  <style>
-    :root{
-      --black:#000000;
-      --green:#90988B;
-      --green-dark:#737C6D;
-      --ice:#E8E7E2;
-      --ice-2:#F3F2EE;
-      --violet:#5E23E1;
-      --text:#111111;
-      --muted:#565656;
-      --line:rgba(0,0,0,.14);
-      --max:1320px;
-      --radius:22px;
-    }
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perifa Mídia | OOH periférico com presença nacional</title>
+    <meta
+      name="description"
+      content="Perifa Mídia conecta marcas ao Brasil real com OOH periférico, dados, cultura, mobilidade, criadores e presença nacional."
+    >
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#f3f1eb">
+    <link rel="canonical" href="https://perifamidia.com.br/">
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      background:var(--ice);
-      color:var(--black);
-      overflow-x:hidden;
-    }
-    a{text-decoration:none;color:inherit}
-    img{max-width:100%;display:block}
-    button,input{font-family:inherit}
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Perifa Mídia">
+    <meta property="og:title" content="Perifa Mídia | A mídia que representa o Brasil real">
+    <meta
+      property="og:description"
+      content="Uma nova visão para o OOH periférico brasileiro, conectando território, dados, cultura, bem-estar e impacto."
+    >
+    <meta property="og:url" content="https://perifamidia.com.br/">
+    <meta property="og:image" content="https://perifamidia.com.br/assets/images/hero.jpg">
+    <meta name="twitter:card" content="summary_large_image">
 
-    .nav{
-      position:fixed;
-      top:0;left:0;right:0;
-      z-index:50;
-      height:82px;
-      background:rgba(232,231,226,.92);
-      backdrop-filter:blur(18px);
-      border-bottom:1px solid rgba(0,0,0,.12);
-    }
-    .nav-inner{
-      max-width:1480px;
-      margin:0 auto;
-      height:100%;
-      padding:0 40px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:34px;
-    }
-    .nav-logo{
-      width:220px;
-      height:72px;
-      object-fit:cover;
-      object-position:center;
-      filter:contrast(1.05);
-    }
-    .nav-links{
-      display:flex;
-      gap:46px;
-      align-items:center;
-      font-size:13px;
-      line-height:1;
-      font-weight:900;
-      text-transform:uppercase;
-      color:#333;
-      letter-spacing:-.015em;
-    }
-    .nav-links a{
-      opacity:.85;
-      transition:.2s ease;
-    }
-    .nav-links a:hover{opacity:1;color:var(--green-dark)}
-    .nav-cta{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:28px;
-      height:50px;
-      min-width:210px;
-      border:1px solid var(--green);
-      color:var(--green);
-      padding:0 26px;
-      font-size:13px;
-      font-weight:950;
-      text-transform:uppercase;
-      transition:.2s ease;
-    }
-    .nav-cta:hover{background:var(--green);color:var(--ice)}
-    .nav-cta span{font-size:24px;line-height:0}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="./assets/images/hero.jpg" as="image" fetchpriority="high">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="./assets/css/styles.css?v=20260608-header-logo">
+    <script src="./assets/js/main.js?v=20260608" defer></script>
 
-    .hero{
-      min-height:940px;
-      position:relative;
-      display:flex;
-      align-items:center;
-      padding:145px 40px 130px;
-      background:
-        linear-gradient(90deg, rgba(232,231,226,.98) 0%, rgba(232,231,226,.83) 36%, rgba(232,231,226,.30) 58%, rgba(232,231,226,.02) 100%),
-        url("hero-perifa-praca.png");
-      background-size:cover;
-      background-position:center right;
-      overflow:hidden;
-    }
-    .hero:after{
-      content:"";
-      position:absolute;
-      left:0;right:0;bottom:0;
-      height:260px;
-      background:linear-gradient(180deg, transparent, rgba(232,231,226,.92));
-      pointer-events:none;
-    }
-    .hero-wrap{
-      width:min(var(--max),100%);
-      margin:0 auto;
-      position:relative;
-      z-index:2;
-    }
-    .hero-copy{max-width:680px}
-    .eyebrow{
-      margin:0 0 18px;
-      font-size:15px;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-      font-weight:950;
-      color:#333;
-    }
-    .accent-line{
-      width:54px;
-      height:4px;
-      background:var(--violet);
-      margin-bottom:34px;
-    }
-    h1{
-      margin:0;
-      font-size:clamp(54px,6vw,96px);
-      line-height:.9;
-      letter-spacing:-.078em;
-      text-transform:uppercase;
-      font-weight:950;
-      color:var(--black);
-    }
-    h1 .green, h2 .green, h3 .green{color:var(--green)}
-    h1 .violet, h2 .violet, h3 .violet{color:var(--violet)}
-    .lead{
-      margin:34px 0 0;
-      max-width:540px;
-      font-size:21px;
-      line-height:1.25;
-      font-weight:850;
-      color:#111;
-    }
-    .sublead{
-      margin:22px 0 0;
-      max-width:590px;
-      font-size:20px;
-      line-height:1.4;
-      color:#4d4d4d;
-      font-weight:650;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:28px;
-      min-width:278px;
-      padding:20px 36px;
-      border:0;
-      background:var(--green);
-      color:var(--ice);
-      font-size:14px;
-      font-weight:950;
-      text-transform:uppercase;
-      letter-spacing:-.02em;
-      transition:.2s ease;
-      cursor:pointer;
-    }
-    .btn:hover{background:var(--violet);transform:translateY(-2px)}
-    .btn span{font-size:25px;line-height:0}
-    .hero-actions{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-top:34px;
-    }
-    .btn.secondary{
-      background:transparent;
-      border:1px solid var(--black);
-      color:var(--black);
-    }
-    .btn.secondary:hover{
-      color:var(--ice);
-      background:var(--black);
-    }
-
-    .quick-stats{
-      position:absolute;
-      z-index:5;
-      left:50%;bottom:0;
-      transform:translateX(-50%);
-      width:min(1260px, calc(100% - 80px));
-      min-height:128px;
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      background:rgba(232,231,226,.86);
-      border:1px solid rgba(0,0,0,.12);
-      backdrop-filter:blur(14px);
-      box-shadow:0 24px 70px rgba(0,0,0,.12);
-    }
-    .stat{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:22px;
-      padding:28px 20px;
-      border-right:1px solid rgba(0,0,0,.16);
-    }
-    .stat:last-child{border-right:0}
-    .stat-icon{
-      width:44px;height:44px;
-      border:3px solid var(--green);
-      border-radius:12px;
-      flex:0 0 auto;
-    }
-    .stat strong{
-      display:block;
-      color:var(--green);
-      font-size:58px;
-      line-height:.8;
-      letter-spacing:-.07em;
-      font-weight:950;
-    }
-    .stat span{
-      display:block;
-      margin-top:8px;
-      font-size:14px;
-      line-height:1;
-      text-transform:uppercase;
-      font-weight:950;
-    }
-
-    .section{padding:104px 40px}
-    .wrap{width:min(var(--max),100%);margin:0 auto}
-    .section-grid{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:90px;
-      align-items:center;
-    }
-    h2{
-      margin:0;
-      font-size:clamp(44px,5.2vw,78px);
-      line-height:.92;
-      letter-spacing:-.075em;
-      text-transform:uppercase;
-      font-weight:950;
-      color:var(--black);
-    }
-    .body-big{
-      margin:0;
-      font-size:24px;
-      line-height:1.22;
-      letter-spacing:-.04em;
-      font-weight:750;
-      color:#222;
-    }
-    .side{
-      border-left:1px solid var(--green);
-      padding-left:74px;
-      font-size:22px;
-      line-height:1.28;
-      font-weight:750;
-    }
-    .side p{margin:0 0 28px}
-    .side p:last-child{margin-bottom:0}
-    .side strong{color:var(--green)}
-
-    .green-band{
-      padding:82px 40px;
-      background:var(--green);
-      color:var(--ice);
-    }
-    .green-band h2{color:var(--ice)}
-    .green-band .section-grid{gap:60px}
-    .values{
-      display:grid;
-      grid-template-columns:repeat(5,1fr);
-      gap:0;
-    }
-    .value{
-      min-height:132px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:16px;
-      text-align:center;
-      border-left:1px solid rgba(232,231,226,.42);
-      color:var(--ice);
-      font-size:14px;
-      font-weight:950;
-      text-transform:uppercase;
-    }
-    .ico{
-      width:42px;height:42px;
-      border:3px solid var(--ice);
-      border-radius:12px;
-      position:relative;
-    }
-    .value:first-child .ico:after{
-      content:"";
-      position:absolute;
-      right:-5px;bottom:-5px;
-      width:10px;height:10px;
-      background:var(--violet);
-      border-radius:50%;
-    }
-
-    .mosaic{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      background:var(--ice);
-      border-top:1px solid rgba(0,0,0,.16);
-      border-bottom:1px solid rgba(0,0,0,.16);
-    }
-    .tile{
-      position:relative;
-      min-height:310px;
-      display:flex;
-      align-items:center;
-      padding:38px;
-      overflow:hidden;
-      border-right:1px solid rgba(0,0,0,.14);
-      border-bottom:1px solid rgba(0,0,0,.14);
-      background:var(--ice);
-    }
-    .tile:before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(90deg, rgba(232,231,226,.94), rgba(232,231,226,.38)),
-        url("hero-perifa-praca.png");
-      background-size:cover;
-      background-position:center;
-      filter:grayscale(.08) contrast(1.02);
-      opacity:.92;
-      transition:.35s ease;
-    }
-    .tile:nth-child(even):before{
-      background:
-        linear-gradient(90deg, rgba(0,0,0,.84), rgba(0,0,0,.32)),
-        url("hero-perifa-praca.png");
-      background-size:cover;
-      background-position:center;
-      opacity:.82;
-    }
-    .tile:hover:before{transform:scale(1.06)}
-    .tile h3{
-      position:relative;
-      z-index:1;
-      margin:0;
-      color:var(--black);
-      font-size:44px;
-      line-height:.92;
-      letter-spacing:-.07em;
-      text-transform:uppercase;
-      font-weight:950;
-    }
-    .tile:nth-child(even) h3{color:var(--ice)}
-    .tile h3:after{
-      content:"";
-      display:block;
-      width:52px;height:5px;
-      background:var(--violet);
-      margin-top:20px;
-    }
-
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-      margin-top:46px;
-    }
-    .card{
-      background:var(--ice-2);
-      border:1px solid rgba(0,0,0,.12);
-      padding:34px;
-      min-height:300px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-    }
-    .card-number{
-      color:var(--green);
-      font-size:18px;
-      font-weight:950;
-      margin-bottom:30px;
-    }
-    .card h3{
-      margin:0 0 18px;
-      font-size:34px;
-      line-height:.92;
-      letter-spacing:-.06em;
-      text-transform:uppercase;
-      font-weight:950;
-    }
-    .card p{
-      margin:0;
-      font-size:17px;
-      line-height:1.35;
-      color:#4a4a4a;
-      font-weight:650;
-    }
-
-    .perifa-praca{
-      position:relative;
-      overflow:hidden;
-      padding:120px 40px;
-      background:
-        linear-gradient(90deg, rgba(0,0,0,.86), rgba(0,0,0,.35)),
-        url("hero-perifa-praca.png");
-      background-size:cover;
-      background-position:center;
-      color:var(--ice);
-    }
-    .perifa-praca .content{
-      width:min(var(--max),100%);
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:.75fr 1fr;
-      gap:70px;
-      align-items:end;
-    }
-    .perifa-praca h2{color:var(--ice)}
-    .perifa-praca p{
-      margin:26px 0 0;
-      max-width:560px;
-      font-size:22px;
-      line-height:1.28;
-      font-weight:720;
-      color:var(--ice);
-    }
-    .feature-list{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      margin-top:36px;
-    }
-    .feature{
-      border:1px solid rgba(232,231,226,.26);
-      padding:22px;
-      background:rgba(0,0,0,.32);
-      backdrop-filter:blur(10px);
-      font-weight:900;
-      text-transform:uppercase;
-      color:var(--ice);
-    }
-    .feature b{color:var(--green)}
-
-    .use-cases{
-      background:var(--ice);
-    }
-    .case-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:16px;
-      margin-top:46px;
-    }
-    .case{
-      min-height:220px;
-      border:1px solid rgba(0,0,0,.12);
-      padding:26px;
-      background:var(--ice-2);
-    }
-    .case h3{
-      margin:0 0 22px;
-      color:var(--green-dark);
-      font-size:22px;
-      line-height:1;
-      letter-spacing:-.04em;
-      text-transform:uppercase;
-      font-weight:950;
-    }
-    .case ul{
-      list-style:none;
-      padding:0;
-      margin:0;
-      display:grid;
-      gap:10px;
-      color:#333;
-      font-weight:750;
-    }
-    .case li:before{
-      content:"•";
-      color:var(--violet);
-      margin-right:10px;
-    }
-
-    .soon{
-      position:relative;
-      overflow:hidden;
-      padding:108px 40px 58px;
-      background:
-        linear-gradient(180deg, rgba(232,231,226,.82), rgba(232,231,226,.97)),
-        url("hero-perifa-praca.png");
-      background-size:cover;
-      background-position:center bottom;
-      text-align:center;
-      color:var(--black);
-    }
-    .kicker{
-      color:var(--green);
-      font-size:26px;
-      line-height:1;
-      margin-bottom:18px;
-      text-transform:uppercase;
-      font-weight:950;
-      letter-spacing:-.04em;
-    }
-    .soon h2{
-      max-width:960px;
-      margin:0 auto 20px;
-    }
-    .soon p{
-      margin:0 auto 32px;
-      max-width:640px;
-      font-size:20px;
-      font-weight:750;
-    }
-    .form{
-      display:flex;
-      justify-content:center;
-      max-width:760px;
-      margin:0 auto 80px;
-      border:1px solid rgba(0,0,0,.35);
-      background:rgba(232,231,226,.85);
-    }
-    .form input{
-      flex:1;
-      min-width:0;
-      background:var(--ice);
-      border:0;
-      color:var(--black);
-      padding:24px;
-      font-size:17px;
-      outline:0;
-    }
-    .form button{
-      border:0;
-      background:var(--green);
-      color:var(--ice);
-      padding:0 34px;
-      font-size:15px;
-      font-weight:950;
-      text-transform:uppercase;
-      cursor:pointer;
-      transition:.2s ease;
-    }
-    .form button:hover{background:var(--violet)}
-
-    footer{
-      border-top:1px solid rgba(0,0,0,.18);
-      padding-top:34px;
-      width:min(var(--max),100%);
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:170px 1fr 1.5fr;
-      gap:42px;
-      align-items:center;
-      text-align:left;
-    }
-    footer img{
-      width:150px;
-      height:84px;
-      object-fit:cover;
-      object-position:center;
-    }
-    footer p{
-      margin:0;
-      text-transform:uppercase;
-      font-weight:950;
-      line-height:1.1;
-    }
-    .cities{
-      text-transform:uppercase;
-      font-size:14px;
-      line-height:1.7;
-      font-weight:750;
-      text-align:center;
-    }
-    .cities b{color:var(--violet);margin:0 10px}
-
-    @media(max-width:1100px){
-      .nav-links{display:none}
-      .hero{min-height:860px}
-      .quick-stats{
-        position:relative;
-        left:auto;bottom:auto;
-        transform:none;
-        width:100%;
-        grid-template-columns:1fr 1fr;
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Perifa Mídia",
+        "url": "https://perifamidia.com.br/",
+        "description": "OOH periférico com presença nacional, dados, cultura, mobilidade, criadores e impacto em territórios brasileiros.",
+        "areaServed": "BR"
       }
-      .section-grid,
-      .perifa-praca .content{
-        grid-template-columns:1fr;
-      }
-      .values{grid-template-columns:1fr 1fr}
-      .mosaic{grid-template-columns:1fr}
-      .cards{grid-template-columns:1fr}
-      .case-grid{grid-template-columns:1fr 1fr}
-      footer{grid-template-columns:1fr;text-align:center}
-      footer img{margin:auto}
-    }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-    @media(max-width:640px){
-      .nav{height:74px}
-      .nav-inner{padding:0 20px}
-      .nav-logo{width:150px;height:56px}
-      .nav-cta{min-width:auto;padding:0 16px;font-size:12px}
-      .nav-cta span{display:none}
-      .hero{padding:112px 22px 62px;min-height:760px}
-      h1{font-size:48px}
-      h2{font-size:42px}
-      .lead,.sublead{font-size:17px}
-      .hero-actions{display:block}
-      .btn{width:100%;margin-top:14px}
-      .quick-stats{grid-template-columns:1fr}
-      .stat{border-right:0;border-bottom:1px solid rgba(0,0,0,.12)}
-      .section,.green-band,.perifa-praca,.soon{padding-left:22px;padding-right:22px}
-      .side{padding-left:24px}
-      .values,.case-grid,.feature-list{grid-template-columns:1fr}
-      .form{flex-direction:column}
-      .form button{padding:22px}
-    }
-  </style>
-</head>
+    <header class="site-header" id="topo">
+      <div class="container nav-shell">
+        <a class="brand" href="#sobre" aria-label="Perifa Mídia, início">
+          <img
+            src="./assets/images/logo-perifa.png"
+            width="604"
+            height="600"
+            alt="Logo da Perifa Mídia"
+            decoding="async"
+          >
+        </a>
 
-<body>
-  <header class="nav">
-    <div class="nav-inner">
-      <img class="nav-logo" src="logo-perifa-midia.png" alt="Perifa Mídia">
-      <nav class="nav-links" aria-label="Navegação principal">
-        <a href="#sobre">Sobre</a>
-        <a href="#proposito">Propósito</a>
-        <a href="#fazemos">O que fazemos</a>
-        <a href="#perifa-praca">Perifa Praça</a>
-        <a href="#impacto">Impacto</a>
-        <a href="#convite">Contato</a>
-      </nav>
-      <a class="nav-cta" href="#convite">Quero ser avisado <span>→</span></a>
-    </div>
-  </header>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navegacao"
+          aria-label="Abrir menu"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
 
-  <main>
-    <section class="hero" id="sobre">
-      <div class="hero-wrap">
-        <div class="hero-copy">
-          <div class="eyebrow">A mídia que representa o Brasil real.</div>
-          <div class="accent-line"></div>
-          <h1>As favelas e periferias do Brasil vão ganhar <span class="green">uma nova mídia</span><span class="violet">.</span></h1>
-          <p class="lead">Estamos construindo uma nova visão para o OOH periférico brasileiro.</p>
-          <p class="sublead">Uma plataforma que conecta território, dados, cultura, bem-estar e impacto em escala nacional.</p>
-          <div class="hero-actions">
-            <a class="btn" href="#convite">Quero ser avisado <span>→</span></a>
-            <a class="btn secondary" href="#perifa-praca">Conhecer o conceito <span>↓</span></a>
+        <nav class="primary-nav" id="navegacao" aria-label="Navegação principal">
+          <a href="#sobre">Sobre</a>
+          <a href="#proposito">Propósito</a>
+          <a href="#fazemos">O que fazemos</a>
+          <a href="#impacto">Impacto</a>
+          <a href="#contato">Contato</a>
+        </nav>
+
+        <a class="button button--outline nav-action" href="#contato">
+          Quero ser avisado
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero" id="sobre" aria-labelledby="hero-title">
+        <picture class="hero-media" aria-hidden="true">
+          <img
+            src="./assets/images/hero.jpg"
+            width="768"
+            height="288"
+            alt=""
+            decoding="async"
+            fetchpriority="high"
+          >
+        </picture>
+
+        <div class="container hero-content">
+          <p class="eyebrow">A mídia que representa o Brasil real.</p>
+          <span class="accent-line" aria-hidden="true"></span>
+          <h1 id="hero-title">
+            <span>As favelas e</span>
+            <span>periferias do Brasil</span>
+            <span>vão ganhar</span>
+            <span class="title-muted">uma nova mídia<span class="period">.</span></span>
+          </h1>
+          <p>
+            Estamos construindo uma nova visão para o OOH periférico brasileiro.
+          </p>
+          <p>
+            Uma plataforma que conecta território, dados, cultura, bem-estar e
+            impacto em escala nacional.
+          </p>
+          <a class="button button--filled" href="#contato">
+            Quero ser avisado
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="metrics-section" aria-label="Indicadores de presença">
+        <div class="container">
+          <dl class="metrics">
+            <div class="metric">
+              <dt>Estados</dt>
+              <dd>
+                <span class="metric-icon" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" focusable="false">
+                    <path d="M25 4 33 8 35 15 43 20 38 28 39 36 31 39 26 46 18 41 11 42 8 34 3 29 9 23 8 15 16 12Z"/>
+                  </svg>
+                </span>
+                <strong>27</strong>
+              </dd>
+            </div>
+            <div class="metric">
+              <dt>Cidades</dt>
+              <dd>
+                <span class="metric-icon" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" focusable="false">
+                    <path d="M24 43s14-13.4 14-25A14 14 0 1 0 10 18c0 11.6 14 25 14 25Z"/>
+                    <circle cx="24" cy="18" r="5"/>
+                  </svg>
+                </span>
+                <strong>320</strong>
+              </dd>
+            </div>
+            <div class="metric">
+              <dt>Pontos de mídia</dt>
+              <dd>
+                <span class="metric-icon" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" focusable="false">
+                    <rect x="8" y="12" width="32" height="22" rx="2"/>
+                    <path d="M18 40h12M24 34v6"/>
+                  </svg>
+                </span>
+                <strong>+4.000</strong>
+              </dd>
+            </div>
+            <div class="metric">
+              <dt>Milhões de impactos</dt>
+              <dd>
+                <span class="metric-icon" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" focusable="false">
+                    <circle cx="18" cy="18" r="6"/>
+                    <circle cx="33" cy="20" r="5"/>
+                    <path d="M7 39c1.6-7 6-10 11-10s9.4 3 11 10"/>
+                    <path d="M26 37c1.3-5 4.5-7.5 8-7.5 4.1 0 7 2.7 8.5 7.5"/>
+                  </svg>
+                </span>
+                <strong>+40</strong>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <div class="scroll-anchor" id="proposito" aria-hidden="true"></div>
+
+      <section class="ecosystem-section" id="fazemos" aria-labelledby="fazemos-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">O que fazemos</p>
+            <h2 id="fazemos-title">Nosso ecossistema</h2>
+          </div>
+
+          <div class="ecosystem-grid">
+            <article class="ecosystem-card ecosystem-card--praca">
+              <div class="ecosystem-copy">
+                <h3>Perifa Praça</h3>
+                <span class="accent-line" aria-hidden="true"></span>
+                <p>Espaços de bem-estar, esporte e convivência que conectam marcas à vida real das comunidades.</p>
+              </div>
+              <div class="ecosystem-visual scene-praca" aria-hidden="true">
+                <span class="sun"></span>
+                <span class="court-line court-line--one"></span>
+                <span class="court-line court-line--two"></span>
+                <span class="house house--one"></span>
+                <span class="house house--two"></span>
+                <span class="house house--three"></span>
+                <span class="tree tree--one"></span>
+                <span class="tree tree--two"></span>
+                <span class="person person--one"></span>
+                <span class="person person--two"></span>
+                <span class="person person--three"></span>
+              </div>
+            </article>
+
+            <article class="ecosystem-card ecosystem-card--ooh">
+              <div class="ecosystem-copy">
+                <h3>OOH Periférico</h3>
+                <span class="accent-line" aria-hidden="true"></span>
+                <p>Uma rede nacional de mídia construída dentro dos territórios onde a vida acontece.</p>
+              </div>
+              <div class="ecosystem-visual scene-ooh" aria-hidden="true">
+                <span class="street"></span>
+                <span class="building building--one"></span>
+                <span class="building building--two"></span>
+                <span class="building building--three"></span>
+                <span class="billboard">
+                  <span>Sua marca</span>
+                  <span>no lugar</span>
+                  <span>que importa.</span>
+                </span>
+                <span class="car car--one"></span>
+                <span class="car car--two"></span>
+              </div>
+            </article>
+
+            <article class="ecosystem-card ecosystem-card--dados">
+              <div class="ecosystem-copy">
+                <h3>Dados & Inteligência</h3>
+                <span class="accent-line" aria-hidden="true"></span>
+                <p>Território, audiência, comportamento e mensuração transformados em decisões de mídia.</p>
+              </div>
+              <div class="ecosystem-visual scene-dados" aria-hidden="true">
+                <span class="screen">
+                  <span class="map-shape"></span>
+                  <span class="bars">
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                  </span>
+                  <span class="chart-line"></span>
+                </span>
+                <span class="phone">
+                  <span></span>
+                </span>
+              </div>
+            </article>
+
+            <article class="ecosystem-card ecosystem-card--cultura">
+              <div class="ecosystem-copy">
+                <h3>Cultura</h3>
+                <span class="accent-line" aria-hidden="true"></span>
+                <p>Porque relevância não nasce no briefing. Nasce no território.</p>
+              </div>
+              <div class="ecosystem-visual scene-cultura" aria-hidden="true">
+                <span class="mural mural--one"></span>
+                <span class="mural mural--two"></span>
+                <span class="mural mural--three"></span>
+                <span class="group group--one"></span>
+                <span class="group group--two"></span>
+                <span class="group group--three"></span>
+                <span class="group group--four"></span>
+              </div>
+            </article>
+
+            <article class="ecosystem-card ecosystem-card--mobilidade">
+              <div class="ecosystem-copy">
+                <h3>Mobilidade</h3>
+                <span class="accent-line" aria-hidden="true"></span>
+                <p>Formatos que acompanham o deslocamento diário das pessoas.</p>
+              </div>
+              <div class="ecosystem-visual scene-mobilidade" aria-hidden="true">
+                <span class="platform"></span>
+                <span class="train">
+                  <span class="train-ad">
+                    <span>A mídia que</span>
+                    <span>representa</span>
+                    <span>o Brasil real.</span>
+                  </span>
+                </span>
+                <span class="commuter commuter--one"></span>
+                <span class="commuter commuter--two"></span>
+                <span class="commuter commuter--three"></span>
+              </div>
+            </article>
+
+            <article class="ecosystem-card ecosystem-card--criadores">
+              <div class="ecosystem-copy">
+                <h3>Criadores</h3>
+                <span class="accent-line" aria-hidden="true"></span>
+                <p>A voz dos territórios amplificando mensagens com autenticidade e performance.</p>
+              </div>
+              <div class="ecosystem-visual scene-criadores" aria-hidden="true">
+                <span class="creator"></span>
+                <span class="camera">
+                  <span></span>
+                </span>
+                <span class="favela favela--one"></span>
+                <span class="favela favela--two"></span>
+                <span class="favela favela--three"></span>
+              </div>
+            </article>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="quick-stats" id="impacto">
-        <div class="stat"><div class="stat-icon"></div><div><strong>27</strong><span>Estados</span></div></div>
-        <div class="stat"><div class="stat-icon"></div><div><strong>320</strong><span>Cidades</span></div></div>
-        <div class="stat"><div class="stat-icon"></div><div><strong>+4.000</strong><span>Pontos</span></div></div>
-        <div class="stat"><div class="stat-icon"></div><div><strong>+40</strong><span>Milhões de impactos</span></div></div>
-      </div>
-    </section>
-
-    <section class="section" id="proposito">
-      <div class="wrap section-grid">
-        <h2><span class="violet">76%</span> do Brasil nunca teve um ecossistema de mídia pensado para ele.</h2>
-        <div class="side">
-          <p>O mercado ocupou os mesmos espaços durante décadas.</p>
-          <p><strong>Nós estamos construindo novos.</strong></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="green-band">
-      <div class="wrap section-grid">
-        <h2>Não é apenas OOH<span class="violet">.</span></h2>
-        <div class="values">
-          <div class="value"><div class="ico"></div>Território</div>
-          <div class="value"><div class="ico"></div>Presença</div>
-          <div class="value"><div class="ico"></div>Cultura</div>
-          <div class="value"><div class="ico"></div>Comunidade</div>
-          <div class="value"><div class="ico"></div>Impacto</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="mosaic" id="fazemos">
-      <article class="tile"><h3>Perifa<br>Praça</h3></article>
-      <article class="tile"><h3>OOH<br>Periférico</h3></article>
-      <article class="tile"><h3>Cria.<br>Dores</h3></article>
-      <article class="tile"><h3>Dados</h3></article>
-      <article class="tile"><h3>Cultura</h3></article>
-      <article class="tile"><h3>Mobilidade</h3></article>
-    </section>
-
-    <section class="section">
-      <div class="wrap">
-        <h2>Um ecossistema feito para ocupar a rotina real.</h2>
-        <div class="cards">
-          <article class="card">
-            <div>
-              <div class="card-number">01</div>
-              <h3>OOH Periférico</h3>
+      <section class="impact-section" id="impacto" aria-labelledby="impacto-title">
+        <div class="container impact-grid">
+          <figure class="coverage-map">
+            <div class="coverage-copy">
+              <h2 id="impacto-title">Presença nacional, impacto real.</h2>
+              <p>
+                Estamos onde o Brasil pulsa. Do Norte ao Sul, conectando marcas
+                a milhões de pessoas todos os dias.
+              </p>
             </div>
-            <p>Presença em territórios de alta circulação com formatos pensados para a jornada real de consumo.</p>
-          </article>
-          <article class="card">
-            <div>
-              <div class="card-number">02</div>
-              <h3>Dados e mensuração</h3>
-            </div>
-            <p>Inteligência territorial para planejar, ativar e acompanhar campanhas com mais precisão.</p>
-          </article>
-          <article class="card">
-            <div>
-              <div class="card-number">03</div>
-              <h3>Cultura e comunidade</h3>
-            </div>
-            <p>Campanhas que nascem dentro do território, com linguagem, legitimidade e impacto.</p>
-          </article>
-        </div>
-      </div>
-    </section>
 
-    <section class="perifa-praca" id="perifa-praca">
-      <div class="content">
+            <span class="coverage-divider" aria-hidden="true"></span>
+
+            <div class="coverage-visual">
+              <svg
+                class="coverage-map-art"
+                viewBox="0 0 260 220"
+                role="img"
+                aria-label="Mapa estilizado da cobertura nacional da Perifa Mídia no Brasil"
+              >
+                <defs>
+                  <clipPath id="brazil-map-shape">
+                    <path d="M118 10 151 22 178 17 204 36 219 60 211 82 228 105 214 128 199 151 176 159 165 184 139 199 120 181 99 184 88 162 66 155 58 129 38 113 52 89 49 62 72 50 82 28Z"/>
+                  </clipPath>
+                </defs>
+                <path
+                  class="coverage-country"
+                  d="M118 10 151 22 178 17 204 36 219 60 211 82 228 105 214 128 199 151 176 159 165 184 139 199 120 181 99 184 88 162 66 155 58 129 38 113 52 89 49 62 72 50 82 28Z"
+                />
+                <g clip-path="url(#brazil-map-shape)">
+                  <path class="coverage-region coverage-region--north" d="M48 50 118 10 151 22 138 73 83 84 49 70Z"/>
+                  <path class="coverage-region coverage-region--northeast" d="M138 25 204 36 228 105 174 102 138 73Z"/>
+                  <path class="coverage-region coverage-region--center" d="M83 84 138 73 174 102 154 142 99 134 58 129Z"/>
+                  <path class="coverage-region coverage-region--west" d="M38 113 58 129 99 134 88 162 66 155Z"/>
+                  <path class="coverage-region coverage-region--southeast" d="M154 142 174 102 214 128 199 151 176 159 165 184Z"/>
+                  <path class="coverage-region coverage-region--south" d="M99 134 154 142 165 184 139 199 120 181 99 184 88 162Z"/>
+                  <path class="coverage-boundary" d="M49 70 83 84 99 134 88 162"/>
+                  <path class="coverage-boundary" d="M118 10 138 73 154 142 139 199"/>
+                  <path class="coverage-boundary" d="M151 22 174 102 176 159"/>
+                  <path class="coverage-boundary" d="M58 129 99 134 154 142 199 151"/>
+                  <path class="coverage-boundary" d="M83 84 138 73 174 102 228 105"/>
+                </g>
+              </svg>
+
+              <figcaption class="coverage-legend">
+                <span>Estados com cobertura Perifa Mídia</span>
+                <span>Em expansão</span>
+              </figcaption>
+            </div>
+          </figure>
+
+          <aside class="invite-card" id="contato" aria-labelledby="contato-title">
+            <p class="eyebrow">Em breve</p>
+            <h2 id="contato-title">Um novo conceito de OOH periférico no Brasil.</h2>
+            <p>Cadastre-se para conhecer antes do lançamento.</p>
+
+            <form class="lead-form" action="#" method="post" novalidate>
+              <div class="field">
+                <label for="email">Seu melhor e-mail</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  inputmode="email"
+                  placeholder="Seu melhor e-mail"
+                  required
+                >
+              </div>
+              <button type="submit">
+                Quero receber o convite
+                <span aria-hidden="true">→</span>
+              </button>
+              <p class="form-message" role="status" aria-live="polite"></p>
+            </form>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <a class="brand brand--stacked" href="#topo" aria-label="Voltar ao início da Perifa Mídia">
+          <span>Pe</span>
+          <span>ri</span>
+          <span>fa</span>
+          <small>Midia</small>
+        </a>
+
         <div>
-          <div class="eyebrow" style="color:var(--ice)">Produto proprietário</div>
-          <div class="accent-line"></div>
-          <h2>Perifa Praça</h2>
-          <p>A primeira rede de espaços de bem-estar patrocináveis dentro das periferias brasileiras.</p>
-          <p>Mais do que mídia, uma presença física permanente que combina saúde, esporte, convivência e comunicação de marcas.</p>
+          <p class="footer-claim">A mídia que representa o Brasil real.</p>
+          <p class="copyright">© 2026 Perifa Mídia. Todos os direitos reservados.</p>
         </div>
-        <div class="feature-list">
-          <div class="feature"><b>01</b><br>Infraestrutura permanente</div>
-          <div class="feature"><b>02</b><br>Fluxo real de comunidade</div>
-          <div class="feature"><b>03</b><br>DOOH, ativações e creators</div>
-          <div class="feature"><b>04</b><br>Impacto social mensurável</div>
-        </div>
+
+        <ul class="cities" aria-label="Cidades de atuação">
+          <li>São Paulo</li>
+          <li>Rio de Janeiro</li>
+          <li>Salvador</li>
+          <li>Belo Horizonte</li>
+          <li>Recife</li>
+          <li>Brasília</li>
+          <li>Fortaleza</li>
+          <li>Goiânia</li>
+          <li>Porto Alegre</li>
+          <li>Belém</li>
+        </ul>
+
+        <ul class="social-list" aria-label="Redes sociais">
+          <li><span aria-label="Instagram">◎</span></li>
+          <li><span aria-label="LinkedIn">in</span></li>
+          <li><span aria-label="YouTube">▶</span></li>
+        </ul>
       </div>
-    </section>
-
-    <section class="section use-cases">
-      <div class="wrap">
-        <h2>Onde marcas podem fazer diferença.</h2>
-        <div class="case-grid">
-          <article class="case">
-            <h3>Saúde</h3>
-            <ul><li>Farmácias</li><li>Planos de saúde</li><li>Bem-estar</li></ul>
-          </article>
-          <article class="case">
-            <h3>Esporte</h3>
-            <ul><li>Varejo esportivo</li><li>Marcas de performance</li><li>Academias</li></ul>
-          </article>
-          <article class="case">
-            <h3>Consumo</h3>
-            <ul><li>Alimentos</li><li>Bebidas</li><li>Higiene e beleza</li></ul>
-          </article>
-          <article class="case">
-            <h3>Serviços</h3>
-            <ul><li>Bancos</li><li>Fintechs</li><li>Telecom e apps</li></ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="soon" id="convite">
-      <div class="kicker">Em breve</div>
-      <h2>Um novo conceito de OOH periférico no Brasil.</h2>
-      <p>Cadastre-se para conhecer antes do lançamento.</p>
-
-      <form class="form">
-        <input type="email" placeholder="Seu melhor e-mail">
-        <button type="submit">Quero receber o convite →</button>
-      </form>
-
-      <footer>
-        <img src="logo-perifa-midia.png" alt="Perifa Mídia">
-        <p>A mídia que representa<br>o Brasil real.</p>
-        <div class="cities">
-          São Paulo <b>•</b> Rio de Janeiro <b>•</b> Salvador <b>•</b> Belo Horizonte <b>•</b> Recife<br>
-          Brasília <b>•</b> Fortaleza <b>•</b> Goiânia
-        </div>
-      </footer>
-    </section>
-  </main>
-</body>
+    </footer>
+  </body>
 </html>

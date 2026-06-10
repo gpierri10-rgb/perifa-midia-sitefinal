@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perifa Mídia | Carrossel Dinâmico</title>
+    <style>
+      :root {
+        --bg: #100f0d;
+        --panel: rgba(255, 255, 255, 0.08);
+        --panel-border: rgba(255, 255, 255, 0.16);
+        --text: #f5f0e5;
+        --muted: rgba(245, 240, 229, 0.74);
+        --brand: #7b39ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top, rgba(123, 57, 255, 0.16), transparent 36%),
+          linear-gradient(180deg, #1a1714, var(--bg));
+        color: var(--text);
+        font: 16px/1.5 Inter, Arial, sans-serif;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .page {
+        width: min(1280px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 32px 0 48px;
+      }
+
+      .intro {
+        margin-bottom: 20px;
+      }
+
+      .intro h1 {
+        margin: 0 0 10px;
+        font-size: clamp(32px, 4vw, 54px);
+        line-height: 0.98;
+        text-transform: uppercase;
+      }
+
+      .intro p {
+        max-width: 780px;
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 18px;
+        padding: 16px 18px;
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 18px;
+      }
+
+      .toolbar strong {
+        display: block;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .toolbar p {
+        margin: 4px 0 0;
+      }
+
+      .toolbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .toggle input {
+        accent-color: var(--brand);
+      }
+
+      .chip,
+      .arrow {
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        border-radius: 999px;
+        cursor: pointer;
+      }
+
+      .chip {
+        padding: 10px 14px;
+        font-weight: 700;
+      }
+
+      .chip.is-active,
+      .chip:hover,
+      .arrow:hover {
+        background: rgba(123, 57, 255, 0.24);
+        border-color: rgba(123, 57, 255, 0.6);
+      }
+
+      .hero {
+        position: relative;
+        min-height: min(76vh, 780px);
+        overflow: hidden;
+        border-radius: 26px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: #090909;
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background:
+          linear-gradient(90deg, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.72) 35%, rgba(0, 0, 0, 0.24) 68%, rgba(0, 0, 0, 0.06) 100%);
+        pointer-events: none;
+      }
+
+      .viewport {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      .track {
+        display: flex;
+        height: 100%;
+        transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform;
+      }
+
+      .track.is-dragging {
+        transition: none;
+        cursor: grabbing;
+      }
+
+      .slide {
+        position: relative;
+        flex: 0 0 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        user-select: none;
+        pointer-events: none;
+      }
+
+      .slide-tag {
+        position: absolute;
+        left: 22px;
+        top: 22px;
+        z-index: 1;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.46);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .content {
+        position: relative;
+        z-index: 3;
+        width: min(1180px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: clamp(38px, 6vw, 74px) 0 168px;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: #d4c7ff;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .content h2 {
+        max-width: 760px;
+        margin: 0;
+        font-size: clamp(42px, 7vw, 84px);
+        line-height: 0.94;
+        text-transform: uppercase;
+      }
+
+      .content p {
+        max-width: 440px;
+        margin: 18px 0 0;
+        color: var(--muted);
+      }
+
+      .nav {
+        position: absolute;
+        inset-inline: 18px;
+        top: 50%;
+        z-index: 4;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+
+      .arrow {
+        width: 52px;
+        height: 52px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        pointer-events: auto;
+      }
+
+      .thumbs {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        bottom: 22px;
+        z-index: 4;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .thumb {
+        position: relative;
+        min-height: 92px;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 16px;
+        background: rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        text-align: left;
+      }
+
+      .thumb img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .thumb::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.72));
+      }
+
+      .thumb span {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        bottom: 10px;
+        z-index: 1;
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.2;
+        color: #fff;
+      }
+
+      .thumb.is-active {
+        border-color: rgba(123, 57, 255, 0.9);
+        box-shadow: 0 0 0 2px rgba(123, 57, 255, 0.24);
+      }
+
+      .status {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 900px) {
+        .thumbs {
+          grid-template-columns: 1fr;
+          bottom: 16px;
+        }
+
+        .content {
+          padding-bottom: 356px;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .page {
+          width: min(100% - 16px, 1280px);
+        }
+
+        .hero {
+          min-height: 620px;
+        }
+
+        .content {
+          width: min(100% - 24px, 1180px);
+          padding-bottom: 364px;
+        }
+
+        .nav {
+          inset-inline: 12px;
+        }
+
+        .arrow {
+          width: 46px;
+          height: 46px;
+        }
+
+        .thumbs {
+          left: 12px;
+          right: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="intro">
+        <h1>Carrossel Mais Clicável</h1>
+        <p>
+          Troquei o modelo anterior por um carrossel com trilho horizontal,
+          miniaturas clicáveis, setas grandes e suporte a arraste no mouse ou toque.
+        </p>
+      </section>
+
+      <section class="toolbar" aria-label="Opções do carrossel">
+        <div>
+          <strong>Modelo atual</strong>
+          <p>Slider com miniaturas, autoplay e swipe.</p>
+        </div>
+
+        <div class="toolbar-actions">
+          <button class="chip is-active" type="button" data-jump="0">Começar no 1</button>
+          <button class="chip" type="button" data-jump="1">Começar no 2</button>
+          <button class="chip" type="button" data-jump="2">Começar no 3</button>
+          <label class="toggle">
+            <input id="autoplay-toggle" type="checkbox" checked>
+            Autoplay
+          </label>
+        </div>
+      </section>
+
+      <section class="hero" data-carousel>
+        <div class="viewport">
+          <div class="track" data-track>
+            <figure class="slide" data-slide>
+              <span class="slide-tag">Perifa Praça</span>
+              <img
+                src="./assets/images/hero-perifa-praca.jpg"
+                width="1692"
+                height="930"
+                alt="Praça de favela com quadra e presença de marca."
+              >
+            </figure>
+            <figure class="slide" data-slide>
+              <span class="slide-tag">Mini Door</span>
+              <img
+                src="./assets/images/hero-mini-door-107k-v2.png"
+                width="1801"
+                height="873"
+                alt="Mini door em muro urbano com pessoas passando e favela ao fundo."
+              >
+            </figure>
+            <figure class="slide" data-slide>
+              <span class="slide-tag">OOH</span>
+              <img
+                src="./assets/images/ooh.jpg"
+                width="1200"
+                height="800"
+                alt="Painel OOH em território periférico."
+              >
+            </figure>
+          </div>
+        </div>
+
+        <div class="content">
+          <p class="eyebrow">Perifa Mídia</p>
+          <h2>Um hero mais dinâmico e fácil de clicar</h2>
+          <p>
+            Agora a navegação funciona pelas setas, pelas miniaturas de baixo,
+            pelo autoplay e também por arraste na horizontal.
+          </p>
+        </div>
+
+        <div class="nav">
+          <button class="arrow" type="button" data-prev aria-label="Slide anterior">←</button>
+          <button class="arrow" type="button" data-next aria-label="Próximo slide">→</button>
+        </div>
+
+        <div class="thumbs" aria-label="Selecionar slide">
+          <button class="thumb is-active" type="button" data-thumb="0" aria-label="Ir para o slide Perifa Praça">
+            <img
+              src="./assets/images/hero-perifa-praca.jpg"
+              width="1692"
+              height="930"
+              alt=""
+            >
+            <span>Perifa Praça</span>
+          </button>
+          <button class="thumb" type="button" data-thumb="1" aria-label="Ir para o slide Mini Door">
+            <img
+              src="./assets/images/hero-mini-door-107k-v2.png"
+              width="1801"
+              height="873"
+              alt=""
+            >
+            <span>Mini Door 107 mil pontos</span>
+          </button>
+          <button class="thumb" type="button" data-thumb="2" aria-label="Ir para o slide OOH">
+            <img
+              src="./assets/images/ooh.jpg"
+              width="1200"
+              height="800"
+              alt=""
+            >
+            <span>Rede OOH periférica</span>
+          </button>
+        </div>
+      </section>
+
+      <p class="status" id="status">Slide 1 de 3. Autoplay ligado.</p>
+    </main>
+
+    <script>
+      const carousel = document.querySelector("[data-carousel]");
+      const track = document.querySelector("[data-track]");
+      const slides = Array.from(document.querySelectorAll("[data-slide]"));
+      const thumbs = Array.from(document.querySelectorAll("[data-thumb]"));
+      const prevButton = document.querySelector("[data-prev]");
+      const nextButton = document.querySelector("[data-next]");
+      const jumpButtons = Array.from(document.querySelectorAll("[data-jump]"));
+      const autoplayToggle = document.querySelector("#autoplay-toggle");
+      const status = document.querySelector("#status");
+
+      let activeIndex = 0;
+      let autoplayId = null;
+      let pointerDown = false;
+      let startX = 0;
+      let currentTranslate = 0;
+      let dragOffset = 0;
+
+      function updateToolbar() {
+        jumpButtons.forEach((button, index) => {
+          button.classList.toggle("is-active", index === activeIndex);
+        });
+      }
+
+      function updateTrack(animate = true) {
+        currentTranslate = -activeIndex * carousel.clientWidth;
+
+        if (animate) {
+          track.classList.remove("is-dragging");
+        } else {
+          track.classList.add("is-dragging");
+        }
+
+        track.style.transform = `translateX(${currentTranslate + dragOffset}px)`;
+
+        thumbs.forEach((thumb, index) => {
+          thumb.classList.toggle("is-active", index === activeIndex);
+        });
+
+        updateToolbar();
+        status.textContent = `Slide ${activeIndex + 1} de ${slides.length}. ${autoplayToggle.checked ? "Autoplay ligado." : "Autoplay desligado."}`;
+      }
+
+      function goTo(index, animate = true) {
+        activeIndex = (index + slides.length) % slides.length;
+        dragOffset = 0;
+        updateTrack(animate);
+      }
+
+      function stopAutoplay() {
+        if (autoplayId) {
+          window.clearInterval(autoplayId);
+          autoplayId = null;
+        }
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+
+        if (!autoplayToggle.checked) {
+          updateTrack(true);
+          return;
+        }
+
+        autoplayId = window.setInterval(() => {
+          goTo(activeIndex + 1);
+        }, 4200);
+      }
+
+      function onPointerDown(event) {
+        pointerDown = true;
+        startX = event.clientX;
+        dragOffset = 0;
+        track.classList.add("is-dragging");
+      }
+
+      function onPointerMove(event) {
+        if (!pointerDown) {
+          return;
+        }
+
+        dragOffset = event.clientX - startX;
+        updateTrack(false);
+      }
+
+      function onPointerUp() {
+        if (!pointerDown) {
+          return;
+        }
+
+        pointerDown = false;
+        const threshold = Math.max(60, carousel.clientWidth * 0.08);
+
+        if (dragOffset <= -threshold) {
+          goTo(activeIndex + 1);
+        } else if (dragOffset >= threshold) {
+          goTo(activeIndex - 1);
+        } else {
+          goTo(activeIndex);
+        }
+
+        startAutoplay();
+      }
+
+      prevButton.addEventListener("click", () => {
+        goTo(activeIndex - 1);
+        startAutoplay();
+      });
+
+      nextButton.addEventListener("click", () => {
+        goTo(activeIndex + 1);
+        startAutoplay();
+      });
+
+      thumbs.forEach((thumb) => {
+        thumb.addEventListener("click", () => {
+          goTo(Number(thumb.dataset.thumb));
+          startAutoplay();
+        });
+      });
+
+      jumpButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          goTo(Number(button.dataset.jump));
+          startAutoplay();
+        });
+      });
+
+      autoplayToggle.addEventListener("change", startAutoplay);
+      window.addEventListener("resize", () => goTo(activeIndex, false));
+
+      track.addEventListener("pointerdown", onPointerDown);
+      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointerup", onPointerUp);
+      window.addEventListener("pointercancel", onPointerUp);
+      carousel.addEventListener("mouseenter", stopAutoplay);
+      carousel.addEventListener("mouseleave", startAutoplay);
+
+      goTo(0);
+      startAutoplay();
+    </script>
+  </body>
+</html>

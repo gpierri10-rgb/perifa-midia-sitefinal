@@ -11,6 +11,7 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f3f1eb">
     <link rel="canonical" href="https://perifamidia.com.br/">
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 
     <meta property="og:type" content="website">
     <meta property="og:locale" content="pt_BR">
@@ -90,16 +91,83 @@
 
     <main id="conteudo">
       <section class="hero" id="sobre" aria-labelledby="hero-title">
-        <picture class="hero-media" aria-hidden="true">
-          <img
-            src="./assets/images/hero-perifa-praca.jpg"
-            width="1692"
-            height="930"
-            alt=""
-            decoding="async"
-            fetchpriority="high"
-          >
-        </picture>
+        <div class="hero-media hero-carousel" data-carousel>
+          <picture class="hero-slide is-active" aria-hidden="true" data-carousel-slide>
+            <img
+              src="./assets/images/hero-perifa-praca.jpg"
+              width="1692"
+              height="930"
+              alt=""
+              decoding="async"
+              fetchpriority="high"
+            >
+          </picture>
+          <picture class="hero-slide" aria-hidden="true" data-carousel-slide>
+            <img
+              src="./assets/images/hero-mini-door-107k-v2.png"
+              width="1801"
+              height="873"
+              alt=""
+              decoding="async"
+            >
+          </picture>
+          <picture class="hero-slide" aria-hidden="true" data-carousel-slide>
+            <img
+              src="./assets/images/ooh.jpg"
+              width="1200"
+              height="800"
+              alt=""
+              decoding="async"
+            >
+          </picture>
+
+          <div class="hero-carousel-controls" aria-label="Navegação do carrossel">
+            <button
+              class="hero-carousel-arrow"
+              type="button"
+              aria-label="Imagem anterior"
+              data-carousel-prev
+            >
+              <span aria-hidden="true">←</span>
+            </button>
+
+            <div class="hero-carousel-dots" role="tablist" aria-label="Selecionar imagem do header">
+              <button
+                class="hero-carousel-dot is-active"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                aria-label="Mostrar imagem 1"
+                data-carousel-dot="0"
+              ></button>
+              <button
+                class="hero-carousel-dot"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-label="Mostrar imagem 2"
+                data-carousel-dot="1"
+              ></button>
+              <button
+                class="hero-carousel-dot"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-label="Mostrar imagem 3"
+                data-carousel-dot="2"
+              ></button>
+            </div>
+
+            <button
+              class="hero-carousel-arrow"
+              type="button"
+              aria-label="Próxima imagem"
+              data-carousel-next
+            >
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
 
         <div class="container hero-content">
           <p class="eyebrow">A mídia que nasce dentro dos territórios.</p>

@@ -91,59 +91,16 @@
 
     <main id="conteudo">
       <section class="hero" id="sobre" aria-labelledby="hero-title">
-        <div class="hero-carousel" data-carousel>
-          <div class="hero-viewport">
-            <div class="hero-track" data-carousel-track>
-              <picture class="hero-slide" aria-hidden="true" data-carousel-slide>
-                <img
-                  src="./assets/images/hero-perifa-praca.jpg"
-                  width="1692"
-                  height="930"
-                  alt=""
-                  decoding="async"
-                  fetchpriority="high"
-                >
-              </picture>
-              <picture class="hero-slide" aria-hidden="true" data-carousel-slide>
-                <img
-                  src="./assets/images/hero-mini-door-107k-v2.png"
-                  width="1801"
-                  height="873"
-                  alt=""
-                  decoding="async"
-                >
-              </picture>
-              <picture class="hero-slide" aria-hidden="true" data-carousel-slide>
-                <img
-                  src="./assets/images/ooh.jpg"
-                  width="1200"
-                  height="800"
-                  alt=""
-                  decoding="async"
-                >
-              </picture>
-            </div>
-          </div>
-
-          <div class="hero-carousel-nav" aria-label="Navegação do carrossel">
-            <button
-              class="hero-carousel-arrow"
-              type="button"
-              aria-label="Imagem anterior"
-              data-carousel-prev
-            >
-              <span aria-hidden="true">←</span>
-            </button>
-            <button
-              class="hero-carousel-arrow"
-              type="button"
-              aria-label="Próxima imagem"
-              data-carousel-next
-            >
-              <span aria-hidden="true">→</span>
-            </button>
-          </div>
-        </div>
+        <picture class="hero-media" aria-hidden="true">
+          <img
+            src="./assets/images/hero-perifa-praca.jpg"
+            width="1692"
+            height="930"
+            alt=""
+            decoding="async"
+            fetchpriority="high"
+          >
+        </picture>
 
         <div class="container hero-content">
           <p class="eyebrow">A mídia que nasce dentro dos territórios.</p>
@@ -165,39 +122,6 @@
             Quero ser avisado
             <span aria-hidden="true">→</span>
           </a>
-        </div>
-
-        <div class="container hero-thumbs" aria-label="Selecionar imagem do header">
-          <button class="hero-thumb is-active" type="button" data-carousel-thumb="0" aria-label="Ir para Perifa Praça">
-            <img
-              src="./assets/images/hero-perifa-praca.jpg"
-              width="1692"
-              height="930"
-              alt=""
-              decoding="async"
-            >
-            <span>Perifa Praça</span>
-          </button>
-          <button class="hero-thumb" type="button" data-carousel-thumb="1" aria-label="Ir para Mini Door">
-            <img
-              src="./assets/images/hero-mini-door-107k-v2.png"
-              width="1801"
-              height="873"
-              alt=""
-              decoding="async"
-            >
-            <span>Mini Door</span>
-          </button>
-          <button class="hero-thumb" type="button" data-carousel-thumb="2" aria-label="Ir para OOH Periférico">
-            <img
-              src="./assets/images/ooh.jpg"
-              width="1200"
-              height="800"
-              alt=""
-              decoding="async"
-            >
-            <span>OOH Periférico</span>
-          </button>
         </div>
       </section>
 

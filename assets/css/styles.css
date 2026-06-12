@@ -444,24 +444,26 @@ h1 .title-muted {
 .hero-thumbs {
   position: absolute;
   right: 0;
-  bottom: 92px;
+  bottom: 36px;
   left: 0;
   z-index: 5;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
 }
 
 .hero-thumb {
+  flex: 1 1 0;
   position: relative;
-  min-height: 94px;
+  min-width: 0;
+  min-height: 72px;
   padding: 0;
   overflow: hidden;
   text-align: left;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
-  background: rgba(0, 0, 0, 0.28);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.34);
 }
 
 .hero-thumb img {
@@ -497,17 +499,20 @@ h1 .title-muted {
 
 .hero-thumb span {
   position: absolute;
-  right: 12px;
-  bottom: 10px;
-  left: 12px;
+  right: 10px;
+  bottom: 8px;
+  left: 10px;
   z-index: 1;
-  font-size: 13px;
+  overflow: hidden;
+  font-size: 12px;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .hero-thumb--influencia span {
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .hero-thumb.is-active {

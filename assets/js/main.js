@@ -1,5 +1,6 @@
 const navToggle = document.querySelector(".nav-toggle");
 const primaryNav = document.querySelector(".primary-nav");
+const navDropdowns = Array.from(document.querySelectorAll("[data-nav-dropdown]"));
 const leadForms = Array.from(document.querySelectorAll(".lead-form"));
 const heroCarousel = document.querySelector("[data-carousel]");
 if (heroCarousel instanceof HTMLElement) {
@@ -110,6 +111,24 @@ function setMenuState(isOpen) {
   primaryNav.classList.toggle("is-open", isOpen);
   navToggle.setAttribute("aria-expanded", String(isOpen));
   navToggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
+
+  if (!isOpen) {
+    closeAllNavDropdowns();
+  }
+}
+
+function setNavDropdownState(dropdown, isOpen) {
+  if (!(dropdown instanceof HTMLElement)) return;
+
+  const toggle = dropdown.querySelector(".nav-dropdown-toggle");
+  if (!(toggle instanceof HTMLButtonElement)) return;
+
+  dropdown.classList.toggle("is-open", isOpen);
+  toggle.setAttribute("aria-expanded", String(isOpen));
+}
+
+function closeAllNavDropdowns() {
+  navDropdowns.forEach((dropdown) => setNavDropdownState(dropdown, false));
 }
 
 navToggle?.addEventListener("click", () => {
@@ -117,14 +136,36 @@ navToggle?.addEventListener("click", () => {
   setMenuState(!isOpen);
 });
 
+navDropdowns.forEach((dropdown) => {
+  const toggle = dropdown.querySelector(".nav-dropdown-toggle");
+  if (!(toggle instanceof HTMLButtonElement)) return;
+
+  toggle.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+
+    closeAllNavDropdowns();
+    setNavDropdownState(dropdown, !isOpen);
+  });
+});
+
 primaryNav?.addEventListener("click", (event) => {
   if (event.target instanceof HTMLAnchorElement) {
+    closeAllNavDropdowns();
     setMenuState(false);
   }
 });
 
+document.addEventListener("click", (event) => {
+  if (!(event.target instanceof Element)) return;
+  if (event.target.closest("[data-nav-dropdown]")) return;
+
+  closeAllNavDropdowns();
+});
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
+    closeAllNavDropdowns();
     setMenuState(false);
   }
 });

@@ -76,7 +76,24 @@
 
         <nav class="primary-nav" id="navegacao" aria-label="Navegação principal">
           <a href="#sobre">Sobre</a>
-          <a href="#produtos">Produtos</a>
+          <div class="nav-item nav-item--dropdown" data-nav-dropdown>
+            <button
+              class="nav-dropdown-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="nav-products-menu"
+            >
+              Produtos
+            </button>
+            <div class="nav-dropdown-menu" id="nav-products-menu">
+              <a href="#produto-perifa-praca">Perifa Praça</a>
+              <a href="#produto-ooh-periferico">OOH Periférico</a>
+              <a href="#produto-dados-inteligencia">Dados &amp; Inteligência</a>
+              <a href="#produto-cultura">Cultura</a>
+              <a href="#produto-mobilidade">Mobilidade</a>
+              <a href="#produto-criadores">Criadores</a>
+            </div>
+          </div>
           <a href="#quem-somos">Quem somos</a>
           <a href="#impacto">Impacto</a>
           <a href="#pesquisas">Pesquisas</a>
@@ -282,6 +299,7 @@
       </section>
 
       <div class="scroll-anchor" id="produtos" aria-hidden="true"></div>
+      <div class="scroll-anchor" id="pesquisas" aria-hidden="true"></div>
 
       <section class="ecosystem-section" id="fazemos" aria-labelledby="fazemos-title">
         <div class="container">
@@ -291,7 +309,7 @@
           </div>
 
           <div class="ecosystem-grid">
-            <article class="ecosystem-card ecosystem-card--praca">
+            <article class="ecosystem-card ecosystem-card--praca" id="produto-perifa-praca">
               <div class="ecosystem-copy">
                 <h3>Perifa Praça</h3>
                 <span class="accent-line" aria-hidden="true"></span>
@@ -316,7 +334,7 @@
               </div>
             </article>
 
-            <article class="ecosystem-card ecosystem-card--ooh">
+            <article class="ecosystem-card ecosystem-card--ooh" id="produto-ooh-periferico">
               <div class="ecosystem-copy">
                 <h3>OOH Periférico</h3>
                 <span class="accent-line" aria-hidden="true"></span>
@@ -337,7 +355,7 @@
               </div>
             </article>
 
-            <article class="ecosystem-card ecosystem-card--dados" id="pesquisas">
+            <article class="ecosystem-card ecosystem-card--dados" id="produto-dados-inteligencia">
               <div class="ecosystem-copy">
                 <h3>Dados & Inteligência</h3>
                 <span class="accent-line" aria-hidden="true"></span>
@@ -357,7 +375,7 @@
               </div>
             </article>
 
-            <article class="ecosystem-card ecosystem-card--cultura">
+            <article class="ecosystem-card ecosystem-card--cultura" id="produto-cultura">
               <div class="ecosystem-copy">
                 <h3>Cultura</h3>
                 <span class="accent-line" aria-hidden="true"></span>
@@ -374,7 +392,7 @@
               </div>
             </article>
 
-            <article class="ecosystem-card ecosystem-card--mobilidade">
+            <article class="ecosystem-card ecosystem-card--mobilidade" id="produto-mobilidade">
               <div class="ecosystem-copy">
                 <h3>Mobilidade</h3>
                 <span class="accent-line" aria-hidden="true"></span>
@@ -395,7 +413,7 @@
               </div>
             </article>
 
-            <article class="ecosystem-card ecosystem-card--criadores">
+            <article class="ecosystem-card ecosystem-card--criadores" id="produto-criadores">
               <div class="ecosystem-copy">
                 <h3>Criadores</h3>
                 <span class="accent-line" aria-hidden="true"></span>

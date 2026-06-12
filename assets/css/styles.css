@@ -195,6 +195,8 @@ button {
 
 .nav-item {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .nav-dropdown-toggle {
@@ -229,25 +231,20 @@ button {
   top: calc(100% + 14px);
   left: 50%;
   min-width: 250px;
-  display: grid;
+  display: none;
   gap: 0;
   padding: 12px 0;
   background: rgba(244, 242, 237, 0.98);
   border: 1px solid rgba(8, 8, 7, 0.12);
   border-radius: 8px;
   box-shadow: 0 24px 44px rgba(0, 0, 0, 0.14);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
   transform: translate(-50%, -8px);
-  transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+  transition: transform 160ms ease;
   z-index: 20;
 }
 
 .nav-item--dropdown.is-open .nav-dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+  display: grid;
   transform: translate(-50%, 0);
 }
 
@@ -2197,9 +2194,6 @@ h1 .title-muted {
     border: 0;
     border-radius: 0;
     box-shadow: none;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
     transform: none;
     display: none;
   }

@@ -373,7 +373,7 @@ button {
   position: relative;
   z-index: 4;
   max-width: var(--max-width);
-  padding-block: clamp(42px, 4.6vw, 72px) 312px;
+  padding-block: clamp(42px, 4.6vw, 72px) 356px;
 }
 
 .eyebrow {
@@ -449,7 +449,7 @@ h1 .title-muted {
 .hero-thumbs {
   position: absolute;
   right: 0;
-  bottom: 124px;
+  bottom: 168px;
   left: 0;
   z-index: 5;
   display: flex;
@@ -528,7 +528,7 @@ h1 .title-muted {
 .metrics-section {
   position: relative;
   z-index: 3;
-  margin-top: -38px;
+  margin-top: 0;
 }
 
 .metrics {
@@ -1792,7 +1792,7 @@ h1 .title-muted {
   }
 
   .hero-content {
-    padding-block: 42px 320px;
+    padding-block: 42px 344px;
   }
 
   h1 {
@@ -1878,7 +1878,7 @@ h1 .title-muted {
 
   .hero-thumbs {
     grid-template-columns: 1fr;
-    bottom: 112px;
+    bottom: 136px;
     gap: 10px;
   }
 

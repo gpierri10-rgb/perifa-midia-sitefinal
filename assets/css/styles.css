@@ -553,6 +553,13 @@ h1 .title-muted {
   stroke-width: 2;
 }
 
+.metric-icon img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
 .impact-section {
   padding-block: 56px;
 }

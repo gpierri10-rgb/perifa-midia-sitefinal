@@ -351,7 +351,7 @@ button {
   position: relative;
   z-index: 4;
   max-width: var(--max-width);
-  padding-block: clamp(42px, 4.6vw, 72px) 178px;
+  padding-block: clamp(42px, 4.6vw, 72px) 224px;
 }
 
 .eyebrow {
@@ -1620,6 +1620,10 @@ h1 .title-muted {
   .hero-slide img {
     object-fit: cover;
     object-position: 62% center;
+  }
+
+  .hero-content {
+    padding-block: 42px 248px;
   }
 
   h1 {

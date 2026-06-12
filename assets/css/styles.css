@@ -273,6 +273,7 @@ button {
 
 .hero::before {
   background:
+    radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.18) 68%, rgba(0, 0, 0, 0.58) 100%),
     linear-gradient(90deg, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.9) 32%, rgba(0, 0, 0, 0.52) 50%, rgba(0, 0, 0, 0.16) 66%, rgba(0, 0, 0, 0.02) 100%);
 }
 
@@ -314,15 +315,19 @@ button {
 }
 
 .hero-slide--minidoor img {
-  transform: scale(0.64);
+  transform: scale(0.94);
   transform-origin: center;
-  object-position: center 44%;
+  object-position: center 46%;
 }
 
 .hero-slide--dados img {
   transform: scale(0.6);
   transform-origin: center;
   object-position: center 46%;
+}
+
+.hero-slide--influencia img {
+  object-position: center 42%;
 }
 
 .hero-carousel-nav {
@@ -443,7 +448,7 @@ h1 .title-muted {
   left: 0;
   z-index: 5;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -468,15 +473,19 @@ h1 .title-muted {
 }
 
 .hero-thumb--minidoor img {
-  transform: scale(0.66);
+  transform: scale(0.95);
   transform-origin: center;
-  object-position: center 44%;
+  object-position: center 46%;
 }
 
 .hero-thumb--dados img {
   transform: scale(0.62);
   transform-origin: center;
   object-position: center 46%;
+}
+
+.hero-thumb--influencia img {
+  object-position: center 42%;
 }
 
 .hero-thumb::after {
@@ -495,6 +504,10 @@ h1 .title-muted {
   font-size: 13px;
   font-weight: 800;
   line-height: 1.2;
+}
+
+.hero-thumb--influencia span {
+  font-size: 12px;
 }
 
 .hero-thumb.is-active {

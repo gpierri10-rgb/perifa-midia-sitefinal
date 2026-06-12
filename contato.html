@@ -116,7 +116,21 @@
             <h2 id="contact-form-title">Envie sua mensagem</h2>
             <p>Campos simples para a gente entender seu contexto e organizar seu contato.</p>
 
-            <form class="lead-form lead-form--stacked" data-form-type="contact" action="#" method="post" novalidate>
+            <form
+              class="lead-form lead-form--stacked"
+              data-form-type="contact"
+              name="contato-perifa"
+              action="/obrigado"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              novalidate
+            >
+              <input type="hidden" name="form-name" value="contato-perifa">
+              <input type="hidden" name="subject" value="Novo contato do site - Perifa Midia">
+              <p class="visually-hidden">
+                <label>Não preencha este campo se você é humano: <input name="bot-field"></label>
+              </p>
               <div class="lead-form__fields lead-form__fields--stacked">
                 <div class="field">
                   <label for="contact-name">Nome</label>
@@ -126,6 +140,18 @@
                     type="text"
                     autocomplete="name"
                     placeholder="Seu nome"
+                    required
+                  >
+                </div>
+
+                <div class="field">
+                  <label for="contact-email">E-mail</label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="Seu e-mail"
                     required
                   >
                 </div>

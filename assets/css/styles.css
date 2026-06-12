@@ -1473,6 +1473,11 @@ h1 .title-muted {
   background: #4f0fd3;
 }
 
+.lead-form button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
 .form-message {
   grid-column: 1 / -1;
   min-height: 0;
@@ -1485,6 +1490,14 @@ h1 .title-muted {
 .form-message:not(:empty) {
   padding-block: 10px 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.form-message[data-state="success"] {
+  color: #1d5f37;
+}
+
+.form-message[data-state="error"] {
+  color: #8d1f1f;
 }
 
 .contact-page {
@@ -1559,6 +1572,21 @@ h1 .title-muted {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.7)),
     rgba(255, 255, 255, 0.6);
+}
+
+.contact-card--centered {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-card--centered h1 {
+  margin: 0;
+  font-size: clamp(42px, 6vw, 76px);
+}
+
+.contact-card--centered .button {
+  margin-top: 24px;
 }
 
 .lead-form--stacked {

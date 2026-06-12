@@ -2,8 +2,6 @@ const navToggle = document.querySelector(".nav-toggle");
 const primaryNav = document.querySelector(".primary-nav");
 const leadForms = Array.from(document.querySelectorAll(".lead-form"));
 const heroCarousel = document.querySelector("[data-carousel]");
-const CONTACT_EMAIL = "adm@perifamidia.com.br";
-
 if (heroCarousel instanceof HTMLElement) {
   const track = heroCarousel.querySelector("[data-carousel-track]");
   const slides = Array.from(heroCarousel.querySelectorAll("[data-carousel-slide]"));
@@ -196,83 +194,128 @@ function handleLaunchFormSubmit(form) {
 
 function handleContactFormSubmit(form) {
   const nameInput = form.querySelector("input[name='name']");
+  const emailInput = form.querySelector("input[name='email']");
   const companyInput = form.querySelector("input[name='company']");
   const reasonInput = form.querySelector("select[name='reason']");
   const messageInput = form.querySelector("textarea[name='message']");
   const statusMessage = form.querySelector(".form-message");
+  const submitButton = form.querySelector("button[type='submit']");
 
   if (
     !(nameInput instanceof HTMLInputElement) ||
+    !(emailInput instanceof HTMLInputElement) ||
     !(companyInput instanceof HTMLInputElement) ||
     !(reasonInput instanceof HTMLSelectElement) ||
     !(messageInput instanceof HTMLTextAreaElement) ||
-    !(statusMessage instanceof HTMLElement)
+    !(statusMessage instanceof HTMLElement) ||
+    !(submitButton instanceof HTMLButtonElement)
   ) {
     return;
   }
 
   const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
   const company = companyInput.value.trim();
   const reason = reasonInput.value.trim();
   const detail = messageInput.value.trim();
+  const botFieldInput = form.querySelector("input[name='bot-field']");
+  const setStatusMessage = (text, state = "error") => {
+    statusMessage.textContent = text;
+    statusMessage.dataset.state = text ? state : "";
+  };
 
   if (!name) {
-    statusMessage.textContent = "Informe seu nome para continuar.";
+    setStatusMessage("Informe seu nome para continuar.");
     nameInput.focus();
     return;
   }
 
+  if (!email || !emailInput.checkValidity()) {
+    setStatusMessage("Informe um e-mail valido para continuar.");
+    emailInput.focus();
+    return;
+  }
+
   if (!company) {
-    statusMessage.textContent = "Informe sua empresa para continuar.";
+    setStatusMessage("Informe sua empresa para continuar.");
     companyInput.focus();
     return;
   }
 
   if (!reason) {
-    statusMessage.textContent = "Selecione o motivo do contato.";
+    setStatusMessage("Selecione o motivo do contato.");
     reasonInput.focus();
     return;
   }
 
   if (!detail) {
-    statusMessage.textContent = "Escreva sua mensagem para continuar.";
+    setStatusMessage("Escreva sua mensagem para continuar.");
     messageInput.focus();
     return;
   }
 
-  if (!window.PerifaCRM?.upsertLead) {
-    statusMessage.textContent = "Não foi possível registrar seu contato agora. Tente novamente em instantes.";
-    return;
-  }
-
   try {
-    window.PerifaCRM.upsertLead({
-      name,
-      company,
-      interest: reason,
-      source: "Página de contato",
-      status: "Novo",
-      notes: `Contato enviado pela página pública. Motivo: ${reason}. Mensagem: ${detail}`
+    if (botFieldInput instanceof HTMLInputElement && botFieldInput.value.trim()) {
+      form.reset();
+      setStatusMessage("Recebemos sua mensagem. Nosso time retorna em breve.", "success");
+      return;
+    }
+
+    if (window.PerifaCRM?.upsertLead) {
+      window.PerifaCRM.upsertLead({
+        name,
+        email,
+        company,
+        interest: reason,
+        source: "Página de contato",
+        status: "Novo",
+        notes: `Contato enviado pela pagina publica. Motivo: ${reason}. Mensagem: ${detail}`
+      });
+    }
+
+    const formData = new FormData(form);
+    const payload = new URLSearchParams();
+
+    formData.forEach((value, key) => {
+      if (typeof value === "string") {
+        payload.append(key, value);
+      }
     });
 
-    const subject = encodeURIComponent(`Contato pelo site - ${reason} - ${company}`);
-    const body = encodeURIComponent(
-      [
-        `Nome: ${name}`,
-        `Empresa: ${company}`,
-        `Motivo do contato: ${reason}`,
-        "",
-        "Mensagem:",
-        detail
-      ].join("\n")
-    );
+    setStatusMessage("", "success");
+    submitButton.disabled = true;
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    statusMessage.textContent = `Mensagem preparada para envio em ${CONTACT_EMAIL}. Se preferir, também pode chamar a gente no WhatsApp.`;
-    form.reset();
+    fetch("/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: payload.toString()
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Falha no envio: ${response.status}`);
+        }
+
+        form.reset();
+        setStatusMessage(
+          `Recebemos sua mensagem. Vamos responder pelo e-mail ${email} assim que o time revisar o contato.`,
+          "success"
+        );
+      })
+      .catch((error) => {
+        console.error("Nao foi possivel enviar o contato para a Netlify.", error);
+        setStatusMessage(
+          `Nao foi possivel enviar sua mensagem agora. Tente novamente em instantes ou escreva para ${CONTACT_EMAIL}.`
+        );
+      })
+      .finally(() => {
+        submitButton.disabled = false;
+      });
   } catch (error) {
-    console.error("Não foi possível registrar o contato.", error);
-    statusMessage.textContent = "Não foi possível registrar seu contato agora. Tente novamente em instantes.";
+    console.error("Nao foi possivel registrar o contato.", error);
+    setStatusMessage("Nao foi possivel registrar seu contato agora. Tente novamente em instantes.");
+    submitButton.disabled = false;
   }
 }
 

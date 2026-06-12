@@ -1714,7 +1714,7 @@ h1 .title-muted {
   }
 
   .metrics-section {
-    margin-top: -64px;
+    margin-top: 0;
   }
 
   .metrics {

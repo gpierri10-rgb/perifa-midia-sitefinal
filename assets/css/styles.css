@@ -427,7 +427,7 @@ h1 .title-muted {
 .hero-thumbs {
   position: absolute;
   right: 0;
-  bottom: 24px;
+  bottom: 92px;
   left: 0;
   z-index: 5;
   display: grid;
@@ -1693,7 +1693,7 @@ h1 .title-muted {
 
   .hero-thumbs {
     grid-template-columns: 1fr;
-    bottom: 14px;
+    bottom: 88px;
     gap: 10px;
   }
 

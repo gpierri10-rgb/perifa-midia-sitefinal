@@ -124,15 +124,15 @@ button {
 .nav-shell {
   min-height: var(--header-height);
   display: grid;
-  grid-template-columns: minmax(240px, 296px) minmax(0, 1fr) auto;
+  grid-template-columns: 336px minmax(0, 1fr) 244px;
   align-items: center;
-  gap: 20px;
+  gap: 28px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  width: 280px;
+  width: 320px;
 }
 
 .brand img {
@@ -156,9 +156,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 22px;
+  gap: 36px;
   color: #080807;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 850;
   text-transform: uppercase;
 }
@@ -166,7 +166,6 @@ button {
 .primary-nav a {
   position: relative;
   padding-block: 8px;
-  white-space: nowrap;
 }
 
 .primary-nav a::after {
@@ -208,10 +207,6 @@ button {
 
 .nav-toggle[aria-expanded="true"] span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
-}
-
-.nav-action {
-  white-space: nowrap;
 }
 
 .nav-toggle[aria-expanded="true"] span:nth-child(2) {
@@ -331,8 +326,6 @@ button {
 }
 
 .hero-slide--dados img {
-  transform: scale(0.6);
-  transform-origin: center;
   object-position: center 46%;
 }
 
@@ -378,7 +371,7 @@ button {
   position: relative;
   z-index: 4;
   max-width: var(--max-width);
-  padding-block: clamp(42px, 4.6vw, 72px) 356px;
+  padding-block: clamp(42px, 4.6vw, 72px) 224px;
 }
 
 .eyebrow {
@@ -454,7 +447,7 @@ h1 .title-muted {
 .hero-thumbs {
   position: absolute;
   right: 0;
-  bottom: 168px;
+  bottom: 36px;
   left: 0;
   z-index: 5;
   display: flex;
@@ -491,8 +484,6 @@ h1 .title-muted {
 }
 
 .hero-thumb--dados img {
-  transform: scale(0.62);
-  transform-origin: center;
   object-position: center 46%;
 }
 
@@ -533,7 +524,7 @@ h1 .title-muted {
 .metrics-section {
   position: relative;
   z-index: 3;
-  margin-top: 0;
+  margin-top: -76px;
 }
 
 .metrics {
@@ -1478,11 +1469,6 @@ h1 .title-muted {
   background: #4f0fd3;
 }
 
-.lead-form button:disabled {
-  cursor: wait;
-  opacity: 0.72;
-}
-
 .form-message {
   grid-column: 1 / -1;
   min-height: 0;
@@ -1495,14 +1481,6 @@ h1 .title-muted {
 .form-message:not(:empty) {
   padding-block: 10px 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.form-message[data-state="success"] {
-  color: #1d5f37;
-}
-
-.form-message[data-state="error"] {
-  color: #8d1f1f;
 }
 
 .contact-page {
@@ -1577,21 +1555,6 @@ h1 .title-muted {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.7)),
     rgba(255, 255, 255, 0.6);
-}
-
-.contact-card--centered {
-  max-width: 620px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.contact-card--centered h1 {
-  margin: 0;
-  font-size: clamp(42px, 6vw, 76px);
-}
-
-.contact-card--centered .button {
-  margin-top: 24px;
 }
 
 .lead-form--stacked {
@@ -1825,7 +1788,7 @@ h1 .title-muted {
   }
 
   .hero-content {
-    padding-block: 42px 344px;
+    padding-block: 42px 248px;
   }
 
   h1 {
@@ -1911,7 +1874,7 @@ h1 .title-muted {
 
   .hero-thumbs {
     grid-template-columns: 1fr;
-    bottom: 136px;
+    bottom: 18px;
     gap: 10px;
   }
 

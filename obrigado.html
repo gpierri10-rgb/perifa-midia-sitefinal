@@ -20,13 +20,15 @@
       rel="stylesheet"
     >
     <link rel="stylesheet" href="./assets/css/styles.css?v=20260612-netlify-form">
+    <script src="./assets/js/database.js?v=20260612-netlify-form" defer></script>
+    <script src="./assets/js/main.js?v=20260612-netlify-form" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
     <header class="site-header" id="topo">
       <div class="container nav-shell">
-        <a class="brand" href="./index.html" aria-label="Perifa Mídia, início">
+        <a class="brand" href="./index.html#sobre" aria-label="Perifa Mídia, início">
           <img
             src="./assets/images/logo-perifa-midia.png"
             width="1728"
@@ -36,15 +38,29 @@
           >
         </a>
 
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navegacao"
+          aria-label="Abrir menu"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+
         <nav class="primary-nav" id="navegacao" aria-label="Navegação principal">
           <a href="./index.html#sobre">Sobre</a>
-          <a href="./index.html#fazemos">O que fazemos</a>
+          <a href="./index.html#produtos">Produtos</a>
+          <a href="./index.html#quem-somos">Quem somos</a>
           <a href="./index.html#impacto">Impacto</a>
+          <a href="./index.html#pesquisas">Pesquisas</a>
           <a href="./contato.html">Contato</a>
         </nav>
 
         <a class="button button--outline nav-action" href="./contato.html">
-          Voltar ao contato
+          Fale com a gente
           <span aria-hidden="true">→</span>
         </a>
       </div>

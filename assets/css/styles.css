@@ -124,15 +124,15 @@ button {
 .nav-shell {
   min-height: var(--header-height);
   display: grid;
-  grid-template-columns: 336px minmax(0, 1fr) 244px;
+  grid-template-columns: minmax(240px, 296px) minmax(0, 1fr) auto;
   align-items: center;
-  gap: 28px;
+  gap: 20px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  width: 320px;
+  width: 280px;
 }
 
 .brand img {
@@ -156,9 +156,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 36px;
+  gap: 22px;
   color: #080807;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 850;
   text-transform: uppercase;
 }
@@ -166,6 +166,7 @@ button {
 .primary-nav a {
   position: relative;
   padding-block: 8px;
+  white-space: nowrap;
 }
 
 .primary-nav a::after {
@@ -207,6 +208,10 @@ button {
 
 .nav-toggle[aria-expanded="true"] span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
+}
+
+.nav-action {
+  white-space: nowrap;
 }
 
 .nav-toggle[aria-expanded="true"] span:nth-child(2) {

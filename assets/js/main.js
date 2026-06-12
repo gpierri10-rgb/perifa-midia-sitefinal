@@ -200,6 +200,7 @@ function handleContactFormSubmit(form) {
   const messageInput = form.querySelector("textarea[name='message']");
   const statusMessage = form.querySelector(".form-message");
   const submitButton = form.querySelector("button[type='submit']");
+  const accessKeyInput = form.querySelector("input[name='access_key']");
 
   if (
     !(nameInput instanceof HTMLInputElement) ||
@@ -208,7 +209,8 @@ function handleContactFormSubmit(form) {
     !(reasonInput instanceof HTMLSelectElement) ||
     !(messageInput instanceof HTMLTextAreaElement) ||
     !(statusMessage instanceof HTMLElement) ||
-    !(submitButton instanceof HTMLButtonElement)
+    !(submitButton instanceof HTMLButtonElement) ||
+    !(accessKeyInput instanceof HTMLInputElement)
   ) {
     return;
   }
@@ -218,7 +220,7 @@ function handleContactFormSubmit(form) {
   const company = companyInput.value.trim();
   const reason = reasonInput.value.trim();
   const detail = messageInput.value.trim();
-  const botFieldInput = form.querySelector("input[name='bot-field']");
+  const botFieldInput = form.querySelector("input[name='botcheck']");
   const setStatusMessage = (text, state = "error") => {
     statusMessage.textContent = text;
     statusMessage.dataset.state = text ? state : "";
@@ -274,39 +276,37 @@ function handleContactFormSubmit(form) {
     }
 
     const formData = new FormData(form);
-    const payload = new URLSearchParams();
-
-    formData.forEach((value, key) => {
-      if (typeof value === "string") {
-        payload.append(key, value);
-      }
-    });
+    formData.set("access_key", accessKeyInput.value);
+    formData.set("name", name);
+    formData.set("email", email);
+    formData.set("company", company);
+    formData.set("reason", reason);
+    formData.set("message", detail);
 
     setStatusMessage("", "success");
     submitButton.disabled = true;
 
-    fetch("/", {
+    fetch(form.action, {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        Accept: "application/json"
       },
-      body: payload.toString()
+      body: formData
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Falha no envio: ${response.status}`);
+      .then(async (response) => {
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || data.success === false) {
+          throw new Error(data.message || `Falha no envio: ${response.status}`);
         }
 
         form.reset();
-        setStatusMessage(
-          `Recebemos sua mensagem. Vamos responder pelo e-mail ${email} assim que o time revisar o contato.`,
-          "success"
-        );
+        window.location.href = "./obrigado.html";
       })
       .catch((error) => {
-        console.error("Nao foi possivel enviar o contato para a Netlify.", error);
+        console.error("Nao foi possivel enviar o contato para o Web3Forms.", error);
         setStatusMessage(
-          `Nao foi possivel enviar sua mensagem agora. Tente novamente em instantes ou escreva para ${CONTACT_EMAIL}.`
+          "Nao foi possivel enviar sua mensagem agora. Tente novamente em instantes."
         );
       })
       .finally(() => {

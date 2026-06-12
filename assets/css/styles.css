@@ -1671,7 +1671,7 @@ h1 .title-muted {
   }
 
   .hero {
-    min-height: 625px;
+    min-height: 700px;
   }
 
   .hero::before {
@@ -1679,7 +1679,7 @@ h1 .title-muted {
   }
 
   .hero-content {
-    padding-block: 58px 334px;
+    padding-block: 58px 390px;
   }
 
   .hero-carousel-nav {
@@ -1693,7 +1693,7 @@ h1 .title-muted {
 
   .hero-thumbs {
     grid-template-columns: 1fr;
-    bottom: 88px;
+    bottom: 18px;
     gap: 10px;
   }
 

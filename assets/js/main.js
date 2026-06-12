@@ -275,13 +275,17 @@ function handleContactFormSubmit(form) {
       });
     }
 
-    const formData = new FormData(form);
-    formData.set("access_key", accessKeyInput.value);
-    formData.set("name", name);
-    formData.set("email", email);
-    formData.set("company", company);
-    formData.set("reason", reason);
-    formData.set("message", detail);
+    const payload = {
+      access_key: accessKeyInput.value,
+      subject: form.querySelector("input[name='subject']")?.value || "Novo contato do site - Perifa Midia",
+      from_name: form.querySelector("input[name='from_name']")?.value || "Site Perifa Midia",
+      name,
+      email,
+      company,
+      reason,
+      message: detail,
+      botcheck: botFieldInput instanceof HTMLInputElement ? botFieldInput.checked : false
+    };
 
     setStatusMessage("", "success");
     submitButton.disabled = true;
@@ -289,9 +293,10 @@ function handleContactFormSubmit(form) {
     fetch(form.action, {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Accept: "application/json"
       },
-      body: formData
+      body: JSON.stringify(payload)
     })
       .then(async (response) => {
         const data = await response.json().catch(() => ({}));

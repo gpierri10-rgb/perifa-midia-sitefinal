@@ -1,8 +1,7 @@
 const navToggle = document.querySelector(".nav-toggle");
 const primaryNav = document.querySelector(".primary-nav");
-const leadForm = document.querySelector(".lead-form");
+const leadForms = Array.from(document.querySelectorAll(".lead-form"));
 const heroCarousel = document.querySelector("[data-carousel]");
-
 if (heroCarousel instanceof HTMLElement) {
   const track = heroCarousel.querySelector("[data-carousel-track]");
   const slides = Array.from(heroCarousel.querySelectorAll("[data-carousel-slide]"));
@@ -130,13 +129,11 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-leadForm?.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const nameInput = leadForm.querySelector("input[name='name']");
-  const emailInput = leadForm.querySelector("input[type='email']");
-  const companyInput = leadForm.querySelector("input[name='company']");
-  const message = leadForm.querySelector(".form-message");
+function handleLaunchFormSubmit(form) {
+  const nameInput = form.querySelector("input[name='name']");
+  const emailInput = form.querySelector("input[type='email']");
+  const companyInput = form.querySelector("input[name='company']");
+  const message = form.querySelector(".form-message");
 
   if (
     !(nameInput instanceof HTMLInputElement) ||
@@ -188,9 +185,155 @@ leadForm?.addEventListener("submit", (event) => {
     message.textContent = result.created
       ? "Cadastro salvo. Vamos avisar você sobre o lançamento."
       : "Esse e-mail já estava no CRM. Atualizamos o cadastro.";
-    leadForm.reset();
+    form.reset();
   } catch (error) {
     console.error("Não foi possível salvar o cadastro.", error);
     message.textContent = "Não foi possível salvar seu cadastro agora. Tente novamente em instantes.";
   }
+}
+
+function handleContactFormSubmit(form) {
+  const nameInput = form.querySelector("input[name='name']");
+  const emailInput = form.querySelector("input[name='email']");
+  const companyInput = form.querySelector("input[name='company']");
+  const reasonInput = form.querySelector("select[name='reason']");
+  const messageInput = form.querySelector("textarea[name='message']");
+  const statusMessage = form.querySelector(".form-message");
+  const submitButton = form.querySelector("button[type='submit']");
+  const accessKeyInput = form.querySelector("input[name='access_key']");
+
+  if (
+    !(nameInput instanceof HTMLInputElement) ||
+    !(emailInput instanceof HTMLInputElement) ||
+    !(companyInput instanceof HTMLInputElement) ||
+    !(reasonInput instanceof HTMLSelectElement) ||
+    !(messageInput instanceof HTMLTextAreaElement) ||
+    !(statusMessage instanceof HTMLElement) ||
+    !(submitButton instanceof HTMLButtonElement) ||
+    !(accessKeyInput instanceof HTMLInputElement)
+  ) {
+    return;
+  }
+
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const company = companyInput.value.trim();
+  const reason = reasonInput.value.trim();
+  const detail = messageInput.value.trim();
+  const botFieldInput = form.querySelector("input[name='botcheck']");
+  const setStatusMessage = (text, state = "error") => {
+    statusMessage.textContent = text;
+    statusMessage.dataset.state = text ? state : "";
+  };
+
+  if (!name) {
+    setStatusMessage("Informe seu nome para continuar.");
+    nameInput.focus();
+    return;
+  }
+
+  if (!email || !emailInput.checkValidity()) {
+    setStatusMessage("Informe um e-mail valido para continuar.");
+    emailInput.focus();
+    return;
+  }
+
+  if (!company) {
+    setStatusMessage("Informe sua empresa para continuar.");
+    companyInput.focus();
+    return;
+  }
+
+  if (!reason) {
+    setStatusMessage("Selecione o motivo do contato.");
+    reasonInput.focus();
+    return;
+  }
+
+  if (!detail) {
+    setStatusMessage("Escreva sua mensagem para continuar.");
+    messageInput.focus();
+    return;
+  }
+
+  try {
+    if (botFieldInput instanceof HTMLInputElement && botFieldInput.value.trim()) {
+      form.reset();
+      setStatusMessage("Recebemos sua mensagem. Nosso time retorna em breve.", "success");
+      return;
+    }
+
+    if (window.PerifaCRM?.upsertLead) {
+      window.PerifaCRM.upsertLead({
+        name,
+        email,
+        company,
+        interest: reason,
+        source: "Página de contato",
+        status: "Novo",
+        notes: `Contato enviado pela pagina publica. Motivo: ${reason}. Mensagem: ${detail}`
+      });
+    }
+
+    const payload = {
+      access_key: accessKeyInput.value,
+      subject: form.querySelector("input[name='subject']")?.value || "Novo contato do site - Perifa Midia",
+      from_name: form.querySelector("input[name='from_name']")?.value || "Site Perifa Midia",
+      name,
+      email,
+      company,
+      reason,
+      message: detail,
+      botcheck: botFieldInput instanceof HTMLInputElement ? botFieldInput.checked : false
+    };
+
+    setStatusMessage("", "success");
+    submitButton.disabled = true;
+
+    fetch(form.action, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(async (response) => {
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || data.success === false) {
+          throw new Error(data.message || `Falha no envio: ${response.status}`);
+        }
+
+        form.reset();
+        window.location.href = "./obrigado.html";
+      })
+      .catch((error) => {
+        console.error("Nao foi possivel enviar o contato para o Web3Forms.", error);
+        setStatusMessage(
+          "Nao foi possivel enviar sua mensagem agora. Tente novamente em instantes."
+        );
+      })
+      .finally(() => {
+        submitButton.disabled = false;
+      });
+  } catch (error) {
+    console.error("Nao foi possivel registrar o contato.", error);
+    setStatusMessage("Nao foi possivel registrar seu contato agora. Tente novamente em instantes.");
+    submitButton.disabled = false;
+  }
+}
+
+leadForms.forEach((form) => {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formType = form.getAttribute("data-form-type");
+    if (formType === "contact") {
+      handleContactFormSubmit(form);
+      return;
+    }
+
+    handleLaunchFormSubmit(form);
+  });
 });

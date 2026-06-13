@@ -268,6 +268,41 @@ function closeAllNavDropdowns() {
   navDropdowns.forEach((dropdown) => setNavDropdownState(dropdown, false));
 }
 
+function setupHeaderScrollVisibility() {
+  const header = document.querySelector(".site-header");
+  if (!(header instanceof HTMLElement)) return;
+
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  const revealThreshold = 12;
+  const hideThreshold = 24;
+
+  const updateHeaderVisibility = () => {
+    const currentScrollY = window.scrollY;
+    const delta = currentScrollY - lastScrollY;
+    const navIsOpen = document.body.classList.contains("nav-open");
+
+    if (navIsOpen || currentScrollY <= 8) {
+      header.classList.remove("site-header--hidden");
+    } else if (delta > hideThreshold) {
+      header.classList.add("site-header--hidden");
+    } else if (delta < -revealThreshold) {
+      header.classList.remove("site-header--hidden");
+    }
+
+    lastScrollY = currentScrollY;
+    ticking = false;
+  };
+
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateHeaderVisibility);
+  }, { passive: true });
+}
+
+setupHeaderScrollVisibility();
+
 navToggle?.addEventListener("click", () => {
   const isOpen = navToggle.getAttribute("aria-expanded") === "true";
   setMenuState(!isOpen);

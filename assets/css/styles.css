@@ -206,14 +206,11 @@ button {
   z-index: 50;
   background: #f4f2ed;
   border-bottom: 1px solid rgba(8, 8, 7, 0.12);
-}
-
-.page-home2 .site-header {
   transition: transform 220ms ease, box-shadow 220ms ease;
   will-change: transform;
 }
 
-.page-home2 .site-header.site-header--hidden {
+.site-header.site-header--hidden {
   transform: translateY(calc(-100% - 1px));
   box-shadow: none;
 }

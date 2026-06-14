@@ -11,11 +11,15 @@ function createPageLoader() {
   loader.setAttribute("aria-hidden", "true");
   loader.innerHTML = `
     <div class="page-loader__shell">
-      <div class="page-loader__brand">
-        <span>Perifa</span>
-        <span>Midia</span>
-      </div>
-      <p class="page-loader__copy">Carregando o Brasil real.</p>
+      <img
+        class="page-loader__logo"
+        src="./assets/images/logo-perifa-loader.png"
+        width="2000"
+        height="2000"
+        alt="Logo da Perifa Midia"
+        decoding="async"
+      >
+      <p class="page-loader__copy">A Mídia das Periferias do Brasil</p>
       <span class="page-loader__bar"></span>
     </div>
   `;
@@ -83,6 +87,8 @@ const navToggle = document.querySelector(".nav-toggle");
 const primaryNav = document.querySelector(".primary-nav");
 const navDropdowns = Array.from(document.querySelectorAll("[data-nav-dropdown]"));
 const leadForms = Array.from(document.querySelectorAll(".lead-form"));
+const lightboxTriggers = Array.from(document.querySelectorAll("[data-lightbox-open]"));
+const lightboxes = Array.from(document.querySelectorAll("[data-lightbox]"));
 const heroCarousel = document.querySelector("[data-carousel]");
 if (heroCarousel instanceof HTMLElement) {
   const track = heroCarousel.querySelector("[data-carousel-track]");
@@ -90,7 +96,7 @@ if (heroCarousel instanceof HTMLElement) {
   const thumbs = Array.from(document.querySelectorAll("[data-carousel-thumb]"));
   const prevButton = heroCarousel.querySelector("[data-carousel-prev]");
   const nextButton = heroCarousel.querySelector("[data-carousel-next]");
-  const ctaLink = heroCarousel.querySelector("[data-carousel-cta]");
+  const ctaLink = document.querySelector("[data-carousel-cta]");
   const heroEyebrow = document.querySelector("[data-hero-eyebrow]");
   const heroTitle = document.querySelector("[data-hero-title]");
   const heroCopyOne = document.querySelector("[data-hero-copy-one]");
@@ -100,6 +106,18 @@ if (heroCarousel instanceof HTMLElement) {
   let pointerDown = false;
   let startX = 0;
   let dragOffset = 0;
+
+  const getActiveSlide = () => slides[activeIndex];
+
+  const getActiveSlideHref = () => {
+    const activeSlide = getActiveSlide();
+    return activeSlide?.getAttribute("data-slide-href") || "./contato.html";
+  };
+
+  const getActiveSlideLabel = () => {
+    const activeSlide = getActiveSlide();
+    return activeSlide?.getAttribute("data-slide-label") || "esta pagina";
+  };
 
   const updateHeroCopy = (slide) => {
     if (!(slide instanceof HTMLElement)) return;
@@ -154,14 +172,12 @@ if (heroCarousel instanceof HTMLElement) {
       thumb.setAttribute("aria-pressed", String(thumbIndex === activeIndex));
     });
 
-    const activeSlide = slides[activeIndex];
+    const activeSlide = getActiveSlide();
     updateHeroCopy(activeSlide);
 
     if (ctaLink instanceof HTMLAnchorElement) {
-      const href = activeSlide?.getAttribute("data-slide-href") || "./contato.html";
-      const label = activeSlide?.getAttribute("data-slide-label") || "esta pagina";
-      ctaLink.href = href;
-      ctaLink.setAttribute("aria-label", `Saiba mais aqui sobre ${label}`);
+      ctaLink.href = getActiveSlideHref();
+      ctaLink.setAttribute("aria-label", `Saiba mais aqui sobre ${getActiveSlideLabel()}`);
     }
   };
 
@@ -228,6 +244,12 @@ if (heroCarousel instanceof HTMLElement) {
     });
   });
 
+  ctaLink?.addEventListener("click", () => {
+    if (!(ctaLink instanceof HTMLAnchorElement)) return;
+    ctaLink.href = getActiveSlideHref();
+    ctaLink.setAttribute("aria-label", `Saiba mais aqui sobre ${getActiveSlideLabel()}`);
+  });
+
   track?.addEventListener("pointerdown", onPointerDown);
   window.addEventListener("pointermove", onPointerMove);
   window.addEventListener("pointerup", onPointerUp);
@@ -268,6 +290,45 @@ function closeAllNavDropdowns() {
   navDropdowns.forEach((dropdown) => setNavDropdownState(dropdown, false));
 }
 
+function setLightboxState(lightboxName, isOpen) {
+  const lightbox = document.querySelector(`[data-lightbox="${lightboxName}"]`);
+  if (!(lightbox instanceof HTMLElement)) return;
+
+  lightbox.classList.toggle("is-open", isOpen);
+  lightbox.setAttribute("aria-hidden", String(!isOpen));
+  document.body.classList.toggle("lightbox-open", isOpen);
+}
+
+function closeAllLightboxes() {
+  lightboxes.forEach((lightbox) => {
+    if (!(lightbox instanceof HTMLElement)) return;
+    lightbox.classList.remove("is-open");
+    lightbox.setAttribute("aria-hidden", "true");
+  });
+  document.body.classList.remove("lightbox-open");
+}
+
+function scheduleLightboxAutoload() {
+  const autoloadLightbox = document.querySelector("[data-lightbox-autoload='true']");
+  if (!(autoloadLightbox instanceof HTMLElement)) return;
+
+  const lightboxName = autoloadLightbox.getAttribute("data-lightbox");
+  if (!lightboxName) return;
+
+  const openAutoloadLightbox = () => {
+    window.setTimeout(() => {
+      setLightboxState(lightboxName, true);
+    }, 1150);
+  };
+
+  if (document.readyState === "complete") {
+    openAutoloadLightbox();
+    return;
+  }
+
+  window.addEventListener("load", openAutoloadLightbox, { once: true });
+}
+
 function setupHeaderScrollVisibility() {
   const header = document.querySelector(".site-header");
   if (!(header instanceof HTMLElement)) return;
@@ -302,6 +363,7 @@ function setupHeaderScrollVisibility() {
 }
 
 setupHeaderScrollVisibility();
+scheduleLightboxAutoload();
 
 navToggle?.addEventListener("click", () => {
   const isOpen = navToggle.getAttribute("aria-expanded") === "true";
@@ -339,7 +401,29 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeAllNavDropdowns();
     setMenuState(false);
+    closeAllLightboxes();
   }
+});
+
+lightboxTriggers.forEach((trigger) => {
+  if (!(trigger instanceof HTMLElement)) return;
+
+  trigger.addEventListener("click", () => {
+    const lightboxName = trigger.getAttribute("data-lightbox-open");
+    if (!lightboxName) return;
+    setLightboxState(lightboxName, true);
+  });
+});
+
+lightboxes.forEach((lightbox) => {
+  if (!(lightbox instanceof HTMLElement)) return;
+
+  lightbox.querySelectorAll("[data-lightbox-close]").forEach((closeTrigger) => {
+    if (!(closeTrigger instanceof HTMLElement)) return;
+    closeTrigger.addEventListener("click", () => {
+      closeAllLightboxes();
+    });
+  });
 });
 
 function handleLaunchFormSubmit(form) {

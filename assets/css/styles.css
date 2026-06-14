@@ -3155,6 +3155,7 @@ h1 .title-muted {
   }
 
   .nav-item {
+    display: block;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   }
 
@@ -3184,6 +3185,7 @@ h1 .title-muted {
   .nav-dropdown-menu a {
     padding: 12px 0 12px 18px;
     font-size: 13px;
+    white-space: normal;
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   }
 
@@ -3254,6 +3256,14 @@ h1 .title-muted {
       "instagram"
       "newsletter";
     grid-template-rows: auto;
+  }
+
+  .media-card--instagram {
+    grid-template-rows: auto auto;
+  }
+
+  .media-card--instagram .media-collage {
+    display: none;
   }
 
   .coverage-map {
@@ -3343,14 +3353,32 @@ h1 .title-muted {
   }
 
   .hero-thumbs {
-    flex-direction: column;
-    gap: 10px;
+    justify-content: center;
+    gap: 8px;
     margin-top: 18px;
     margin-bottom: 24px;
   }
 
   .hero-thumb {
-    min-height: 84px;
+    flex: 0 0 30px;
+    min-width: 30px;
+    min-height: 8px;
+    height: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  .hero-thumb img,
+  .hero-thumb::after,
+  .hero-thumb span {
+    display: none;
+  }
+
+  .hero-thumb.is-active {
+    border-color: rgba(211, 255, 49, 0.95);
+    background: rgba(211, 255, 49, 0.95);
+    box-shadow: 0 0 0 4px rgba(211, 255, 49, 0.18);
   }
 
   h1 {

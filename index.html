@@ -559,7 +559,13 @@
                   <h3>Inscreva-se na nossa news!</h3>
                   <p>Uma leitura sobre território, mídia, cultura e novas possibilidades.</p>
                 </div>
-                <a class="media-pill media-pill--link" href="./contato.html">Inscrever-se</a>
+                <button
+                  class="media-pill media-pill--link"
+                  type="button"
+                  data-lightbox-open="newsletter-launch"
+                >
+                  Inscrever-se
+                </button>
               </div>
 
               <div class="media-card__divider" aria-hidden="true"></div>
@@ -655,5 +661,81 @@
         </ul>
       </div>
     </footer>
+
+    <div
+      class="launch-lightbox"
+      data-lightbox="newsletter-launch"
+      data-lightbox-autoload="true"
+      aria-hidden="true"
+    >
+      <button
+        class="launch-lightbox__backdrop"
+        type="button"
+        aria-label="Fechar popup"
+        data-lightbox-close
+      ></button>
+
+      <div class="launch-lightbox__dialog" role="dialog" aria-modal="true" aria-labelledby="launch-popup-title">
+        <section class="launch-box">
+          <div class="launch-box__topbar">
+            <button class="launch-lightbox__close" type="button" aria-label="Fechar popup" data-lightbox-close>
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <div class="launch-content">
+            <div class="launch-brand-slot">
+              <img
+                src="./assets/images/logo-perifa-midia.png"
+                width="1728"
+                height="304"
+                alt="Perifa Mídia"
+                decoding="async"
+              >
+            </div>
+            <span class="tag">Radar Perifa</span>
+            <h2 id="launch-popup-title">Entre para a nossa news</h2>
+            <p class="launch-content__lead">
+              Receba conteúdos sobre território, mídia, cultura e novas oportunidades para marcas no Brasil real.
+            </p>
+            <p class="highlight">
+              Um convite para acompanhar de perto a construção da maior infraestrutura de mídia periférica do país.
+            </p>
+            <p class="launch-support">
+              Deixe seus dados e a gente avisa você sobre lançamentos, novidades e movimentos da Perifa Mídia.
+            </p>
+          </div>
+
+          <form class="lead-form launch-form" novalidate>
+            <input
+              name="name"
+              type="text"
+              autocomplete="name"
+              placeholder="Seu nome"
+              aria-label="Seu nome"
+              required
+            >
+            <input
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="Seu e-mail"
+              aria-label="Seu e-mail"
+              required
+            >
+            <input
+              name="company"
+              type="text"
+              autocomplete="organization"
+              placeholder="Sua empresa"
+              aria-label="Sua empresa"
+              required
+            >
+            <button type="submit">Quero receber</button>
+            <p class="form-message" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </div>
+    </div>
   </body>
 </html>

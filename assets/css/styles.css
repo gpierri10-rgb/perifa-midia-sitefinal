@@ -109,26 +109,20 @@ button {
   text-align: center;
 }
 
-.page-loader__brand {
-  font-family: var(--font-display);
-  font-size: clamp(50px, 9vw, 110px);
-  line-height: 0.88;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-}
-
-.page-loader__brand span {
-  display: block;
+.page-loader__logo {
+  width: min(280px, 58vw);
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 36px rgba(129, 137, 118, 0.14));
 }
 
 .page-loader__copy {
-  max-width: 320px;
+  max-width: 360px;
   margin: 0;
   color: #34362f;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
 .page-loader__bar {
@@ -1270,7 +1264,7 @@ h1 .title-muted {
 }
 
 .ecosystem-card--criadores .ecosystem-visual {
-  background-image: url("../images/ai/ecosystem-criadores.jpg");
+  background-image: url("../images/criadores-home-hero.png");
   background-position: center;
 }
 

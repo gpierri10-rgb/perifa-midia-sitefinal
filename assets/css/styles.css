@@ -3922,7 +3922,7 @@ h1 .title-muted {
   }
 
   .hero::before {
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.58));
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.64), rgba(0, 0, 0, 0.41));
   }
 
   .hero-content {
@@ -4062,6 +4062,37 @@ h1 .title-muted {
   .ecosystem-copy p {
     max-width: 330px;
     font-size: 13px;
+  }
+
+  .ecosystem-visual {
+    min-height: clamp(168px, 43vw, 212px);
+    aspect-ratio: 2.3 / 1;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .ecosystem-card--praca .ecosystem-visual {
+    background-position: center 56%;
+  }
+
+  .ecosystem-card--ooh .ecosystem-visual {
+    background-position: center 50%;
+  }
+
+  .ecosystem-card--cultura .ecosystem-visual {
+    background-position: center 42%;
+  }
+
+  .ecosystem-card--mobilidade .ecosystem-visual {
+    background-position: center 42%;
+  }
+
+  .ecosystem-card--criadores .ecosystem-visual {
+    background-position: center 34%;
+  }
+
+  .ecosystem-card--dados .ecosystem-visual {
+    background-position: center 48%;
   }
 
   .media-card {

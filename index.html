@@ -128,6 +128,10 @@
                 data-slide-copy-one="Estamos construindo uma nova visao para o OOH periferico brasileiro."
                 data-slide-copy-two="Uma plataforma que conecta território, dados, cultura, bem-estar e impacto em escala nacional."
               >
+                <source
+                  media="(max-width: 640px)"
+                  srcset="./assets/images/hero-home-exercicios.png"
+                >
                 <img
                   src="./assets/images/header-perifa-praca.jpg"
                   width="1686"
@@ -169,6 +173,10 @@
                 data-slide-copy-one="Leituras e pesquisas de campo sobre comportamentos, contextos e oportunidades."
                 data-slide-copy-two="Inteligência cultural para orientar marcas com mais escuta, precisão e conexão territorial."
               >
+                <source
+                  media="(max-width: 640px)"
+                  srcset="./assets/images/hero-home-dados-mobile.png"
+                >
                 <img
                   src="./assets/images/header-dados-pesquisas.jpg"
                   width="1803"
@@ -189,6 +197,10 @@
                 data-slide-copy-one="A voz dos territórios amplificando mensagens com repertório, legitimidade e performance."
                 data-slide-copy-two="UGC, afiliados e embaixadores conectam marcas ao cotidiano das periferias com verdade."
               >
+                <source
+                  media="(max-width: 640px)"
+                  srcset="./assets/images/hero-home-criadores-mobile.png"
+                >
                 <img
                   src="./assets/images/criadores-home-hero.png"
                   width="1670"
@@ -249,13 +261,19 @@
 
         <div class="container hero-thumbs" aria-label="Selecionar imagem do header">
           <button class="hero-thumb is-active" type="button" data-carousel-thumb="0" aria-label="Ir para Perifa Praça">
-            <img
-              src="./assets/images/header-perifa-praca.jpg"
-              width="1686"
-              height="954"
-              alt=""
-              decoding="async"
-            >
+            <picture>
+              <source
+                media="(max-width: 640px)"
+                srcset="./assets/images/thumb-home-perifa-praca-mobile.png"
+              >
+              <img
+                src="./assets/images/header-perifa-praca.jpg"
+                width="1686"
+                height="954"
+                alt=""
+                decoding="async"
+              >
+            </picture>
             <span>Perifa Praça</span>
           </button>
           <button class="hero-thumb hero-thumb--minidoor" type="button" data-carousel-thumb="1" aria-label="Ir para MiniDoor">
@@ -269,13 +287,19 @@
             <span>MiniDoor</span>
           </button>
           <button class="hero-thumb hero-thumb--dados" type="button" data-carousel-thumb="2" aria-label="Ir para Dados e Pesquisas">
-            <img
-              src="./assets/images/header-dados-pesquisas.jpg"
-              width="1803"
-              height="872"
-              alt=""
-              decoding="async"
-            >
+            <picture>
+              <source
+                media="(max-width: 640px)"
+                srcset="./assets/images/thumb-home-dados-mobile.png"
+              >
+              <img
+                src="./assets/images/header-dados-pesquisas.jpg"
+                width="1803"
+                height="872"
+                alt=""
+                decoding="async"
+              >
+            </picture>
             <span>Dados e Pesquisas</span>
           </button>
           <button class="hero-thumb hero-thumb--influencia" type="button" data-carousel-thumb="3" aria-label="Ir para Influência: UGC, Afiliados e embaixadores">

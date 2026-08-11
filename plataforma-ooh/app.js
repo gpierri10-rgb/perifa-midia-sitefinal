@@ -192,10 +192,20 @@ function unlockRoutes(unlock) {
   $$('#routes-list .route-card').forEach(c => c.classList.toggle('locked', !unlock));
 }
 function ativarRota(id) {
-  if (!State.plano.length) return;
+  if (!State.plano.length) { highlightFiltro(); return; }
   State.rotaAtiva = id;
   $$('#routes-list .route-card').forEach(c => c.classList.toggle('active', c.dataset.rota === id));
   buscarComerciosDaRota(id);
+}
+function highlightFiltro() {
+  const sel = $('#f-comm');
+  if (!sel) return;
+  sel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  sel.classList.remove('pm-pulse');
+  void sel.offsetWidth; // reinicia a animação
+  sel.classList.add('pm-pulse');
+  setTimeout(() => sel.classList.remove('pm-pulse'), 2200);
+  try { sel.focus({ preventScroll: true }); } catch (e) {}
 }
 
 /* =========================================================================

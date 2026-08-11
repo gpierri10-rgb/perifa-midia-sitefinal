@@ -110,7 +110,11 @@ a{color:inherit}
   color:var(--text);font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
 .route-card .rc-desc{font-size:14px;font-weight:600;line-height:1.35;margin-bottom:6px}
 .route-card .rc-cats{font-size:12px;color:var(--muted);line-height:1.4}
-.route-card[disabled],.route-card.locked{opacity:.5;pointer-events:none}
+.route-card[disabled]{opacity:.5;pointer-events:none}
+.route-card.locked{opacity:.55;cursor:pointer}
+.route-card.locked::after{content:"➕ Escolha uma comunidade em Filtrar";position:absolute;right:12px;bottom:10px;font-size:11px;color:var(--accent);opacity:.85;font-weight:600}
+@keyframes pmPulse{0%{box-shadow:0 0 0 0 rgba(255,212,0,.55)}100%{box-shadow:0 0 0 12px rgba(255,212,0,0)}}
+.pm-pulse{border-color:var(--accent) !important;animation:pmPulse 1s ease-out 2}
 
 .toggle-row{display:flex;align-items:flex-start;gap:12px;background:var(--panel);border:1px solid var(--border);
   border-radius:12px;padding:12px 14px;margin-top:10px}
@@ -367,7 +371,7 @@ a{color:inherit}
   </div>
 </aside>
 
-<script src="/plataforma-ooh/dados.js?v=3"></script>
-<script src="/plataforma-ooh/app.js?v=3"></script>
+<script src="/plataforma-ooh/dados.js?v=4"></script>
+<script src="/plataforma-ooh/app.js?v=4"></script>
 </body>
 </html>

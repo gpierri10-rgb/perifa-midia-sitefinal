@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Painel de Estimativas OOH | Perifa Mídia</title>
+    <meta name="description" content="Painel interno de propostas geradas na Calculadora OOH da Perifa Mídia.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#f3f1eb">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css?v=20260613-header-scroll-global">
+    <style>
+      :root { --ok:#1f9d55; --err:#d64545; }
+      .db { font-family: var(--font-body); color: var(--ink); }
+      .db * { box-sizing: border-box; }
+
+      /* ===== Portão de senha ===== */
+      .gate { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; background: var(--bg); }
+      .gate__card { width: 100%; max-width: 400px; background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.62); box-shadow: 0 18px 60px rgba(0,0,0,0.06); backdrop-filter: blur(3px); border-radius: 8px; padding: clamp(28px, 4vw, 40px); text-align: center; }
+      .gate__card img { height: 30px; width: auto; margin-bottom: 22px; }
+      .gate__card .eyebrow { color: var(--purple); }
+      .gate__card h1 { font-family: var(--font-display); font-weight: 400; font-size: 30px; margin: 4px 0 20px; }
+      .gate__card input { width: 100%; min-height: 52px; padding: 14px 16px; font-family: var(--font-body); font-size: 15px; background:#fff; border: 1px solid rgba(8,8,7,0.16); border-radius: 4px; color: var(--ink); }
+      .gate__card input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(103,33,255,0.12); }
+      .gate__card button { width: 100%; margin-top: 14px; min-height: 52px; border: none; border-radius: 4px; background: var(--purple); color: #fff; font-family: var(--font-body); font-weight: 900; text-transform: uppercase; letter-spacing: 0.02em; font-size: 12px; cursor: pointer; transition: background-color .16s ease; }
+      .gate__card button:hover { background: #4f0fd3; }
+      .gate__card button:disabled { opacity: .7; cursor: wait; }
+      .gate__msg { margin-top: 14px; font-size: 13px; min-height: 18px; }
+      .gate__msg.err { color: var(--err); }
+
+      /* ===== App ===== */
+      .app { display: none; background: var(--bg); min-height: 100vh; }
+      .db-header { position: sticky; top: 0; z-index: 20; background: rgba(244,242,237,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+      .db-header__in { max-width: 1380px; margin: 0 auto; padding: 14px clamp(16px,3vw,40px); display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+      .db-header img { height: 22px; width: auto; }
+      .db-header .title { font-family: var(--font-body); font-weight: 800; font-size: 15px; }
+      .db-header .spacer { flex: 1; }
+      .db-header .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+      .btn { min-height: 40px; display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; border-radius: 4px; font-family: var(--font-body); font-weight: 900; text-transform: uppercase; letter-spacing: 0.02em; font-size: 11px; cursor: pointer; border: 1px solid rgba(8,8,7,0.2); background: transparent; color: var(--ink); transition: background-color .15s ease, transform .15s ease; }
+      .btn:hover { transform: translateY(-1px); background: rgba(8,8,7,0.05); }
+      .btn--primary { background: var(--purple); color: #fff; border-color: var(--purple); }
+      .btn--primary:hover { background: #4f0fd3; }
+      .btn--ghost { border-color: transparent; }
+
+      .wrap { max-width: 1380px; margin: 0 auto; padding: clamp(20px,3vw,36px) clamp(16px,3vw,40px) 64px; }
+
+      .kpis { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-bottom: 22px; }
+      @media (min-width: 860px) { .kpis { grid-template-columns: repeat(4,1fr); } }
+      .kpi { background:#fff; border: 1px solid var(--line); border-radius: 8px; padding: 18px 20px; }
+      .kpi .label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted-strong); margin-bottom: 8px; }
+      .kpi .value { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px,3vw,36px); line-height: 1; color: var(--ink); }
+      .kpi .value.accent { color: var(--purple); }
+      .kpi .sub { font-size: 12px; color: var(--muted-strong); margin-top: 6px; }
+
+      .grid2 { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 22px; }
+      @media (min-width: 900px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+      .panel { background:#fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px 22px; }
+      .panel h2 { font-family: var(--font-body); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted-strong); margin: 0 0 16px; }
+
+      /* barras horizontais (tipo de mídia) */
+      .hbar { margin-bottom: 12px; }
+      .hbar:last-child { margin-bottom: 0; }
+      .hbar__top { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
+      .hbar__top .n { font-weight: 700; }
+      .hbar__track { height: 12px; background: var(--soft); border-radius: 6px; overflow: hidden; }
+      .hbar__fill { height: 100%; border-radius: 6px; transition: width .5s ease; }
+
+      /* barras verticais (por mês) */
+      .vbars { display: flex; align-items: flex-end; gap: 8px; height: 180px; padding-top: 10px; }
+      .vbar { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; min-width: 0; }
+      .vbar__col { width: 100%; max-width: 46px; background: var(--purple); border-radius: 5px 5px 0 0; transition: height .5s ease; min-height: 2px; }
+      .vbar__val { font-size: 11px; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
+      .vbar__lbl { font-size: 11px; color: var(--muted-strong); margin-top: 6px; white-space: nowrap; }
+      .empty-chart { color: var(--muted-strong); font-size: 13px; padding: 24px 0; text-align: center; }
+
+      /* filtros + tabela */
+      .toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+      .toolbar input[type=search], .toolbar select { min-height: 44px; padding: 10px 14px; font-family: var(--font-body); font-size: 14px; background:#fff; border: 1px solid rgba(8,8,7,0.16); border-radius: 4px; color: var(--ink); }
+      .toolbar input[type=search] { flex: 1; min-width: 200px; }
+      .toolbar select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg%20width%3D'24'%20height%3D'24'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M7%2010L12%2015L17%2010'%20stroke%3D'%23080807'%20stroke-width%3D'2'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 38px; }
+      .table-wrap { background:#fff; border: 1px solid var(--line); border-radius: 8px; overflow: auto; }
+      table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 860px; }
+      thead th { text-align: left; padding: 12px 14px; background: var(--surface); border-bottom: 1px solid var(--line); font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted-strong); white-space: nowrap; cursor: pointer; user-select: none; }
+      thead th .arrow { color: var(--purple); font-size: 10px; }
+      tbody td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; color: #34362f; }
+      tbody tr:last-child td { border-bottom: none; }
+      tbody tr:hover { background: rgba(103,33,255,0.03); }
+      td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+      td.strong { color: var(--ink); font-weight: 700; }
+      .tag { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+      .tag--ooh { background: rgba(103,33,255,0.12); color: #4f0fd3; }
+      .tag--dooh { background: rgba(129,137,118,0.18); color: var(--muted-strong); }
+      .tag--mob { background: rgba(17,17,15,0.1); color: var(--ink); }
+      .sel-cell { max-width: 320px; font-size: 12px; color: var(--muted-strong); }
+      .count-line { font-size: 12px; color: var(--muted-strong); margin: 12px 2px 0; }
+      .state-msg { text-align: center; padding: 40px 20px; color: var(--muted-strong); }
+      .state-msg.err { color: var(--err); }
+    </style>
+  </head>
+  <body class="db">
+    <!-- ===== Portão de senha ===== -->
+    <div class="gate" id="gate">
+      <form class="gate__card" id="gate-form" autocomplete="off">
+        <img src="/assets/images/logo-perifa-midia.png" alt="Perifa Mídia">
+        <p class="eyebrow">Painel interno</p>
+        <h1>Estimativas OOH</h1>
+        <input type="password" id="senha" placeholder="Senha de acesso" autocomplete="current-password" required>
+        <button type="submit" id="gate-btn">Entrar</button>
+        <div class="gate__msg" id="gate-msg"></div>
+      </form>
+    </div>
+
+    <!-- ===== App ===== -->
+    <div class="app" id="app">
+      <header class="db-header">
+        <div class="db-header__in">
+          <img src="/assets/images/logo-perifa-midia.png" alt="Perifa Mídia">
+          <span class="title">Painel de Estimativas OOH</span>
+          <span class="spacer"></span>
+          <div class="actions">
+            <button class="btn" id="btn-refresh">↻ Atualizar</button>
+            <button class="btn" id="btn-csv">↧ Exportar CSV</button>
+            <button class="btn btn--ghost" id="btn-logout">Sair</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="wrap">
+        <div id="content-state" class="state-msg">Carregando…</div>
+
+        <div id="content" style="display:none;">
+          <div class="kpis" id="kpis"></div>
+
+          <div class="grid2">
+            <div class="panel">
+              <h2>Propostas por tipo de mídia</h2>
+              <div id="chart-media"></div>
+            </div>
+            <div class="panel">
+              <h2>Propostas por mês</h2>
+              <div id="chart-month"></div>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <input type="search" id="search" placeholder="Buscar por nome ou campanha…">
+            <select id="filter-tipo"><option value="">Todos os tipos</option></select>
+          </div>
+          <div class="table-wrap">
+            <table id="table">
+              <thead>
+                <tr>
+                  <th data-k="data">Data <span class="arrow"></span></th>
+                  <th data-k="nome">Nome <span class="arrow"></span></th>
+                  <th data-k="campanha">Campanha <span class="arrow"></span></th>
+                  <th data-k="tipo">Tipo <span class="arrow"></span></th>
+                  <th data-k="dias" class="num">Dias <span class="arrow"></span></th>
+                  <th data-k="placas" class="num">Placas <span class="arrow"></span></th>
+                  <th data-k="selecao">Seleção <span class="arrow"></span></th>
+                  <th data-k="diaria" class="num">Diária <span class="arrow"></span></th>
+                  <th data-k="total" class="num">Total <span class="arrow"></span></th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+          <p class="count-line" id="count-line"></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function () {
+      // Mesma URL /exec do Apps Script usada pela calculadora.
+      const SCRIPT_URL = 'COLE_AQUI_A_URL_DO_APPS_SCRIPT_DA_PERIFA';
+
+      const $ = (id) => document.getElementById(id);
+      const fmt = (n) => (Number(n) || 0).toLocaleString('pt-BR');
+      const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+
+      let ROWS = [];
+      let sort = { k: 'data', dir: -1 };
+
+      const gate = $('gate'), app = $('app');
+
+      // ---- Auth ----
+      $('gate-form').addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        const senha = $('senha').value;
+        if (!senha) return;
+        load(senha, true);
+      });
+      $('btn-logout').addEventListener('click', () => {
+        sessionStorage.removeItem('pm_ooh_pw');
+        location.reload();
+      });
+      $('btn-refresh').addEventListener('click', () => {
+        const pw = sessionStorage.getItem('pm_ooh_pw');
+        if (pw) load(pw, false);
+      });
+
+      // Estado "backend ainda não configurado": bloqueia o formulário com aviso claro.
+      const NOT_CONFIGURED = !SCRIPT_URL || SCRIPT_URL.indexOf('COLE_AQUI') === 0;
+      if (NOT_CONFIGURED) {
+        $('senha').disabled = true;
+        $('gate-btn').disabled = true;
+        setGateMsg('Painel em configuração — disponível assim que o banco de dados for conectado.', false);
+      } else {
+        // sessão persistida
+        const saved = sessionStorage.getItem('pm_ooh_pw');
+        if (saved) load(saved, false);
+      }
+
+      function setGateMsg(txt, isErr) {
+        const m = $('gate-msg'); m.textContent = txt || ''; m.className = 'gate__msg' + (isErr ? ' err' : '');
+      }
+
+      async function load(senha, fromGate) {
+        if (!SCRIPT_URL || SCRIPT_URL.indexOf('COLE_AQUI') === 0) {
+          if (fromGate) setGateMsg('Backend ainda não configurado (falta a URL do Apps Script).', true);
+          return;
+        }
+        if (fromGate) { $('gate-btn').disabled = true; setGateMsg('Verificando…', false); }
+        try {
+          const res = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'read', senha: senha })
+          });
+          const data = await res.json();
+          if (!data.ok) {
+            if (data.error === 'unauthorized') { setGateMsg('Senha incorreta.', true); }
+            else { setGateMsg('Erro: ' + (data.error || 'desconhecido'), true); }
+            $('gate-btn').disabled = false;
+            return;
+          }
+          sessionStorage.setItem('pm_ooh_pw', senha);
+          ROWS = (data.rows || []).map(normalize);
+          gate.style.display = 'none';
+          app.style.display = 'block';
+          render();
+        } catch (err) {
+          setGateMsg('Falha de conexão com o backend.', true);
+          $('gate-btn').disabled = false;
+          if (!fromGate) { $('content-state').textContent = 'Falha ao atualizar.'; $('content-state').className = 'state-msg err'; }
+        }
+      }
+
+      function normalize(r) {
+        const d = r.data ? new Date(r.data) : null;
+        return {
+          data: d, dataStr: d && !isNaN(d) ? d.toLocaleString('pt-BR') : (r.data || ''),
+          nome: r.nome || '', campanha: r.campanha || '', tipo: r.tipo || '',
+          dias: Number(r.dias) || 0, placas: (r.placas === '' || r.placas == null) ? null : Number(r.placas),
+          selecao: r.selecao || '', diaria: Number(r.diaria) || 0, total: Number(r.total) || 0
+        };
+      }
+
+      function tipoKey(t) {
+        const s = (t || '').toLowerCase();
+        if (s.indexOf('mob') >= 0) return 'mob';
+        if (s.indexOf('dooh') >= 0 || s.indexOf('digital') >= 0) return 'dooh';
+        return 'ooh';
+      }
+
+      // ---- Render principal ----
+      function render() {
+        $('content-state').style.display = 'none';
+        $('content').style.display = 'block';
+        renderKpis();
+        renderMediaChart();
+        renderMonthChart();
+        // popular filtro de tipos
+        const sel = $('filter-tipo');
+        const tipos = [...new Set(ROWS.map(r => r.tipo).filter(Boolean))].sort();
+        sel.innerHTML = '<option value="">Todos os tipos</option>' + tipos.map(t => `<option value="${t}">${t}</option>`).join('');
+        renderTable();
+      }
+
+      function renderKpis() {
+        const total = ROWS.length;
+        const somaImp = ROWS.reduce((a, r) => a + r.total, 0);
+        const media = total ? Math.round(somaImp / total) : 0;
+        const ultima = ROWS.reduce((a, r) => (r.data && (!a || r.data > a) ? r.data : a), null);
+        const k = $('kpis'); k.innerHTML = '';
+        const tiles = [
+          { label: 'Propostas geradas', value: fmt(total), accent: false },
+          { label: 'Impressões estimadas (soma)', value: fmt(somaImp), accent: true },
+          { label: 'Média por proposta', value: fmt(media), accent: false, sub: 'impressões' },
+          { label: 'Última proposta', value: ultima ? ultima.toLocaleDateString('pt-BR') : '—', accent: false, sub: ultima ? ultima.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '' }
+        ];
+        tiles.forEach(t => {
+          const c = el('div', 'kpi');
+          c.appendChild(el('div', 'label', t.label));
+          c.appendChild(el('div', 'value' + (t.accent ? ' accent' : ''), t.value));
+          if (t.sub) c.appendChild(el('div', 'sub', t.sub));
+          k.appendChild(c);
+        });
+      }
+
+      const MEDIA_COLORS = { ooh: '#6721ff', dooh: '#a4aa9a', mob: '#11110f' };
+      function renderMediaChart() {
+        const box = $('chart-media'); box.innerHTML = '';
+        if (!ROWS.length) { box.appendChild(el('div', 'empty-chart', 'Sem dados ainda.')); return; }
+        const groups = {};
+        ROWS.forEach(r => { const t = r.tipo || 'Outro'; groups[t] = (groups[t] || 0) + 1; });
+        const max = Math.max(...Object.values(groups));
+        Object.keys(groups).sort((a, b) => groups[b] - groups[a]).forEach(t => {
+          const n = groups[t], pct = Math.round((n / ROWS.length) * 100);
+          const row = el('div', 'hbar');
+          row.appendChild(el('div', 'hbar__top', `<span>${t}</span><span class="n">${n} · ${pct}%</span>`));
+          const track = el('div', 'hbar__track');
+          const fill = el('div', 'hbar__fill');
+          fill.style.width = Math.round((n / max) * 100) + '%';
+          fill.style.background = MEDIA_COLORS[tipoKey(t)] || '#6721ff';
+          track.appendChild(fill); row.appendChild(track); box.appendChild(row);
+        });
+      }
+
+      function renderMonthChart() {
+        const box = $('chart-month'); box.innerHTML = '';
+        const withDate = ROWS.filter(r => r.data && !isNaN(r.data));
+        if (!withDate.length) { box.appendChild(el('div', 'empty-chart', 'Sem datas para agrupar.')); return; }
+        const groups = {};
+        withDate.forEach(r => {
+          const key = r.data.getFullYear() + '-' + String(r.data.getMonth() + 1).padStart(2, '0');
+          groups[key] = (groups[key] || 0) + 1;
+        });
+        const keys = Object.keys(groups).sort().slice(-8); // últimos 8 meses
+        const max = Math.max(...keys.map(k => groups[k]));
+        const wrap = el('div', 'vbars');
+        const mesLbl = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+        keys.forEach(k => {
+          const n = groups[k];
+          const col = el('div', 'vbar');
+          col.appendChild(el('div', 'vbar__val', String(n)));
+          const bar = el('div', 'vbar__col');
+          bar.style.height = Math.max(2, Math.round((n / max) * 150)) + 'px';
+          col.appendChild(bar);
+          const [y, m] = k.split('-');
+          col.appendChild(el('div', 'vbar__lbl', `${mesLbl[Number(m) - 1]}/${y.slice(2)}`));
+          wrap.appendChild(col);
+        });
+        box.appendChild(wrap);
+      }
+
+      // ---- Tabela ----
+      $('search').addEventListener('input', renderTable);
+      $('filter-tipo').addEventListener('change', renderTable);
+      document.querySelectorAll('#table thead th').forEach(th => {
+        th.addEventListener('click', () => {
+          const k = th.dataset.k;
+          if (sort.k === k) sort.dir *= -1; else { sort.k = k; sort.dir = 1; }
+          renderTable();
+        });
+      });
+
+      function filteredRows() {
+        const q = $('search').value.trim().toLowerCase();
+        const tipo = $('filter-tipo').value;
+        let rows = ROWS.filter(r => {
+          if (tipo && r.tipo !== tipo) return false;
+          if (q && !(r.nome.toLowerCase().includes(q) || r.campanha.toLowerCase().includes(q))) return false;
+          return true;
+        });
+        const dir = sort.dir, k = sort.k;
+        rows.sort((a, b) => {
+          let va = a[k], vb = b[k];
+          if (k === 'data') { va = a.data ? a.data.getTime() : 0; vb = b.data ? b.data.getTime() : 0; }
+          if (typeof va === 'string') { va = va.toLowerCase(); vb = (vb || '').toLowerCase(); }
+          if (va < vb) return -1 * dir; if (va > vb) return 1 * dir; return 0;
+        });
+        return rows;
+      }
+
+      function renderTable() {
+        const rows = filteredRows();
+        const tb = $('tbody'); tb.innerHTML = '';
+        rows.forEach(r => {
+          const tr = document.createElement('tr');
+          const tk = tipoKey(r.tipo);
+          tr.innerHTML =
+            `<td class="num">${r.dataStr}</td>` +
+            `<td class="strong">${esc(r.nome)}</td>` +
+            `<td>${esc(r.campanha)}</td>` +
+            `<td><span class="tag tag--${tk}">${esc(r.tipo)}</span></td>` +
+            `<td class="num">${r.dias || '—'}</td>` +
+            `<td class="num">${r.placas != null ? fmt(r.placas) : '—'}</td>` +
+            `<td class="sel-cell">${esc(r.selecao)}</td>` +
+            `<td class="num">${fmt(r.diaria)}</td>` +
+            `<td class="num strong">${fmt(r.total)}</td>`;
+          tb.appendChild(tr);
+        });
+        // marcadores de ordenação
+        document.querySelectorAll('#table thead th').forEach(th => {
+          const a = th.querySelector('.arrow');
+          a.textContent = th.dataset.k === sort.k ? (sort.dir === 1 ? '▲' : '▼') : '';
+        });
+        $('count-line').textContent = `${rows.length} de ${ROWS.length} proposta(s)`;
+      }
+
+      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+      // ---- CSV ----
+      $('btn-csv').addEventListener('click', () => {
+        const rows = filteredRows();
+        const head = ['Data/Hora', 'Nome', 'Campanha', 'Tipo de Mídia', 'Dias', 'Placas/Telas', 'Seleção', 'Impressões Diária', 'Impressões Total'];
+        const csv = [head.map(csvCell).join(',')].concat(
+          rows.map(r => [r.dataStr, r.nome, r.campanha, r.tipo, r.dias, (r.placas != null ? r.placas : ''), r.selecao, r.diaria, r.total].map(csvCell).join(','))
+        ).join('\r\n');
+        const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'estimativas-ooh-perifa.csv';
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+      function csvCell(v) { const s = String(v == null ? '' : v); return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
+    })();
+    </script>
+  </body>
+</html>

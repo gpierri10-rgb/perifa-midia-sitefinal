@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Calculadora de Estimativas OOH | Perifa Mídia</title>
     <meta name="description" content="Estime impressões e alcance das suas campanhas de OOH, DOOH e Favela MOB nas periferias do Brasil.">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#f3f1eb">
     <link rel="canonical" href="https://perifamidia.com.br/calculadoraooh/">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -104,9 +104,34 @@
     .pm-ooh-modal .selection-item input[type=number] { width: 110px; margin-left: auto; background:#fff; border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; min-height: 44px; font-family: var(--font-body); }
     .pm-ooh-modal .btn-add { font-family: var(--font-body); font-weight: 900; text-transform: uppercase; letter-spacing: 0.02em; font-size: 12px; color: #fff; background: var(--purple); border: none; border-radius: 4px; padding: 15px 24px; min-height: 52px; cursor: pointer; }
     .pm-ooh-modal .btn-add:hover { background: #4f0fd3; }
+
+    /* ====== Portão de senha da calculadora ====== */
+    body.pm-locked { overflow: hidden; }
+    .pm-gate { position: fixed; inset: 0; z-index: 200000; display: flex; align-items: center; justify-content: center; padding: 24px; background: var(--bg); }
+    .pm-gate__card { width: 100%; max-width: 400px; background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.62); box-shadow: 0 18px 60px rgba(0,0,0,0.06); backdrop-filter: blur(3px); border-radius: 8px; padding: clamp(28px,4vw,40px); text-align: center; }
+    .pm-gate__card img { height: 30px; width: auto; margin-bottom: 22px; }
+    .pm-gate__card .eyebrow { color: var(--purple); }
+    .pm-gate__card h1 { font-family: var(--font-display); font-weight: 400; font-size: 30px; margin: 4px 0 20px; line-height: 1; }
+    .pm-gate__card input { width: 100%; min-height: 52px; padding: 14px 16px; font-family: var(--font-body); font-size: 15px; background: #fff; border: 1px solid rgba(8,8,7,0.16); border-radius: 4px; color: var(--ink); }
+    .pm-gate__card input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(103,33,255,0.12); }
+    .pm-gate__card button { width: 100%; margin-top: 14px; min-height: 52px; border: none; border-radius: 4px; background: var(--purple); color: #fff; font-family: var(--font-body); font-weight: 900; text-transform: uppercase; letter-spacing: 0.02em; font-size: 12px; cursor: pointer; transition: background-color .16s ease; }
+    .pm-gate__card button:hover { background: #4f0fd3; }
+    .pm-gate__card button:disabled { opacity: .7; cursor: wait; }
+    .pm-gate__msg { margin-top: 14px; font-size: 13px; min-height: 18px; color: #d64545; }
 </style>
   </head>
-  <body>
+  <body class="pm-locked">
+    <div class="pm-gate" id="pm-gate">
+      <form class="pm-gate__card" id="pm-gate-form" autocomplete="off">
+        <img src="/assets/images/logo-perifa-midia.png" alt="Perifa Mídia">
+        <p class="eyebrow">Acesso restrito</p>
+        <h1>Calculadora OOH</h1>
+        <input type="password" id="pm-gate-senha" placeholder="Senha de acesso" autocomplete="current-password" required>
+        <button type="submit" id="pm-gate-btn">Entrar</button>
+        <div class="pm-gate__msg" id="pm-gate-msg"></div>
+      </form>
+    </div>
+
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
     <div class="page-loader" aria-hidden="true">
@@ -536,5 +561,30 @@
         <ul class="cities" aria-label="Cidades de atuação"><li>São Paulo</li><li>Rio de Janeiro</li><li>Salvador</li><li>Belo Horizonte</li><li>Recife</li><li>Brasília</li><li>Fortaleza</li><li>Goiânia</li><li>Porto Alegre</li><li>Belém</li></ul>
       </div>
     </footer>
+
+    <script>
+    (function () {
+      var URL = 'https://script.google.com/macros/s/AKfycbxesZfTPP8BNT1KWUixHrX8ztZzHC046DGdpwjAqzGJcThVXWDGQZqIW73AEWrFSTztEw/exec';
+      var gate = document.getElementById('pm-gate');
+      var form = document.getElementById('pm-gate-form');
+      var msg = document.getElementById('pm-gate-msg');
+      var btn = document.getElementById('pm-gate-btn');
+      function unlock() { gate.style.display = 'none'; document.body.classList.remove('pm-locked'); }
+      try { if (sessionStorage.getItem('pm_ooh_ok') === '1') { unlock(); return; } } catch (e) {}
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var senha = document.getElementById('pm-gate-senha').value;
+        if (!senha) return;
+        btn.disabled = true; msg.style.color = '#6c757d'; msg.textContent = 'Verificando\u2026';
+        fetch(URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'read', senha: senha }) })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (d && d.ok) { try { sessionStorage.setItem('pm_ooh_ok', '1'); } catch (e) {} msg.textContent = ''; unlock(); }
+            else { msg.style.color = '#d64545'; msg.textContent = 'Senha incorreta.'; btn.disabled = false; }
+          })
+          .catch(function () { msg.style.color = '#d64545'; msg.textContent = 'Falha de conex\u00e3o.'; btn.disabled = false; });
+      });
+    })();
+    </script>
   </body>
 </html>

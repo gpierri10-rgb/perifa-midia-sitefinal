@@ -7,7 +7,7 @@
 /* ============ CONFIGURAÇÃO (edite aqui) ============ */
 const CONFIG = {
   // Senha de acesso à plataforma. TROQUE por uma senha sua.
-  SENHA: 'perifa2026',
+  SENHA: 'Perifaooh26!',
   // Cole aqui sua chave da API do Google Maps (Maps JavaScript API + Places + Geocoding).
   // Enquanto estiver vazia, o mapa mostra instruções de configuração.
   GOOGLE_MAPS_API_KEY: 'AIzaSyD1ljX-Ea072T_2n7FpZxN_sMSGO76pSWw',

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perifa Mídia — Plataforma OOH · Inteligência de Rotas</title>
+<meta name="description" content="Plataforma OOH da Perifa Mídia: inteligência de rotas, mapeamento de comunidades, comércios e estimativa de impacto (metodologia VAC).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0A0B; --panel:#141416; --panel-2:#1C1C20; --panel-3:#232329;
+  --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.16);
+  --text:#EDEDED; --muted:#8A8A8E; --muted-2:#6b6b70;
+  --accent:#FFD400; --accent-ink:#1a1400;
+  --r1:#3B82F6; --r2:#22C55E; --r3:#EC4899; --r4:#F5C542;
+  --danger:#ef4444;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+body{font-family:'Sora',system-ui,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+input,select{font-family:inherit}
+a{color:inherit}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#2c2c33;border-radius:8px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:#3a3a42}
+.hidden{display:none !important}
+
+/* ====================== PORTÃO DE ACESSO ====================== */
+#gate{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(1200px 800px at 70% 30%,#161616 0%,#050505 60%,#000 100%);overflow:hidden}
+#gate::before{content:"";position:absolute;inset:-20%;
+  background:
+    linear-gradient(115deg,transparent 48%,rgba(255,255,255,.04) 49%,transparent 51%),
+    linear-gradient(28deg,transparent 60%,rgba(255,212,0,.05) 61%,transparent 63%);
+  background-size:520px 520px,700px 700px;opacity:.7}
+.gate-card{position:relative;width:min(92vw,470px);background:#0f0f11;border:1px solid var(--border);
+  border-radius:20px;padding:40px 36px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.gate-brand{display:flex;justify-content:center;margin-bottom:22px}
+.gate-brand .logo{font-weight:800;font-size:26px;letter-spacing:.5px;text-transform:uppercase}
+.gate-brand .logo b{background:var(--accent);color:var(--accent-ink);padding:2px 10px;border-radius:8px}
+.gate-card h1{text-align:center;font-size:26px;font-weight:800;margin:0 0 8px}
+.gate-card p{text-align:center;color:var(--muted);font-size:15px;margin:0 0 26px;line-height:1.5}
+.gate-label{display:block;font-size:12px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin:0 0 10px}
+.gate-input-wrap{position:relative}
+.gate-input-wrap input{width:100%;background:#141416;border:1px solid var(--border-strong);border-radius:12px;
+  color:var(--text);font-size:16px;padding:16px 48px 16px 18px}
+.gate-input-wrap input:focus{outline:none;border-color:var(--accent)}
+.gate-eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);
+  font-size:18px;padding:8px;border-radius:8px}
+.gate-eye:hover{color:var(--text)}
+.gate-btn{width:100%;margin-top:18px;background:#fff;color:#000;border:none;border-radius:12px;font-weight:700;font-size:16px;padding:16px}
+.gate-btn:hover{opacity:.9}
+.gate-err{color:#f87171;font-size:13px;margin-top:12px;min-height:18px}
+
+/* ====================== TOPBAR ====================== */
+#app{display:flex;flex-direction:column;height:100%}
+.topbar{display:flex;align-items:center;gap:16px;padding:0 22px;height:74px;background:#0b0b0c;
+  border-bottom:1px solid var(--border);flex-shrink:0}
+.topbar .logo{font-weight:800;font-size:20px;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap}
+.topbar .logo b{background:var(--accent);color:var(--accent-ink);padding:2px 8px;border-radius:7px}
+.topbar .hint{flex:1;text-align:center;color:var(--muted);font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar .actions{display:flex;align-items:center;gap:10px}
+.tb-btn{background:var(--panel-2);border:1px solid var(--border);color:var(--text);border-radius:11px;
+  font-weight:600;font-size:15px;padding:11px 18px;white-space:nowrap}
+.tb-btn:hover{background:var(--panel-3)}
+.tb-btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
+.tb-btn.ghost:hover{color:var(--text)}
+.tb-badge{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;
+  margin-left:8px;border-radius:20px;background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:700}
+
+/* ====================== LAYOUT MAPA ====================== */
+.stage{flex:1;display:flex;min-height:0;position:relative}
+.sidebar{width:430px;flex-shrink:0;background:#0b0b0c;border-right:1px solid var(--border);
+  overflow-y:auto;padding:22px 20px 60px}
+.sec-title{font-size:12px;letter-spacing:1.8px;color:var(--muted);text-transform:uppercase;margin:26px 0 12px;font-weight:600}
+.sec-title:first-child{margin-top:4px}
+.search{position:relative}
+.search .ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;pointer-events:none}
+.search input{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:12px;color:var(--text);
+  font-size:15px;padding:14px 14px 14px 42px}
+.search input:focus{outline:none;border-color:var(--accent)}
+.btn-block{width:100%;background:var(--panel);border:1px solid var(--border);color:var(--text);border-radius:12px;
+  font-weight:600;font-size:15px;padding:13px;margin-top:10px}
+.btn-block:hover{background:var(--panel-2)}
+.note{border:1px solid rgba(255,212,0,.35);background:rgba(255,212,0,.06);color:#e9c96b;border-radius:12px;
+  padding:13px 15px;font-size:13.5px;line-height:1.5}
+
+/* cartões de comunidade adicionada */
+.chip-list{display:flex;flex-direction:column;gap:8px}
+.comm-chip{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--border);
+  border-radius:11px;padding:10px 12px}
+.comm-chip .meta{flex:1;min-width:0}
+.comm-chip .meta b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.comm-chip .meta span{font-size:12px;color:var(--muted)}
+.comm-chip .x{background:none;border:none;color:var(--muted);font-size:18px;line-height:1;padding:4px 6px;border-radius:6px}
+.comm-chip .x:hover{color:var(--danger)}
+
+/* cartões de rota */
+.route-card{position:relative;background:var(--panel);border:1px solid var(--border);border-left:4px solid var(--rc);
+  border-radius:12px;padding:14px 15px;margin-bottom:12px;transition:.15s}
+.route-card:hover{background:var(--panel-2)}
+.route-card.active{box-shadow:0 0 0 1px var(--rc) inset;background:var(--panel-2)}
+.route-card .rc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.route-card .rc-name{font-weight:700;font-size:15px;color:var(--rc);letter-spacing:.3px}
+.route-card .rc-count{min-width:24px;height:22px;padding:0 7px;border-radius:20px;background:var(--panel-3);
+  color:var(--text);font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+.route-card .rc-desc{font-size:14px;font-weight:600;line-height:1.35;margin-bottom:6px}
+.route-card .rc-cats{font-size:12px;color:var(--muted);line-height:1.4}
+.route-card[disabled],.route-card.locked{opacity:.5;pointer-events:none}
+
+.toggle-row{display:flex;align-items:flex-start;gap:12px;background:var(--panel);border:1px solid var(--border);
+  border-radius:12px;padding:12px 14px;margin-top:10px}
+.toggle-row .tinfo b{font-size:14px;font-weight:600;display:block}
+.toggle-row .tinfo span{font-size:12px;color:var(--muted)}
+.switch{position:relative;width:44px;height:26px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.switch .sl{position:absolute;inset:0;background:#2b2b31;border-radius:20px;transition:.2s}
+.switch .sl::before{content:"";position:absolute;height:20px;width:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.switch input:checked + .sl{background:var(--accent)}
+.switch input:checked + .sl::before{transform:translateX(18px)}
+
+.field{margin-top:12px}
+.field label{display:block;font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-bottom:7px}
+.field select,.field input{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:11px;color:var(--text);
+  font-size:14.5px;padding:12px 13px;appearance:none}
+.field select:focus,.field input:focus{outline:none;border-color:var(--accent)}
+.field .sel-wrap{position:relative}
+.field .sel-wrap::after{content:"▾";position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+
+/* mapa */
+.map-wrap{flex:1;position:relative;background:#e8e8e6}
+#map{position:absolute;inset:0}
+.map-hint{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:10px;
+  background:#101012ee;border:1px solid var(--border);color:var(--text);border-radius:14px;padding:14px 20px;font-size:15px;
+  font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:90%}
+.map-hint .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(255,212,0,.2)}
+.map-missing{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:30px;text-align:center;
+  background:#0d0d0f;color:var(--muted)}
+.map-missing .box{max-width:520px}
+.map-missing h3{color:var(--text);font-size:20px;margin:0 0 12px}
+.map-missing code{background:#000;padding:2px 7px;border-radius:6px;color:var(--accent);font-size:13px}
+
+/* Info window / place card */
+.place-pop{font-family:'Sora',sans-serif;min-width:210px;max-width:260px;color:#111}
+.place-pop h4{margin:0 0 4px;font-size:15px}
+.place-pop .addr{font-size:12px;color:#555;margin-bottom:10px}
+.place-pop button{width:100%;background:var(--accent);color:var(--accent-ink);border:none;border-radius:9px;
+  font-weight:700;font-size:13px;padding:10px}
+
+/* ====================== IMPACTOS ====================== */
+.view-scroll{flex:1;overflow-y:auto;padding:34px 22px 80px}
+.container{max-width:920px;margin:0 auto}
+.view-title{font-size:30px;font-weight:800;margin:0 0 6px}
+.view-sub{color:var(--muted);font-size:15.5px;margin:0 0 26px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:22px}
+.card .step{font-size:12px;letter-spacing:1.6px;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:16px}
+.grid-2{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:720px){.grid-add{grid-template-columns:1fr 240px}}
+.lbl{display:block;font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin:0 0 8px}
+.inp{width:100%;background:#0e0e10;border:1px solid var(--border);border-radius:11px;color:var(--text);font-size:15px;padding:14px 15px}
+.inp:focus{outline:none;border-color:var(--accent)}
+.btn-accent{background:var(--accent);color:var(--accent-ink);border:none;border-radius:12px;font-weight:700;font-size:15.5px;padding:15px}
+.btn-accent:hover{filter:brightness(1.05)}
+.btn-accent:disabled{opacity:.5;cursor:not-allowed}
+.locais-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.local-item{display:flex;align-items:center;gap:12px;background:#0e0e10;border:1px solid var(--border);border-radius:11px;padding:12px 14px}
+.local-item .meta{flex:1;min-width:0}
+.local-item .meta b{font-size:14.5px}
+.local-item .meta span{display:block;font-size:12px;color:var(--muted)}
+.local-item .pl{font-size:13px;color:var(--accent);font-weight:600;white-space:nowrap}
+.local-item .x{background:none;border:none;color:var(--muted);font-size:18px;padding:4px 6px}
+.local-item .x:hover{color:var(--danger)}
+.results-grid{display:grid;grid-template-columns:1fr;gap:16px;text-align:center;margin:6px 0 18px}
+@media(min-width:720px){.results-grid{grid-template-columns:repeat(3,1fr)}}
+.result-box{background:#0e0e10;border:1px solid var(--border);border-radius:12px;padding:20px}
+.result-box .rv{font-size:30px;font-weight:800;color:var(--accent)}
+.result-box .rl{font-size:13px;color:var(--muted);margin-top:4px}
+.details p{background:#0e0e10;border-left:3px solid var(--accent);border-radius:8px;padding:11px 13px;font-size:13px;margin:8px 0;line-height:1.5}
+
+/* autocomplete */
+.ac-wrap{position:relative}
+.ac-list{position:absolute;z-index:40;left:0;right:0;top:calc(100% + 6px);background:#151519;border:1px solid var(--border-strong);
+  border-radius:12px;max-height:280px;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.ac-item{padding:12px 15px;font-size:14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px}
+.ac-item:last-child{border-bottom:none}
+.ac-item:hover,.ac-item.hl{background:var(--panel-2)}
+.ac-item .star{color:var(--accent)}
+.ac-item small{color:var(--muted);margin-left:auto}
+
+/* ====================== PROPOSTA (drawer) ====================== */
+.drawer-mask{position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:.2s}
+.drawer-mask.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(92vw,560px);z-index:810;background:#0c0c0e;border-left:1px solid var(--border);
+  transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.drawer-head{display:flex;align-items:flex-start;justify-content:space-between;padding:22px 24px;border-bottom:1px solid var(--border)}
+.drawer-head .k{font-size:12px;letter-spacing:1.6px;color:var(--accent);text-transform:uppercase;font-weight:700}
+.drawer-head h2{margin:6px 0 0;font-size:24px;font-weight:800}
+.drawer-close{background:var(--panel-2);border:1px solid var(--border);color:var(--text);width:40px;height:40px;border-radius:11px;font-size:18px}
+.drawer-close:hover{background:var(--panel-3)}
+.drawer-body{flex:1;overflow-y:auto;padding:22px 24px}
+.drawer-body .empty{color:var(--muted);font-size:15px;line-height:1.6}
+.cart-item{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:15px 16px;margin-bottom:12px}
+.cart-item .ci-top{display:flex;justify-content:space-between;gap:10px}
+.cart-item b{font-size:15px}
+.cart-item .ci-sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+.cart-item .ci-x{background:none;border:none;color:var(--muted);font-size:17px}
+.cart-item .ci-x:hover{color:var(--danger)}
+.cart-item .ci-stats{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
+.cart-item .ci-stats div span{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.cart-item .ci-stats div b{font-size:15px;color:var(--accent)}
+.drawer-foot{border-top:1px solid var(--border);padding:18px 24px;display:flex;flex-direction:column;gap:10px}
+.drawer-foot .totals{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:4px}
+.drawer-foot .totals b{color:var(--text);font-size:16px}
+.btn-outline{background:transparent;border:1px solid var(--border-strong);color:var(--text);border-radius:12px;font-weight:600;font-size:15px;padding:14px}
+.btn-outline:hover{background:var(--panel)}
+
+@media(max-width:860px){
+  .sidebar{width:340px}
+  .topbar .hint{display:none}
+}
+@media(max-width:680px){
+  .stage{flex-direction:column}
+  .sidebar{width:100%;height:46%;border-right:none;border-bottom:1px solid var(--border)}
+  .map-wrap{height:54%}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ PORTÃO DE ACESSO ============ -->
+<div id="gate">
+  <form class="gate-card" id="gate-form" autocomplete="off">
+    <div class="gate-brand"><div class="logo">Perifa <b>Mídia</b></div></div>
+    <h1>Acesso à plataforma</h1>
+    <p>Informe a senha interna para entrar na plataforma OOH.</p>
+    <label class="gate-label" for="gate-pass">Senha</label>
+    <div class="gate-input-wrap">
+      <input id="gate-pass" type="password" placeholder="Digite a senha" autocomplete="off">
+      <button type="button" class="gate-eye" id="gate-eye" aria-label="Mostrar senha">&#128065;</button>
+    </div>
+    <button type="submit" class="gate-btn">Entrar</button>
+    <div class="gate-err" id="gate-err"></div>
+  </form>
+</div>
+
+<!-- ============ APLICAÇÃO ============ -->
+<div id="app" class="hidden">
+  <div class="topbar">
+    <div class="logo">Perifa <b>Mídia</b></div>
+    <div class="hint" id="topbar-hint">Escolha comunidades e uma rota (ou endereço/CEP)</div>
+    <div class="actions">
+      <button class="tb-btn" id="btn-impactos">Impactos</button>
+      <button class="tb-btn" id="btn-proposta">Proposta<span class="tb-badge" id="cart-badge">0</span></button>
+      <button class="tb-btn ghost" id="btn-sair">Sair</button>
+    </div>
+  </div>
+
+  <!-- VISTA: MAPA -->
+  <div class="stage" id="view-map">
+    <aside class="sidebar">
+      <div class="sec-title">Buscar</div>
+      <div class="search">
+        <span class="ic">&#9906;</span>
+        <input id="place-search" type="text" placeholder="Comércio, favela, rua, CEP...">
+      </div>
+      <button class="btn-block" id="btn-clear">&#8635; Limpar tudo</button>
+
+      <div class="sec-title">Comércios cadastrados</div>
+      <div id="commerces-panel">
+        <div class="note">Adicione uma comunidade ao plano para listar e buscar todos os comércios salvos.</div>
+      </div>
+
+      <div class="sec-title">Rotas</div>
+      <div class="note" id="routes-note">Escolha uma comunidade em <b>Filtrar</b> para ativar as rotas.</div>
+      <div id="routes-list"></div>
+
+      <div class="sec-title">Principais comunidades</div>
+      <div class="note">134 prioritárias Perifa Mídia — busca exclusiva desta lista.</div>
+      <div class="toggle-row">
+        <label class="switch"><input type="checkbox" id="only-priority"><span class="sl"></span></label>
+        <div class="tinfo"><b>Só principais nos filtros abaixo</b><span>Restringe Estado / Cidade / Comunidade às 134 prioritárias</span></div>
+      </div>
+
+      <div class="sec-title">Filtrar por seleção</div>
+      <div class="field"><label>Estado</label><div class="sel-wrap"><select id="f-uf"></select></div></div>
+      <div class="field"><label>Cidade</label><div class="sel-wrap"><select id="f-city"></select></div></div>
+      <div class="field"><label>Comunidade</label><div class="sel-wrap"><select id="f-comm"></select></div></div>
+    </aside>
+
+    <div class="map-wrap">
+      <div id="map"></div>
+      <div class="map-hint" id="map-hint"><span class="dot"></span><span>Adicione comunidades e clique nos comércios do mapa</span></div>
+    </div>
+  </div>
+
+  <!-- VISTA: IMPACTOS -->
+  <div class="view-scroll hidden" id="view-impactos">
+    <div class="container">
+      <h1 class="view-title">Calculadora de Impacto OOH</h1>
+      <p class="view-sub">Metodologia VAC (Visibility Adjusted Contact) — estimativa de impressões por comunidade.</p>
+
+      <div class="card">
+        <div class="step">1 · Locais da campanha</div>
+        <div class="note">Adicione favelas/comunidades com a quantidade de placas em cada uma.</div>
+        <div class="grid-2 grid-add" style="margin-top:16px">
+          <div class="ac-wrap">
+            <label class="lbl">Buscar comunidade</label>
+            <input class="inp" id="imp-search" type="text" placeholder="Buscar favela ou comunidade..." autocomplete="off">
+            <div class="ac-list hidden" id="imp-ac"></div>
+          </div>
+          <div>
+            <label class="lbl">Placas neste local</label>
+            <input class="inp" id="imp-plates" type="number" min="1" value="1">
+          </div>
+        </div>
+        <button class="btn-accent" id="imp-add" style="width:100%;margin-top:14px">+ Adicionar local</button>
+        <div class="locais-list" id="imp-locais"></div>
+      </div>
+
+      <div class="card">
+        <div class="step">2 · Campanha</div>
+        <label class="lbl">Tempo de vinculação (dias)</label>
+        <input class="inp" id="imp-days" type="number" min="1" value="14">
+        <label class="lbl" style="margin-top:16px">Tipo de mídia</label>
+        <div class="sel-wrap" style="position:relative">
+          <select class="inp" id="imp-media">
+            <option value="ooh">OOH Estático (placas, outdoors)</option>
+            <option value="dooh">DOOH Digital (painéis digitais)</option>
+          </select>
+        </div>
+        <label class="lbl" style="margin-top:16px">Valor da proposta (R$) — opcional</label>
+        <input class="inp" id="imp-value" type="text" placeholder="0,00">
+        <div class="note" style="margin-top:10px">Preencha para calcular o CPM.</div>
+        <button class="btn-accent" id="imp-calc" style="width:100%;margin-top:18px">Calcular impacto</button>
+      </div>
+
+      <div class="card">
+        <div class="step">Resultado da estimativa</div>
+        <div id="imp-result">
+          <div class="note">Adicione locais, informe os dias e clique em <b>Calcular impacto</b>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROPOSTA (DRAWER) ============ -->
+<div class="drawer-mask" id="drawer-mask"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div><div class="k">Proposta OOH</div><h2 id="cart-title">Carrinho (0)</h2></div>
+    <button class="drawer-close" id="drawer-close">&times;</button>
+  </div>
+  <div class="drawer-body" id="cart-body">
+    <div class="empty">Nenhuma seleção salva ainda. Faça as estimativas em <b>Impactos</b> e clique em <b>Adicionar à proposta</b>.</div>
+  </div>
+  <div class="drawer-foot">
+    <div class="totals"><span>Total de impressões</span><b id="cart-total-imp">0</b></div>
+    <div class="totals"><span>Investimento</span><b id="cart-total-val">R$ 0,00</b></div>
+    <button class="btn-accent" id="cart-export">Exportar proposta em PDF</button>
+    <button class="btn-outline" id="cart-clear">Esvaziar carrinho</button>
+  </div>
+</aside>
+
+<script src="/plataforma-ooh/dados.js?v=3"></script>
+<script src="/plataforma-ooh/app.js?v=3"></script>
+</body>
+</html>

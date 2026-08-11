@@ -20,19 +20,19 @@ const CONFIG = {
 /* Cada rota agrupa categorias de comércio buscadas no Google Places por
    palavra-chave, num raio ao redor de cada comunidade adicionada ao plano. */
 const ROTAS = [
-  { id: 'r1', nome: 'ROTA 01', cor: '#3B82F6',
+  { id: 'r1', nome: 'ROTA 01', cor: '#38BDF8',
     desc: 'Bancas, lotéricas, bancos, farmácias e mercados',
     cats: 'Banca · Lotérica · Banco · Farmácia',
     keywords: ['banca de jornal', 'lotérica', 'banco', 'farmácia', 'supermercado'] },
-  { id: 'r2', nome: 'ROTA 02', cor: '#22C55E',
+  { id: 'r2', nome: 'ROTA 02', cor: '#4ADE80',
     desc: 'Campos de futebol, quadras, praças e bares/botecos',
     cats: 'Campo / Quadra · Praça · Bar / Boteco · Esporte',
     keywords: ['campo de futebol', 'quadra poliesportiva', 'praça', 'bar', 'boteco'] },
-  { id: 'r3', nome: 'ROTA 03', cor: '#EC4899',
+  { id: 'r3', nome: 'ROTA 03', cor: '#F472B6',
     desc: 'UBS, postos de saúde, barbearias, saúde/beleza e igrejas',
     cats: 'UBS / Saúde · Posto de Saúde · Barbearia · Salão de Beleza',
     keywords: ['UBS', 'posto de saúde', 'barbearia', 'salão de beleza', 'igreja'] },
-  { id: 'r4', nome: 'ROTA 04', cor: '#F5C542',
+  { id: 'r4', nome: 'ROTA 04', cor: '#FBBF24',
     desc: 'Principais avenidas, ruas e locais de alto fluxo na comunidade',
     cats: 'Avenidas · alto fluxo · score',
     keywords: ['avenida', 'terminal de ônibus', 'mercado municipal'] },
@@ -333,17 +333,12 @@ function showMapMissing(msg) {
   $('#map-hint').classList.add('hidden');
 }
 function initMap() {
-  const styles = [ // tema escuro discreto
-    { elementType: 'geometry', stylers: [{ color: '#1d1d1f' }] },
-    { elementType: 'labels.text.stroke', stylers: [{ color: '#1d1d1f' }] },
-    { elementType: 'labels.text.fill', stylers: [{ color: '#9aa0a6' }] },
-    { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#2a2a2e' }] },
-    { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0e1626' }] },
-    { featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'off' }] },
-  ];
+  // Mesma configuração da referência: satélite (híbrido) por padrão e controles nativos.
   map = new google.maps.Map($('#map'), {
-    center: CONFIG.MAP_CENTER, zoom: CONFIG.MAP_ZOOM, styles,
-    mapTypeControl: true, streetViewControl: false, fullscreenControl: true,
+    center: CONFIG.MAP_CENTER, zoom: CONFIG.MAP_ZOOM,
+    mapTypeId: google.maps.MapTypeId.HYBRID,
+    mapTypeControl: true, streetViewControl: true, fullscreenControl: true, zoomControl: true,
+    mapTypeControlOptions: { position: google.maps.ControlPosition.TOP_LEFT },
   });
   geocoder = new google.maps.Geocoder();
   placesService = new google.maps.places.PlacesService(map);
@@ -371,7 +366,7 @@ function geocodeComunidade(item) {
         map, position: loc, title: item.comunidade,
         icon: {
           path: google.maps.SymbolPath.CIRCLE, scale: 9,
-          fillColor: '#FFD400', fillOpacity: 1, strokeColor: '#000', strokeWeight: 2,
+          fillColor: '#FBBF24', fillOpacity: 1, strokeColor: '#000', strokeWeight: 2,
         },
       });
       const iw = new google.maps.InfoWindow({ content: `<div class="place-pop"><h4>${item.comunidade}</h4><div class="addr">${item.cidade}/${item.uf} · ${nf.format(popDaComunidade(item))} hab.</div></div>` });
@@ -581,7 +576,7 @@ function exportarProposta() {
     <td style="text-align:right">${it.valor ? cf.format(it.valor) : '—'}</td></tr>`).join('');
   const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>Proposta OOH — Perifa Mídia</title>
     <style>body{font-family:Arial,Helvetica,sans-serif;color:#111;margin:40px}
-    .brand{font-weight:800;font-size:22px;text-transform:uppercase}.brand b{background:#FFD400;padding:2px 8px;border-radius:6px}
+    .brand{font-weight:800;font-size:22px;text-transform:uppercase}.brand b{background:#FBBF24;padding:2px 8px;border-radius:6px}
     h1{font-size:26px;margin:18px 0 4px}.sub{color:#666;margin-bottom:24px}
     table{width:100%;border-collapse:collapse;margin-top:10px}th,td{border-bottom:1px solid #ddd;padding:12px 10px;font-size:14px;text-align:left}
     th{background:#faf3cf;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
@@ -593,7 +588,7 @@ function exportarProposta() {
     <table><thead><tr><th>Seleção</th><th style="text-align:right">Impressões</th><th style="text-align:right">Investimento</th></tr></thead>
     <tbody>${linhas}</tbody>
     <tfoot><tr><td>Total</td><td style="text-align:right">${nf.format(totImp)}</td><td style="text-align:right">${cf.format(totVal)}</td></tr></tfoot></table>
-    <p style="margin-top:30px"><button onclick="window.print()" style="padding:12px 20px;background:#FFD400;border:none;border-radius:8px;font-weight:700;cursor:pointer">Imprimir / Salvar em PDF</button></p>
+    <p style="margin-top:30px"><button onclick="window.print()" style="padding:12px 20px;background:#FBBF24;border:none;border-radius:8px;font-weight:700;cursor:pointer">Imprimir / Salvar em PDF</button></p>
     </body></html>`;
   const w = window.open('', '_blank');
   if (!w) { alert('Permita pop-ups para exportar a proposta.'); return; }

@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Guanabara × Perifa Mídia — Proposta Comercial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--blue:#073c85;--blue2:#0a64b8;--cyan:#05aee8;--yellow:#ffd31a;--red:#e31b23;--ink:#0d2142;--muted:#58718a;--soft:#f2f8fc;--soft2:#eaf4fb;--line:#d5e8f5;--card:#ffffff;}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#ffffff;color:var(--ink);overflow-x:hidden}
+button,select{font:inherit} a{color:inherit}
+.shell{max-width:1440px;margin:auto;padding:0 28px} .condensed{font-family:'Arial Narrow',Impact,Inter,sans-serif;font-weight:900;letter-spacing:.005em}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topbar .shell{height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px} .brand{display:flex;align-items:center;gap:12px;font-weight:900;color:var(--blue)} .bag{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;background:var(--yellow);color:var(--blue);font-size:19px;font-weight:900} .sep{opacity:.35} .perifa{font-weight:900;letter-spacing:.1em} .nav{display:flex;gap:4px;flex-wrap:wrap} .nav a{font-size:12px;text-transform:uppercase;text-decoration:none;padding:9px 11px;border-radius:999px;color:var(--muted);font-weight:700} .nav a:hover{background:var(--soft2);color:var(--blue)}
+.hero{min-height:660px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:42px;padding:66px 28px 52px;position:relative} .hero:before{content:'';position:absolute;inset:-140px auto auto -260px;width:620px;height:620px;background:radial-gradient(circle,rgba(255,211,26,.30),transparent 65%);pointer-events:none} .eyebrow{color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:.09em;margin-bottom:12px;font-size:12px} .hero h1{font-size:clamp(52px,7vw,116px);line-height:.86;margin:0;text-transform:uppercase;color:var(--blue)} .hero h1 span{color:var(--yellow);-webkit-text-stroke:1.5px var(--blue)} .hero p{font-size:19px;line-height:1.55;color:var(--muted);max-width:720px;margin:26px 0} .hero p b{color:var(--ink)} .hero-actions{display:flex;gap:12px;flex-wrap:wrap} .btn{border:0;border-radius:12px;padding:14px 18px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-block} .btn.primary{background:var(--blue);color:#fff} .btn.secondary{background:#fff;color:var(--blue);border:1px solid var(--line)}
+.hero-visual{position:relative;border-radius:26px;overflow:hidden;background:linear-gradient(140deg,#073c85,#0869bd);box-shadow:0 28px 70px rgba(6,63,143,.30);padding:30px;min-height:400px;display:flex;flex-direction:column;justify-content:space-between;color:#fff} .hero-visual .hv-kick{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--yellow);text-transform:uppercase}
+.journey{display:flex;flex-direction:column;gap:10px;margin:20px 0} .jstep{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:13px 15px} .jstep.j4{background:var(--yellow);border-color:var(--yellow);color:var(--blue)} .jstep .jn{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:12px;font-weight:900;flex:none} .jstep.j4 .jn{background:var(--blue);color:#fff} .jstep b{font-size:15px;display:block} .jstep small{font-size:11px;opacity:.85;display:block;margin-top:1px}
+.hero-badge{display:flex;gap:8px;flex-wrap:wrap} .pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding:8px 28px 70px} .kpi{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;min-height:132px;transition:.25s;box-shadow:0 6px 20px rgba(6,63,143,.05)} .kpi:hover{transform:translateY(-4px);border-color:var(--blue2)} .kpi .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700} .kpi .value{font-size:36px;font-weight:900;margin:8px 0 4px;color:var(--blue)} .kpi .sub{font-size:12px;color:var(--muted)} .kpi.yellow .value{color:#c9a200} .kpi.red .value{color:var(--red)}
+.section{padding:82px 0;border-top:1px solid var(--line)} .section.alt{background:var(--soft)} .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:30px} .section-head h2{font-size:clamp(38px,4.6vw,68px);line-height:.96;margin:0;text-transform:uppercase;color:var(--blue)} .section-head p{max-width:600px;color:var(--muted);line-height:1.55;margin:0} .section-kicker{color:var(--cyan);font-weight:900;text-transform:uppercase;font-size:12px;letter-spacing:.08em;margin-bottom:10px}
+/* Desafio / journey story */
+.story{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:10px;align-items:stretch;margin-top:12px} .story>div{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;min-height:180px} .story>div.hl{background:var(--yellow);border-color:var(--yellow)} .story .sn{font-size:11px;font-weight:900;color:var(--cyan)} .story .hl .sn{color:var(--blue)} .story b{display:block;font-size:24px;color:var(--blue);margin:12px 0 8px} .story p{color:var(--muted);font-size:13px;line-height:1.5;margin:0} .story>i{align-self:center;font-size:26px;color:var(--blue2);font-style:normal}
+/* Estratégia criteria */
+.criteria{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:8px} .crit{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px} .crit b{display:block;font-size:21px;color:var(--blue);margin-bottom:7px} .crit p{color:var(--muted);font-size:13px;line-height:1.5;margin:0}
+.flowline{display:inline-flex;align-items:center;gap:14px;background:var(--blue);color:#fff;border-radius:999px;padding:14px 24px;font-weight:900;font-size:clamp(18px,2.4vw,30px);text-transform:uppercase;letter-spacing:.02em;margin-bottom:26px} .flowline span{color:var(--yellow)}
+/* Rotas cards */
+.media-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:13px} .media-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;min-height:240px} .media-icon{width:46px;height:46px;border-radius:13px;background:var(--soft2);display:grid;place-items:center;color:var(--blue);font-size:22px;font-weight:900} .media-card h3{font-size:20px;margin:16px 0 8px;color:var(--blue)} .media-card p{color:var(--muted);font-size:13px;line-height:1.5;margin:0}
+/* Mapa */
+.filters{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:20px 0} .filter-btn{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:10px 14px;cursor:pointer;font-weight:800;font-size:13px} .filter-btn.active,.filter-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)} select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.map-grid{display:grid;grid-template-columns:1.5fr .7fr;gap:16px} .map-card,.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden} .map-card{padding:16px} #map{width:100%;aspect-ratio:16/10;border-radius:14px;background:#dde8ef;z-index:1} .map-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--muted);font-weight:700} .map-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle} .lg-a{background:var(--red)} .lg-p{background:var(--blue2)} .lg-c{background:var(--cyan)}
+.panel{padding:22px} .panel .section-kicker{margin-bottom:8px} .panel h3{margin:0 0 6px;font-size:23px;color:var(--blue)} .panel .big{font-size:52px;font-weight:900;color:var(--blue);line-height:1} .panel .muted{color:var(--muted);line-height:1.5;font-size:14px} .territory-list{display:grid;gap:8px;margin-top:16px} .territory-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:9px;font-size:13px} .territory-row b{color:var(--ink)} .territory-row span{color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px} .chip{background:var(--soft2);color:var(--blue);padding:5px 9px;border-radius:999px;font-size:10px;font-weight:800} .metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px} .m{background:var(--soft);border-radius:10px;padding:10px} .m span{display:block;font-size:9px;text-transform:uppercase;color:var(--muted);font-weight:800} .m b{display:block;color:var(--blue);margin-top:3px;font-size:14px} .flow{border-top:1px solid var(--line);margin-top:11px;padding-top:9px} .flow span{display:block;font-size:9px;text-transform:uppercase;color:var(--muted);font-weight:800} .flow b{font-size:13px;color:var(--ink)}
+.bars{display:grid;grid-template-columns:repeat(18,1fr);align-items:end;gap:6px;height:250px;padding:40px 4px 0} .barcol{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px;height:100%;cursor:pointer} .bar{width:100%;max-width:34px;height:var(--h,65%);background:linear-gradient(180deg,var(--blue2),var(--blue));border-radius:7px 7px 3px 3px;transition:.25s;position:relative;min-height:26px} .bar.wA{background:linear-gradient(180deg,#f04b52,var(--red))} .bar.wC{background:linear-gradient(180deg,#3fc4f0,var(--cyan))} .barcol:hover .bar,.barcol.active .bar{filter:brightness(1.06);box-shadow:0 6px 16px rgba(6,63,143,.28)} .barvalue{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-weight:900;color:var(--blue);font-size:12px} .barlabel{font-size:9px;color:var(--muted);text-align:center;line-height:1.15;min-height:34px;font-weight:600}
+/* Economia */
+.econ-big{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px} .econ-big>div{background:var(--blue);color:#fff;border-radius:24px;padding:32px;min-height:230px;display:flex;flex-direction:column;justify-content:flex-end} .econ-big>div.hl{background:var(--yellow);color:var(--blue)} .econ-big span{font-size:11px;font-weight:900;letter-spacing:.04em} .econ-big .amt{font-size:clamp(46px,5.4vw,80px);font-weight:900;line-height:1;margin:12px 0 5px} .econ-big small{font-size:18px;font-weight:800} .econ-big em{font-size:12px;margin-top:8px;font-style:normal;opacity:.8}
+.headRow{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:20px} .toggle{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px;display:flex} .toggle button{border:0;background:transparent;padding:10px 16px;border-radius:999px;font-weight:800;color:var(--blue);cursor:pointer} .toggle .active{background:var(--blue);color:#fff} .cats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px} .cat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px} .cat span{font-size:10px;font-weight:900;text-transform:uppercase;color:var(--muted)} .cat b{display:block;color:var(--blue);font-size:24px;margin:9px 0 4px} .cat small{color:var(--muted);font-size:10px} .source{color:var(--muted);font-size:12px;margin-top:14px}
+/* Distribuição */
+.dist{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:stretch;margin-top:6px} .dist>div:not(.op){border-radius:22px;padding:28px;min-height:230px;display:flex;flex-direction:column;justify-content:flex-end} .dist .base{background:var(--card);border:1px solid var(--line)} .dist .boost{background:var(--blue);color:#fff} .dist .tot{background:var(--yellow);color:var(--blue)} .dist span{font-size:11px;font-weight:900} .dist .amt{display:block;font-size:46px;font-weight:900;margin:14px 0} .dist p{font-size:13px;line-height:1.5;margin:0;color:var(--muted)} .dist .boost p{color:#dceeff} .dist .tot p{color:var(--blue)} .dist .op{align-self:center;font-size:36px;font-weight:900;color:var(--blue2)}
+/* Impacto */
+.impact{display:grid;grid-template-columns:.85fr 1.15fr;gap:16px} .impact-total{background:linear-gradient(150deg,#073c85,#0869bd);color:#fff;border-radius:22px;padding:32px} .impact-total .total{font-size:clamp(64px,7.5vw,116px);font-weight:900;line-height:.9} .impact-total .total span{color:var(--yellow)} .impact-total p{color:#dceeff;line-height:1.5} .impact-bars{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px} .impact-row{display:grid;grid-template-columns:170px 1fr 96px;align-items:center;gap:12px;margin:14px 0} .track{height:10px;background:var(--soft2);border-radius:999px;overflow:hidden} .fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));border-radius:999px;width:var(--w)} .impact-row .name{font-size:12px;font-weight:800} .impact-row .range{text-align:right;font-size:12px;color:var(--muted);font-weight:700} .formula{margin-top:18px;display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:12px 18px;color:var(--muted);font-size:13px} .formula b{color:var(--blue)}
+/* Cenários */
+.scen{display:grid;grid-template-columns:1fr 1fr;gap:14px} .scen article{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px} .scen .opt{background:var(--blue);color:#fff} .scen .tag{font-size:10px;font-weight:900;color:var(--cyan)} .scen .opt .tag{color:var(--yellow)} .scen h3{font-size:25px;color:var(--blue);margin:8px 0 14px} .scen .opt h3{color:#fff} .scenNum{font-size:58px;font-weight:900;color:var(--red)} .scen .opt .scenNum{color:var(--yellow)} .scenNum span{font-size:13px;color:var(--muted);font-weight:700} .scen .opt .scenNum span{color:#dceeff} .scenM{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0} .scenM b{background:var(--soft);padding:10px 12px;border-radius:11px;color:var(--blue);font-size:14px} .scen .opt .scenM b{background:rgba(255,255,255,.12);color:#fff} .scenM span{font-size:9px;font-weight:500;display:block} .scen p{font-size:12px;line-height:1.5;color:var(--muted);margin:0} .scen .opt p{color:#dceeff} .decision{background:var(--yellow);color:var(--blue);border-radius:16px;padding:18px 22px;margin-top:14px;display:flex;gap:16px;align-items:center;font-size:13px;flex-wrap:wrap} .decision b{font-size:15px}
+/* Investimento */
+.commercial{background:var(--soft);border:1px solid var(--line);border-radius:28px;padding:38px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center} .commercial h2{font-size:clamp(40px,5vw,72px);margin:0;line-height:.92;text-transform:uppercase;color:var(--blue)} .commercial p{color:var(--muted);line-height:1.5;max-width:620px} .price{background:var(--blue);color:#fff;border-radius:22px;padding:30px} .price .plabel{font-size:11px;text-transform:uppercase;color:#bcd6f2;font-weight:800} .price .amount{font-size:clamp(46px,5vw,74px);font-weight:900;color:var(--yellow);line-height:1;margin:10px 0} .price .incl{color:#dceeff;font-size:12px;line-height:1.6}
+footer{padding:38px 0 60px;color:var(--muted);font-size:12px} .reveal{opacity:0;transform:translateY(18px);transition:.6s} .reveal.show{opacity:1;transform:none}
+@media(max-width:980px){.nav{display:none} .hero{grid-template-columns:1fr;padding-top:44px} .kpis{grid-template-columns:repeat(2,1fr)} .map-grid,.impact,.commercial,.econ-big,.scen{grid-template-columns:1fr} .criteria,.cats{grid-template-columns:repeat(2,1fr)} .media-grid{grid-template-columns:repeat(2,1fr)} .story,.dist{grid-template-columns:1fr} .story>i,.dist .op{display:none} .bars{grid-template-columns:repeat(9,1fr);height:auto} .barcol{height:120px} .section-head{display:block} .section-head p{margin-top:14px}}
+@media(max-width:620px){.shell,.hero,.kpis{padding-left:16px;padding-right:16px} .hero h1{font-size:52px} .kpis,.criteria,.cats,.media-grid{grid-template-columns:1fr} .bars{grid-template-columns:repeat(6,1fr)} .impact-row{grid-template-columns:110px 1fr} .impact-row .range{grid-column:2;text-align:left}}
+</style>
+</head>
+<body>
+
+<!-- ===== PORTÃO DE SENHA ===== -->
+<style id="pm-gate-style">
+html.pm-locked,html.pm-locked body{overflow:hidden!important}
+.pm-gate{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(1200px 600px at 50% -8%,rgba(255,211,26,.22),transparent 60%),linear-gradient(135deg,#063f8f,#0869bd);font-family:Inter,Arial,Helvetica,sans-serif}
+.pm-gate__card{width:100%;max-width:410px;background:#fff;border:1px solid #d5e8f5;border-radius:20px;padding:40px 34px;text-align:center;box-shadow:0 34px 90px rgba(6,63,143,.45)}
+.pm-gate__brand{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:22px;color:#073c85;font-weight:900;font-size:14px;letter-spacing:.04em}
+.pm-gate__bag{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:#ffd31a;color:#073c85;font-size:18px;font-weight:900}
+.pm-gate__eyebrow{font-size:11px;letter-spacing:.12em;font-weight:900;color:#0ab6ef;text-transform:uppercase;margin:0}
+.pm-gate__card h1{font-size:22px;font-weight:900;margin:8px 0 22px;line-height:1.15;color:#073c85}
+.pm-gate__card input{width:100%;min-height:52px;padding:14px 16px;font-size:15px;background:#f2f8fc;border:1px solid #d5e8f5;border-radius:11px;color:#0d2142}
+.pm-gate__card input:focus{outline:none;border-color:#0869bd;box-shadow:0 0 0 3px rgba(8,105,189,.18)}
+.pm-gate__card button{width:100%;margin-top:14px;min-height:52px;border:none;border-radius:11px;background:#073c85;color:#fff;font-weight:900;text-transform:uppercase;letter-spacing:.04em;font-size:12px;cursor:pointer;transition:filter .16s ease}
+.pm-gate__card button:hover{filter:brightness(1.12)}
+.pm-gate__card button:disabled{opacity:.7;cursor:wait}
+.pm-gate__msg{margin-top:14px;font-size:13px;min-height:18px;color:#e31b23;font-weight:700}
+</style>
+<div class="pm-gate" id="pm-gate" role="dialog" aria-modal="true" aria-label="Acesso restrito">
+  <form class="pm-gate__card" id="pm-gate-form" autocomplete="off">
+    <div class="pm-gate__brand"><span class="pm-gate__bag">&#128274;</span><span>GUANABARA &times; PERIFA M&Iacute;DIA</span></div>
+    <p class="pm-gate__eyebrow">Acesso restrito</p>
+    <h1>Proposta confidencial</h1>
+    <input type="password" id="pm-gate-senha" placeholder="Senha de acesso" autocomplete="current-password" required autofocus>
+    <button type="submit" id="pm-gate-btn">Entrar</button>
+    <div class="pm-gate__msg" id="pm-gate-msg"></div>
+  </form>
+</div>
+
+<header class="topbar"><div class="shell"><div class="brand"><span class="bag">G</span><span>GUANABARA</span><span class="sep">×</span><span class="perifa">PERIFA MÍDIA</span></div><nav class="nav"><a href="#visao">Visão</a><a href="#desafio">Desafio</a><a href="#estrategia">Estratégia</a><a href="#mapa">Mapa</a><a href="#economia">Economia</a><a href="#impacto">Impacto</a><a href="#investimento">Investimento</a></nav></div></header>
+
+<main>
+<!-- HERO -->
+<section class="shell hero" id="visao">
+<div><div class="eyebrow">Proposta comercial · OOH territorial</div><h1 class="condensed">DA CASA<br><span>ÀS LOJAS</span></h1><p>Da casa até as lojas, a Perifa Mídia ajuda o Guanabara a acompanhar a <b>jornada do consumidor periférico</b> — transformando presença territorial em frequência, lembrança e rota de compra.</p><div class="hero-actions"><a class="btn primary" href="#mapa">Explorar o território</a><a class="btn secondary" href="#investimento">Ver investimento</a></div></div>
+<div class="hero-visual"><div class="hv-kick">A jornada até a compra</div>
+<div class="journey">
+<div class="jstep"><span class="jn">1</span><div><b>Casa</b><small>O consumidor começa a jornada dentro do território.</small></div></div>
+<div class="jstep"><span class="jn">2</span><div><b>Rotina</b><small>Circula por comércio, transporte, lazer e serviços.</small></div></div>
+<div class="jstep"><span class="jn">3</span><div><b>Lembrança</b><small>A repetição transforma exposição em presença de marca.</small></div></div>
+<div class="jstep j4"><span class="jn">4</span><div><b>Guanabara</b><small>A estratégia orienta essa presença para a rota de compra.</small></div></div>
+</div>
+<div class="hero-badge"><span class="pill">111 faces OOH</span><span class="pill">18 comunidades</span><span class="pill">45 dias</span><span class="pill">6 clusters</span></div>
+</div>
+</section>
+
+<!-- KPIS -->
+<section class="shell kpis reveal">
+<div class="kpi"><div class="label">Faces OOH</div><div class="value">111</div><div class="sub">90 base + 21 reforço estratégico</div></div>
+<div class="kpi"><div class="label">Comunidades</div><div class="value">18</div><div class="sub">em 6 clusters territoriais</div></div>
+<div class="kpi"><div class="label">Período</div><div class="value">45 <small style="font-size:20px">dias</small></div><div class="sub">campanha territorial</div></div>
+<div class="kpi yellow"><div class="label">Impactos / 45 dias</div><div class="value">≈4,33M</div><div class="sub">cenário de eficiência concentrada</div></div>
+<div class="kpi red"><div class="label">CPM estimado</div><div class="value">R$46</div><div class="sub">R$ 199.800 ÷ 4,33 mi × 1.000</div></div>
+</section>
+
+<!-- DESAFIO -->
+<section class="section" id="desafio"><div class="shell">
+<div class="section-head"><div><div class="section-kicker">O desafio</div><h2 class="condensed">Estar perto da rotina<br>para ser lembrado</h2></div><p>O desafio não é apenas aparecer próximo à loja. É construir presença ao longo dos caminhos cotidianos que antecedem a decisão de compra.</p></div>
+<div class="story">
+<div><div class="sn">01</div><b>Casa</b><p>O consumidor começa sua jornada dentro do território.</p></div>
+<i>→</i>
+<div><div class="sn">02</div><b>Rotina</b><p>Circula por comércio, transporte, lazer e serviços ao longo do dia.</p></div>
+<i>→</i>
+<div><div class="sn">03</div><b>Lembrança</b><p>A repetição transforma exposição em presença de marca.</p></div>
+<i>→</i>
+<div class="hl"><div class="sn">04</div><b>Guanabara</b><p>A estratégia orienta essa presença para a rota de compra.</p></div>
+</div>
+</div></section>
+
+<!-- ESTRATÉGIA -->
+<section class="section alt" id="estrategia"><div class="shell">
+<div class="flowline">Território <span>→</span> rota <span>→</span> loja</div>
+<div class="section-head" style="margin-bottom:22px"><div><div class="section-kicker">Estratégia territorial</div><h2 class="condensed">Seis critérios<br>de seleção</h2></div><p>A seleção combina escala de moradores, concentração territorial, força econômica e relação geográfica com as lojas Guanabara — lendo também a pressão competitiva do Mundial.</p></div>
+<div class="criteria">
+<div class="crit"><b>População</b><p>Escala de audiência residente potencial.</p></div>
+<div class="crit"><b>Densidade</b><p>Concentração espacial e eficiência territorial.</p></div>
+<div class="crit"><b>Renda + consumo</b><p>Relevância econômica dos clusters selecionados.</p></div>
+<div class="crit"><b>Destino</b><p>Relação território → loja Guanabara.</p></div>
+<div class="crit"><b>Concorrência</b><p>Leitura da pressão exercida pelo Mundial.</p></div>
+<div class="crit"><b>Não sobreposição</b><p>Comunidades complementares, evitando redundância desnecessária.</p></div>
+</div>
+</div></section>
+
+<!-- ROTAS -->
+<section class="section" id="rotas"><div class="shell">
+<div class="section-head"><div><div class="section-kicker">As cinco rotas</div><h2 class="condensed">Comprar as cinco<br>é viver o território</h2></div><p>Cada rota cobre um momento da vida cotidiana. Juntas, formam a anatomia completa da circulação dentro da comunidade.</p></div>
+<div class="media-grid">
+<div class="media-card"><div class="media-icon">①</div><h3>Entrada</h3><p>Acessos principais, ônibus, vans e estações. Frequência de ida e volta.</p></div>
+<div class="media-card"><div class="media-icon">②</div><h3>Comércio</h3><p>Mercados, farmácias, lotéricas, feiras e pontos de decisão de consumo.</p></div>
+<div class="media-card"><div class="media-icon">③</div><h3>Lazer</h3><p>Praças, quadras, campos, bares e espaços de maior permanência.</p></div>
+<div class="media-card"><div class="media-icon">④</div><h3>Circulação</h3><p>Vias, becos, vielas e escadarias que conectam as demais rotas.</p></div>
+<div class="media-card"><div class="media-icon">⑤</div><h3>Cuidado</h3><p>Saúde, salões, igrejas e centros comunitários ligados à confiança e rotina.</p></div>
+</div>
+</div></section>
+
+<!-- MAPA -->
+<section class="section alt" id="mapa"><div class="shell">
+<div class="section-head"><div><div class="section-kicker">Visualização da execução</div><h2 class="condensed">Mapa dinâmico<br>do território</h2></div><p>Filtre por peso estratégico ou selecione uma comunidade para consultar seus dados, sua loja Guanabara de destino e a relação território → rota → loja.</p></div>
+<div class="filters"><button class="filter-btn active" data-group="all">Todas</button><button class="filter-btn" data-group="Âncora">Âncora</button><button class="filter-btn" data-group="Prioritária">Prioritária</button><button class="filter-btn" data-group="Cobertura">Cobertura</button><select id="commSelect"><option value="all">Selecione uma comunidade</option></select></div>
+<div class="map-grid">
+<div class="map-card"><div id="map"></div><div class="map-legend"><span><i class="lg-a"></i>Âncora</span><span><i class="lg-p"></i>Prioritária</span><span><i class="lg-c"></i>Cobertura</span><span style="margin-left:auto">Clique nos pontos para explorar</span></div></div>
+<div class="panel" id="panel"></div>
+</div>
+<div class="panel" style="margin-top:16px"><div class="section-head" style="margin-bottom:0"><div><div class="section-kicker">Distribuição</div><h3 style="font-size:25px;margin:0;color:var(--blue)">Faces por comunidade</h3></div><p style="font-size:13px">111 faces distribuídas pelas 18 comunidades, com piso de presença por rota e reforço nos territórios de maior escala.</p></div><div class="bars" id="bars"></div><div style="margin-top:14px;color:var(--muted);font-size:11px;line-height:1.45">Cor por peso estratégico: <b style="color:var(--red)">Âncora</b> · <b style="color:var(--blue2)">Prioritária</b> · <b style="color:var(--cyan)">Cobertura</b>. Clique para destacar a comunidade no mapa.</div></div>
+</div></section>
+
+<!-- ECONOMIA -->
+<section class="section" id="economia"><div class="shell">
+<div class="section-head"><div><div class="section-kicker">Força econômica</div><h2 class="condensed">Escala de audiência.<br>Capacidade de consumo.</h2></div><p>Leitura econômica construída a partir do cruzamento dos dados territoriais do Geofusion com a POF/IBGE.</p></div>
+<div class="econ-big">
+<div><span>RENDA AGREGADA ESTIMADA</span><b class="amt">R$ 44,5 mi</b><small>por mês</small><em>≈ R$ 534 mi / ano</em></div>
+<div class="hl"><span>CONSUMO ESTIMADO</span><b class="amt">≈ R$ 427 mi</b><small>por ano</small><em>≈ R$ 35,6 mi / mês</em></div>
+</div>
+<div style="margin-top:42px">
+<div class="headRow"><div><div class="section-kicker">Consumo por categoria</div><h3 style="font-size:28px;color:var(--blue);margin:6px 0 0">Onde o orçamento das famílias circula</h3></div><div class="toggle"><button data-p="annual" class="active">Anual</button><button data-p="monthly">Mensal</button></div></div>
+<div id="cats" class="cats"></div>
+<p class="source">A distribuição cruza dados territoriais do Geofusion com a POF/IBGE para estimar a composição do consumo das 18 comunidades selecionadas.</p>
+</div>
+</div></section>
+
+<!-- DISTRIBUIÇÃO -->
+<section class="section alt" id="distribuicao"><div class="shell">
+<div class="section-head"><div><div class="section-kicker">Distribuição e otimização</div><h2 class="condensed">Cobrir a anatomia,<br>depois pressionar</h2></div><p>Primeiro cobrimos a anatomia do território. Depois aumentamos a pressão onde ela vale mais.</p></div>
+<div class="dist">
+<div class="base"><span>BASE DE COBERTURA</span><b class="amt">90 faces</b><p>5 faces × 18 comunidades. Uma face por rota obrigatória: Entrada, Comércio, Lazer, Circulação e Cuidado.</p></div>
+<div class="op">+</div>
+<div class="boost"><span>REFORÇO ESTRATÉGICO</span><b class="amt">21 faces</b><p>Inventário adicional direcionado aos territórios com maior escala populacional e capacidade de gerar repetição.</p></div>
+<div class="op">=</div>
+<div class="tot"><span>PLANO</span><b class="amt">111 faces</b><p>Uma arquitetura que pode ser calibrada entre capilaridade e concentração.</p></div>
+</div>
+</div></section>
+
+<!-- IMPACTO -->
+<section class="section" id="impacto"><div class="shell">
+<div class="section-head"><div><div class="section-kicker">Impactos e eficiência</div><h2 class="condensed">Presença que vira<br>repetição</h2></div><p>A modelagem considera 15% de oportunidade diária de exposição, 45 dias de campanha e recorrência de contato nas rotas territoriais.</p></div>
+<div class="impact">
+<div class="impact-total"><div class="section-kicker" style="color:var(--yellow)">Impactos / 45 dias</div><div class="total">≈4,33<span>M</span></div><p>≈ 674 mil impactos por semana. No cenário de eficiência concentrada, a mesma verba gera CPM de ≈ R$ 46,14.</p></div>
+<div class="impact-bars"><div class="section-kicker">Top comunidades por impacto (base capilaridade)</div><div id="impactBars"></div><div class="formula">População residente × faces × <b>15%</b> × período</div></div>
+</div>
+</div></section>
+
+<!-- CENÁRIOS -->
+<section class="section alt" id="cenarios"><div class="shell">
+<div class="section-head"><div><div class="section-kicker">Cenários de execução</div><h2 class="condensed">Um investimento,<br>duas estratégias</h2></div><p>111 faces · 45 dias · R$ 199.800. O que muda é a estratégia de distribuição das faces pelo território.</p></div>
+<div class="scen">
+<article><div class="tag">CENÁRIO: CAPILARIDADE TERRITORIAL</div><h3>Mais cobertura geográfica</h3><div class="scenNum">18 <span>comunidades</span></div><div class="scenM"><b>≈ 338 mil<span>/ semana</span></b><b>≈ 2,18 mi<span>/ 45 dias</span></b><b>R$ 91,86<span>CPM</span></b></div><p>Mais indicado para presença ampla, defesa territorial e cobertura simultânea de diferentes clusters.</p></article>
+<article class="opt"><div class="tag">CENÁRIO: EFICIÊNCIA CONCENTRADA</div><h3>Mais pressão e frequência</h3><div class="scenNum">5 <span>comunidades</span></div><div class="scenM"><b>≈ 674 mil<span>/ semana</span></b><b>≈ 4,33 mi<span>/ 45 dias</span></b><b>≈ R$ 46,14<span>CPM</span></b></div><p>Mais indicado quando a prioridade é eficiência de mídia, frequência e otimização de CPM.</p></article>
+</div>
+<div class="decision"><b>Flexibilidade de execução.</b><span>A Perifa Mídia pode operar qualquer uma das duas configurações mantendo o mesmo investimento e adequando a distribuição ao objetivo comercial do Guanabara.</span></div>
+</div></section>
+
+<!-- INVESTIMENTO -->
+<section class="section" id="investimento"><div class="shell"><div class="commercial"><div><div class="section-kicker">Proposta comercial</div><h2 class="condensed">45 dias de campanha.<br>Uma jornada completa.</h2><p>A proposta contempla 111 faces de OOH territorial distribuídas em 18 comunidades de 6 clusters, com base de cobertura por rota e reforço estratégico, calibrável entre capilaridade e eficiência.</p></div><div class="price"><div class="plabel">Valor da proposta</div><div class="amount">R$ 199.800</div><div class="incl">111 faces OOH · 18 comunidades · 6 clusters · 45 dias · base de cobertura + reforço estratégico · relatório território → loja</div></div></div></div></section>
+</main>
+<footer><div class="shell">PERIFA MÍDIA × GUANABARA · Presença territorial. Rota de compra. Da casa até as lojas.</div></footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data.js"></script>
+<script>
+const C=(window.COMMUNITIES||[]).slice();
+const fmt=n=>Math.round(n).toLocaleString('pt-BR');
+const money=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+const colorOf=w=>w==='Âncora'?'#e31b23':w==='Prioritária'?'#0a64b8':'#05aee8';
+const clsOf=w=>w==='Âncora'?'wA':w==='Prioritária'?'wP':'wC';
+
+/* ---------- MAPA ---------- */
+let map=null, markers={}, currentList=C;
+function initMap(){
+  if(map) return;
+  map=L.map('map',{scrollWheelZoom:false}).setView([-22.905,-43.28],12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);
+  C.forEach(c=>{
+    let m=L.circleMarker([c.lat,c.lng],{radius:8+Math.min(c.faces,10)/2,color:'#fff',weight:2,fillColor:colorOf(c.weight),fillOpacity:.95}).addTo(map);
+    m.bindTooltip(c.name);
+    m.on('click',()=>selectComm(c.name));
+    markers[c.name]=m;
+  });
+  fitTo(C);
+}
+function fitTo(list){ if(!map||!list.length) return; let g=L.featureGroup(list.map(c=>markers[c.name])); map.fitBounds(g.getBounds().pad(.18)); }
+
+/* ---------- PANEL ---------- */
+function aggPanel(list,title){
+  const faces=list.reduce((s,t)=>s+t.faces,0);
+  const pop=list.reduce((s,t)=>s+t.pop,0);
+  const imp=list.reduce((s,t)=>s+t.imp_45,0);
+  document.getElementById('panel').innerHTML=
+   `<div class="section-kicker">Visão atual</div><h3>${title}</h3><div class="big">${faces}</div>`+
+   `<div class="muted">faces de OOH em ${list.length} comunidade${list.length!==1?'s':''}, ponderadas por população (base ${fmt(pop)} habitantes).</div>`+
+   `<div class="territory-list">`+
+   `<div class="territory-row"><b>Comunidades</b><span>${list.length}</span></div>`+
+   `<div class="territory-row"><b>População</b><span>${fmt(pop)} hab.</span></div>`+
+   `<div class="territory-row"><b>Impactos / 45 dias</b><span>≈ ${fmt(imp/1000)} mil</span></div>`+
+   `<div class="territory-row"><b>Critério OOH</b><span>população + rota + destino</span></div>`+
+   `</div>`;
+}
+function commPanel(c){
+  document.getElementById('panel').innerHTML=
+   `<div class="chips"><span class="chip">${c.weight}</span><span class="chip">${c.strategy}</span></div>`+
+   `<h3>${c.name}</h3><div class="muted" style="margin-bottom:12px;font-size:13px">${c.cluster}</div>`+
+   `<div class="metrics">`+
+   `<div class="m"><span>População</span><b>${fmt(c.pop)}</b></div>`+
+   `<div class="m"><span>Domicílios</span><b>${fmt(c.households)}</b></div>`+
+   `<div class="m"><span>Renda média</span><b>${money(c.income)}</b></div>`+
+   `<div class="m"><span>Densidade</span><b>${fmt(c.density)}</b></div>`+
+   `<div class="m"><span>Faces</span><b>${c.faces}</b></div>`+
+   `<div class="m"><span>Impactos / semana</span><b>${fmt(c.imp_week)}</b></div>`+
+   `</div>`+
+   `<div class="flow"><span>Loja Guanabara de destino</span><b>${c.store}</b></div>`+
+   `<div class="flow"><span>Pressão competitiva</span><b>${c.mundial}</b></div>`;
+}
+
+/* ---------- FILTERS / SELECT ---------- */
+const select=document.getElementById('commSelect');
+C.slice().sort((a,b)=>a.name.localeCompare(b.name)).forEach(c=>{let o=document.createElement('option');o.value=c.name;o.textContent=c.name;select.appendChild(o);});
+function setActiveBars(names){document.querySelectorAll('.barcol').forEach(b=>b.classList.toggle('active',names.includes(b.dataset.name)));}
+function highlightMarkers(list){ if(!map) return; C.forEach(c=>{const on=list.some(t=>t.name===c.name); markers[c.name].setStyle({fillOpacity:on?.95:.18,opacity:on?1:.3});}); }
+function selectGroup(g){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.group===g));
+  const list=g==='all'?C:C.filter(c=>c.weight===g);
+  currentList=list; select.value='all';
+  aggPanel(list, g==='all'?'Todas as comunidades':g);
+  setActiveBars(list.map(c=>c.name)); highlightMarkers(list); fitTo(list);
+}
+function selectComm(name){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  const c=C.find(x=>x.name===name); if(!c) return;
+  select.value=name; commPanel(c); setActiveBars([name]); highlightMarkers([c]);
+  if(map){ markers[name].openTooltip(); map.setView([c.lat,c.lng],14,{animate:true}); }
+}
+document.querySelectorAll('.filter-btn').forEach(b=>b.onclick=()=>selectGroup(b.dataset.group));
+select.addEventListener('change',e=>e.target.value==='all'?selectGroup('all'):selectComm(e.target.value));
+
+/* ---------- BARS (faces por comunidade) ---------- */
+const bars=document.getElementById('bars');
+const maxFaces=Math.max(...C.map(c=>c.faces));
+C.slice().sort((a,b)=>b.faces-a.faces).forEach(c=>{
+  let bc=document.createElement('div');bc.className='barcol';bc.dataset.name=c.name;
+  const h=26+(c.faces/maxFaces)*70;
+  bc.innerHTML=`<div class="bar ${clsOf(c.weight)}" style="--h:${h}%"><div class="barvalue">${c.faces}</div></div><div class="barlabel">${c.name}</div>`;
+  bc.title=`${c.name}: ${c.faces} faces · ${c.weight}`;
+  bc.onclick=()=>selectComm(c.name);
+  bars.appendChild(bc);
+});
+
+/* ---------- IMPACT BARS (top por impacto) ---------- */
+const ib=document.getElementById('impactBars');
+const topComm=C.slice().sort((a,b)=>b.imp_45-a.imp_45).slice(0,6);
+const maxImp=topComm.length?topComm[0].imp_45:1;
+ib.innerHTML=topComm.map(c=>`<div class="impact-row"><div class="name">${c.name}</div><div class="track"><div class="fill" style="--w:${Math.round(c.imp_45/maxImp*100)}%"></div></div><div class="range">≈ ${fmt(c.imp_45/1000)} mil</div></div>`).join('');
+
+/* ---------- CONSUMO POR CATEGORIA ---------- */
+const shares=[['Habitação',39],['Transporte',17.5],['Alimentação',15.8],['Saúde',8.5],['Educação',5.1],['Vestuário',3.7],['Higiene',3],['Demais',7.4]];
+const annual=427200000, monthly=35600000;
+function renderCats(p='annual'){let base=p==='annual'?annual:monthly;document.getElementById('cats').innerHTML=shares.map(([n,s])=>`<div class="cat"><span>${n}</span><b>${money(base*s/100)}</b><small>${String(s).replace('.',',')}% do consumo estimado</small></div>`).join('');}
+renderCats();
+document.querySelectorAll('.toggle button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.toggle button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderCats(b.dataset.p);});
+
+/* ---------- REVEAL + MAP LAZY INIT ---------- */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');if(e.target.id==='mapa'&&!map){initMap();setTimeout(()=>{map.invalidateSize();selectGroup('all');},120);}}}),{threshold:.06});
+document.querySelectorAll('.reveal,.section').forEach(el=>{el.classList.add('reveal');obs.observe(el);});
+// init map immediately too (in case section already in view)
+if(document.getElementById('mapa').getBoundingClientRect().top<window.innerHeight){initMap();setTimeout(()=>{map.invalidateSize();selectGroup('all');},200);} else { aggPanel(C,'Todas as comunidades'); }
+</script>
+
+<!-- PORTÃO: script -->
+<script>
+(function(){
+  var KEY='pm_guanabara_ok';
+  var EXP=atob('Z3VhbmFiYXJhMjAyNiFA'); // guanabara2026!@
+  var root=document.documentElement, gate=document.getElementById('pm-gate'),
+      form=document.getElementById('pm-gate-form'), msg=document.getElementById('pm-gate-msg'),
+      btn=document.getElementById('pm-gate-btn'), inp=document.getElementById('pm-gate-senha');
+  function lock(){root.classList.add('pm-locked');document.body&&document.body.classList.add('pm-locked');}
+  function unlock(){gate.parentNode&&gate.parentNode.removeChild(gate);root.classList.remove('pm-locked');document.body&&document.body.classList.remove('pm-locked');}
+  lock();
+  try{if(sessionStorage.getItem(KEY)==='1'){unlock();return;}}catch(e){}
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var v=inp.value||'';
+    if(!v)return;
+    if(v===EXP){try{sessionStorage.setItem(KEY,'1');}catch(e){}unlock();}
+    else{msg.textContent='Senha incorreta.';btn.disabled=false;inp.select();}
+  });
+})();
+</script>
+
+<!--PM-PDF-EXPORT-FEATURE-->
+<style id="pm-export-style">
+#pm-export-fab{position:fixed;right:22px;bottom:22px;z-index:40;display:inline-flex;align-items:center;gap:9px;padding:13px 18px;border:none;border-radius:999px;background:#073c85;color:#fff;font-family:Inter,Arial,Helvetica,sans-serif;font-weight:800;font-size:13px;letter-spacing:.02em;cursor:pointer;box-shadow:0 12px 34px rgba(6,63,143,.42);transition:filter .16s ease,transform .16s ease}
+#pm-export-fab:hover{filter:brightness(1.08);transform:translateY(-1px)}
+#pm-export-fab:disabled{opacity:.7;cursor:wait;transform:none}
+#pm-export-fab svg{width:17px;height:17px;display:block}
+@media(max-width:900px){#pm-export-fab{display:none}}
+#pm-export-overlay{position:fixed;inset:0;z-index:2147483200;display:none;align-items:center;justify-content:center;background:rgba(6,63,143,.92);backdrop-filter:blur(4px);font-family:Inter,Arial,Helvetica,sans-serif}
+#pm-export-overlay.on{display:flex}
+#pm-export-overlay .box{text-align:center;color:#fff;max-width:320px;padding:20px}
+#pm-export-overlay .spin{width:46px;height:46px;border:3px solid rgba(255,255,255,.22);border-top-color:#ffd31a;border-radius:50%;margin:0 auto 18px;animation:pmspin 1s linear infinite}
+@keyframes pmspin{to{transform:rotate(360deg)}}
+#pm-export-overlay .lbl{font-weight:800;font-size:15px}
+#pm-export-overlay .sub{margin-top:7px;font-size:12px;color:#cfe0f3;line-height:1.5}
+html.pm-exporting .reveal{opacity:1!important;transform:none!important}
+html.pm-exporting .topbar{position:static!important;backdrop-filter:none!important;background:#fff!important}
+html.pm-exporting #pm-export-fab{display:none!important}
+html.pm-exporting *{transition:none!important;animation:none!important}
+</style>
+<button id="pm-export-fab" type="button" aria-label="Exportar proposta em PDF" title="Exportar em PDF (desktop)">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+  Exportar PDF
+</button>
+<div id="pm-export-overlay" role="alert" aria-live="assertive"><div class="box"><div class="spin"></div><div class="lbl" id="pm-export-lbl">Gerando PDF...</div><div class="sub" id="pm-export-sub">Renderizando a proposta em alta resolução.</div></div></div>
+<script>/*PM-PDF-EXPORT*/
+(function(){
+  var CDN={h2c:'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',jspdf:'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'};
+  var CAPTURE_W=1280;
+  var fab=document.getElementById('pm-export-fab'),overlay=document.getElementById('pm-export-overlay'),lbl=document.getElementById('pm-export-lbl'),sub=document.getElementById('pm-export-sub');
+  if(!fab)return;
+  function loadScript(src){return new Promise(function(res,rej){if(document.querySelector('script[data-pm="'+src+'"]')){res();return;}var s=document.createElement('script');s.src=src;s.async=true;s.setAttribute('data-pm',src);s.onload=function(){res();};s.onerror=function(){rej(new Error('falha '+src));};document.head.appendChild(s);});}
+  function setMsg(l,s){if(l!=null)lbl.textContent=l;if(s!=null)sub.textContent=s;}
+  function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+  fab.addEventListener('click',function(){run().catch(function(err){console.error(err);setMsg('Não foi possível gerar o PDF','Verifique a conexão e tente novamente.');setTimeout(function(){overlay.classList.remove('on');fab.disabled=false;},2600);});});
+  function run(){fab.disabled=true;overlay.classList.add('on');setMsg('Preparando...','Carregando o gerador de PDF.');return Promise.resolve().then(function(){return loadScript(CDN.h2c);}).then(function(){return loadScript(CDN.jspdf);}).then(function(){return sleep(60);}).then(generate);}
+  function generate(){
+    var jsPDFCtor=(window.jspdf&&window.jspdf.jsPDF)||window.jsPDF;
+    if(!jsPDFCtor||!window.html2canvas)throw new Error('bibliotecas indisponiveis');
+    document.documentElement.classList.add('pm-exporting');
+    var targets=[];var top=document.querySelector('header.topbar');if(top)targets.push(top);
+    var main=document.querySelector('main');if(main){[].slice.call(main.children).forEach(function(el){if(el.getBoundingClientRect().height>4)targets.push(el);});}
+    var foot=document.querySelector('body > footer');if(foot)targets.push(foot);
+    var opts={scale:2,backgroundColor:'#ffffff',useCORS:true,logging:false,windowWidth:CAPTURE_W,width:CAPTURE_W,scrollX:0,scrollY:0};
+    var canvases=[];var chain=Promise.resolve();
+    targets.forEach(function(el,i){chain=chain.then(function(){setMsg('Gerando PDF...','Renderizando seção '+(i+1)+' de '+targets.length+'...');return window.html2canvas(el,opts).then(function(c){canvases.push(c);return sleep(10);});});});
+    return chain.then(function(){
+      setMsg('Montando o documento...','Quase lá.');
+      var pdf=new jsPDFCtor({unit:'mm',format:'a4',orientation:'portrait',compress:true});
+      var pageW=pdf.internal.pageSize.getWidth(),pageH=pdf.internal.pageSize.getHeight(),M=8,contentW=pageW-2*M,contentH=pageH-2*M,GAP=4,y=M,first=true;
+      function placeCanvas(canvas){
+        var imgW=contentW,imgH=imgW*canvas.height/canvas.width;
+        if(imgH<=contentH){if(!first&&(y+imgH>pageH-M)){pdf.addPage();y=M;}pdf.addImage(canvas.toDataURL('image/jpeg',0.95),'JPEG',M,y,imgW,imgH,undefined,'FAST');y+=imgH+GAP;first=false;}
+        else{var pxPerPage=Math.floor(canvas.width*(contentH/imgW));var sy=0;while(sy<canvas.height){var sh=Math.min(pxPerPage,canvas.height-sy);var slice=document.createElement('canvas');slice.width=canvas.width;slice.height=sh;var ctx=slice.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,slice.width,slice.height);ctx.drawImage(canvas,0,sy,canvas.width,sh,0,0,canvas.width,sh);if(!first){pdf.addPage();}y=M;var sliceH=imgW*sh/canvas.width;pdf.addImage(slice.toDataURL('image/jpeg',0.95),'JPEG',M,y,imgW,sliceH,undefined,'FAST');y+=sliceH+GAP;first=false;sy+=sh;}}
+      }
+      canvases.forEach(placeCanvas);
+      pdf.save('Proposta-Guanabara-x-Perifa-Midia.pdf');
+      document.documentElement.classList.remove('pm-exporting');
+      overlay.classList.remove('on');fab.disabled=false;
+    });
+  }
+})();
+</script>
+<!--/PM-PDF-EXPORT-FEATURE-->
+</body></html>

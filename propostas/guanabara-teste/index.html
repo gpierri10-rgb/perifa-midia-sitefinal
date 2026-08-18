@@ -30,7 +30,8 @@ button,select{font:inherit} a{color:inherit}
 .media-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:13px} .media-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;min-height:240px} .media-icon{width:46px;height:46px;border-radius:13px;background:var(--soft2);display:grid;place-items:center;color:var(--blue);font-size:22px;font-weight:900} .media-card h3{font-size:20px;margin:16px 0 8px;color:var(--blue)} .media-card p{color:var(--muted);font-size:13px;line-height:1.5;margin:0}
 /* Mapa */
 .filters{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:20px 0} .filter-btn{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:10px 14px;cursor:pointer;font-weight:800;font-size:13px} .filter-btn.active,.filter-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)} select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
-.map-grid{display:grid;grid-template-columns:1.5fr .7fr;gap:16px} .map-card,.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden} .map-card{padding:16px} #map{width:100%;aspect-ratio:16/10;border-radius:14px;background:#dde8ef;z-index:1} .map-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--muted);font-weight:700} .map-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle} .lg-a{background:var(--red)} .lg-p{background:var(--blue2)} .lg-c{background:var(--cyan)}
+.map-grid{display:grid;grid-template-columns:1.5fr .7fr;gap:16px} .map-card,.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden} .map-card{padding:16px} #map{width:100%;aspect-ratio:16/10;border-radius:14px;background:#dde8ef;z-index:1} .map-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--muted);font-weight:700} .map-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle} .lg-a{background:var(--red)} .lg-p{background:var(--blue2)} .lg-c{background:var(--cyan)} .map-legend b{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:4px;margin-right:5px;font-size:9px;color:#fff;vertical-align:middle} .lg-sg{background:var(--blue)} .lg-sm{background:#e67514}
+.store-pin{display:grid;place-items:center;width:22px;height:22px;border-radius:6px;font:900 12px Inter,sans-serif;color:#fff;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35)} .store-pin.gua{background:var(--blue)} .store-pin.mun{background:#e67514} .dist-tip{background:var(--blue);color:#fff;border:none;font-weight:800;font-size:11px;padding:3px 7px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25)} .dist-tip.mun{background:#e67514} .leaflet-tooltip.dist-tip:before{display:none}
 .panel{padding:22px} .panel .section-kicker{margin-bottom:8px} .panel h3{margin:0 0 6px;font-size:23px;color:var(--blue)} .panel .big{font-size:52px;font-weight:900;color:var(--blue);line-height:1} .panel .muted{color:var(--muted);line-height:1.5;font-size:14px} .territory-list{display:grid;gap:8px;margin-top:16px} .territory-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:9px;font-size:13px} .territory-row b{color:var(--ink)} .territory-row span{color:var(--muted)}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px} .chip{background:var(--soft2);color:var(--blue);padding:5px 9px;border-radius:999px;font-size:10px;font-weight:800} .metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px} .m{background:var(--soft);border-radius:10px;padding:10px} .m span{display:block;font-size:9px;text-transform:uppercase;color:var(--muted);font-weight:800} .m b{display:block;color:var(--blue);margin-top:3px;font-size:14px} .flow{border-top:1px solid var(--line);margin-top:11px;padding-top:9px} .flow span{display:block;font-size:9px;text-transform:uppercase;color:var(--muted);font-weight:800} .flow b{font-size:13px;color:var(--ink)}
 .bars{display:grid;grid-template-columns:repeat(18,1fr);align-items:end;gap:6px;height:250px;padding:40px 4px 0} .barcol{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px;height:100%;cursor:pointer} .bar{width:100%;max-width:34px;height:var(--h,65%);background:linear-gradient(180deg,var(--blue2),var(--blue));border-radius:7px 7px 3px 3px;transition:.25s;position:relative;min-height:26px} .bar.wA{background:linear-gradient(180deg,#f04b52,var(--red))} .bar.wC{background:linear-gradient(180deg,#3fc4f0,var(--cyan))} .barcol:hover .bar,.barcol.active .bar{filter:brightness(1.06);box-shadow:0 6px 16px rgba(6,63,143,.28)} .barvalue{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-weight:900;color:var(--blue);font-size:12px} .barlabel{font-size:9px;color:var(--muted);text-align:center;line-height:1.15;min-height:34px;font-weight:600}
@@ -44,7 +45,8 @@ button,select{font:inherit} a{color:inherit}
 /* Cenários */
 .scen{display:grid;grid-template-columns:1fr 1fr;gap:14px} .scen article{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px} .scen .opt{background:var(--blue);color:#fff} .scen .tag{font-size:10px;font-weight:900;color:var(--cyan)} .scen .opt .tag{color:var(--yellow)} .scen h3{font-size:25px;color:var(--blue);margin:8px 0 14px} .scen .opt h3{color:#fff} .scenNum{font-size:58px;font-weight:900;color:var(--red)} .scen .opt .scenNum{color:var(--yellow)} .scenNum span{font-size:13px;color:var(--muted);font-weight:700} .scen .opt .scenNum span{color:#dceeff} .scenM{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0} .scenM b{background:var(--soft);padding:10px 12px;border-radius:11px;color:var(--blue);font-size:14px} .scen .opt .scenM b{background:rgba(255,255,255,.12);color:#fff} .scenM span{font-size:9px;font-weight:500;display:block} .scen p{font-size:12px;line-height:1.5;color:var(--muted);margin:0} .scen .opt p{color:#dceeff} .decision{background:var(--yellow);color:var(--blue);border-radius:16px;padding:18px 22px;margin-top:14px;display:flex;gap:16px;align-items:center;font-size:13px;flex-wrap:wrap} .decision b{font-size:15px}
 /* Investimento */
-.commercial{background:var(--soft);border:1px solid var(--line);border-radius:28px;padding:38px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center} .commercial h2{font-size:clamp(40px,5vw,72px);margin:0;line-height:.92;text-transform:uppercase;color:var(--blue)} .commercial p{color:var(--muted);line-height:1.5;max-width:620px} .price{background:var(--blue);color:#fff;border-radius:22px;padding:30px} .price .plabel{font-size:11px;text-transform:uppercase;color:#bcd6f2;font-weight:800} .price .amount{font-size:clamp(46px,5vw,74px);font-weight:900;color:var(--yellow);line-height:1;margin:10px 0} .price .incl{color:#dceeff;font-size:12px;line-height:1.6}
+.commercial{background:var(--soft);border:1px solid var(--line);border-radius:28px;padding:38px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center} .commercial h2{font-size:clamp(40px,5vw,72px);margin:0;line-height:.92;text-transform:uppercase;color:var(--blue)} .commercial p{color:var(--muted);line-height:1.5;max-width:620px} .price{background:var(--blue);color:#fff;border-radius:22px;padding:30px} .price .plabel{font-size:11px;text-transform:uppercase;color:#bcd6f2;font-weight:800} .price .price-from{font-size:15px;color:#cfe0f3;font-weight:700;margin-top:8px} .price .price-from s{opacity:.85} .price .disc{display:inline-block;background:var(--yellow);color:var(--blue);border-radius:6px;padding:2px 8px;font-weight:900;font-size:12px;margin-left:6px;vertical-align:middle} .price .amount{font-size:clamp(46px,5vw,74px);font-weight:900;color:var(--yellow);line-height:1;margin:6px 0 10px} .price .incl{color:#dceeff;font-size:12px;line-height:1.6}
+.disc-callout{display:inline-flex;align-items:center;gap:12px;background:var(--yellow);color:var(--blue);border-radius:14px;padding:14px 20px;margin-top:22px} .disc-callout b{font-size:22px;font-weight:900;white-space:nowrap} .disc-callout span{font-size:13px;font-weight:700;line-height:1.35}
 footer{padding:38px 0 60px;color:var(--muted);font-size:12px} .reveal{opacity:0;transform:translateY(18px);transition:.6s} .reveal.show{opacity:1;transform:none}
 @media(max-width:980px){.nav{display:none} .hero{grid-template-columns:1fr;padding-top:44px} .kpis{grid-template-columns:repeat(2,1fr)} .map-grid,.impact,.commercial,.econ-big,.scen{grid-template-columns:1fr} .criteria,.cats{grid-template-columns:repeat(2,1fr)} .media-grid{grid-template-columns:repeat(2,1fr)} .story,.dist{grid-template-columns:1fr} .story>i,.dist .op{display:none} .bars{grid-template-columns:repeat(9,1fr);height:auto} .barcol{height:120px} .section-head{display:block} .section-head p{margin-top:14px}}
 @media(max-width:620px){.shell,.hero,.kpis{padding-left:16px;padding-right:16px} .hero h1{font-size:52px} .kpis,.criteria,.cats,.media-grid{grid-template-columns:1fr} .bars{grid-template-columns:repeat(6,1fr)} .impact-row{grid-template-columns:110px 1fr} .impact-row .range{grid-column:2;text-align:left}}
@@ -92,17 +94,17 @@ html.pm-locked,html.pm-locked body{overflow:hidden!important}
 <div class="jstep"><span class="jn">3</span><div><b>Lembrança</b><small>A repetição transforma exposição em presença de marca.</small></div></div>
 <div class="jstep j4"><span class="jn">4</span><div><b>Guanabara</b><small>A estratégia orienta essa presença para a rota de compra.</small></div></div>
 </div>
-<div class="hero-badge"><span class="pill">111 faces OOH</span><span class="pill">18 comunidades</span><span class="pill">45 dias</span><span class="pill">6 clusters</span></div>
+<div class="hero-badge"><span class="pill">111 faces OOH</span><span class="pill">6 lojas Guanabara</span><span class="pill">45 dias</span><span class="pill">OOH territorial</span></div>
 </div>
 </section>
 
 <!-- KPIS -->
 <section class="shell kpis reveal">
 <div class="kpi"><div class="label">Faces OOH</div><div class="value">111</div><div class="sub">90 base + 21 reforço estratégico</div></div>
-<div class="kpi"><div class="label">Comunidades</div><div class="value">18</div><div class="sub">em 6 clusters territoriais</div></div>
+<div class="kpi"><div class="label">Lojas Guanabara</div><div class="value">6</div><div class="sub">pontos de destino no território</div></div>
 <div class="kpi"><div class="label">Período</div><div class="value">45 <small style="font-size:20px">dias</small></div><div class="sub">campanha territorial</div></div>
-<div class="kpi yellow"><div class="label">Impactos / 45 dias</div><div class="value">≈4,33M</div><div class="sub">cenário de eficiência concentrada</div></div>
-<div class="kpi red"><div class="label">CPM estimado</div><div class="value">R$46</div><div class="sub">R$ 199.800 ÷ 4,33 mi × 1.000</div></div>
+<div class="kpi"><div class="label">Investimento</div><div class="value" style="font-size:28px">R$ 233.544</div><div class="sub">111 faces · 45 dias · já com desconto</div></div>
+<div class="kpi yellow"><div class="label">Desconto aplicado</div><div class="value">47%</div><div class="sub">sobre o valor de tabela</div></div>
 </section>
 
 <!-- DESAFIO -->
@@ -150,10 +152,10 @@ html.pm-locked,html.pm-locked body{overflow:hidden!important}
 <div class="section-head"><div><div class="section-kicker">Visualização da execução</div><h2 class="condensed">Mapa dinâmico<br>do território</h2></div><p>Filtre por peso estratégico ou selecione uma comunidade para consultar seus dados, sua loja Guanabara de destino e a relação território → rota → loja.</p></div>
 <div class="filters"><button class="filter-btn active" data-group="all">Todas</button><button class="filter-btn" data-group="Âncora">Âncora</button><button class="filter-btn" data-group="Prioritária">Prioritária</button><button class="filter-btn" data-group="Cobertura">Cobertura</button><select id="commSelect"><option value="all">Selecione uma comunidade</option></select></div>
 <div class="map-grid">
-<div class="map-card"><div id="map"></div><div class="map-legend"><span><i class="lg-a"></i>Âncora</span><span><i class="lg-p"></i>Prioritária</span><span><i class="lg-c"></i>Cobertura</span><span style="margin-left:auto">Clique nos pontos para explorar</span></div></div>
+<div class="map-card"><div id="map"></div><div class="map-legend"><span><i class="lg-a"></i>Âncora</span><span><i class="lg-p"></i>Prioritária</span><span><i class="lg-c"></i>Cobertura</span><span><b class="lg-sg">G</b>Loja Guanabara</span><span><b class="lg-sm">M</b>Mundial</span><span style="margin-left:auto">Clique numa comunidade para ver a distância às lojas</span></div></div>
 <div class="panel" id="panel"></div>
 </div>
-<div class="panel" style="margin-top:16px"><div class="section-head" style="margin-bottom:0"><div><div class="section-kicker">Distribuição</div><h3 style="font-size:25px;margin:0;color:var(--blue)">Faces por comunidade</h3></div><p style="font-size:13px">111 faces distribuídas pelas 18 comunidades, com piso de presença por rota e reforço nos territórios de maior escala.</p></div><div class="bars" id="bars"></div><div style="margin-top:14px;color:var(--muted);font-size:11px;line-height:1.45">Cor por peso estratégico: <b style="color:var(--red)">Âncora</b> · <b style="color:var(--blue2)">Prioritária</b> · <b style="color:var(--cyan)">Cobertura</b>. Clique para destacar a comunidade no mapa.</div></div>
+<div class="panel" style="margin-top:16px"><div class="section-head" style="margin-bottom:0"><div><div class="section-kicker">Distribuição</div><h3 style="font-size:25px;margin:0;color:var(--blue)">Faces por comunidade</h3></div><p style="font-size:13px">111 faces distribuídas pelo território, com piso de presença por rota e reforço nos territórios de maior escala.</p></div><div class="bars" id="bars"></div><div style="margin-top:14px;color:var(--muted);font-size:11px;line-height:1.45">Cor por peso estratégico: <b style="color:var(--red)">Âncora</b> · <b style="color:var(--blue2)">Prioritária</b> · <b style="color:var(--cyan)">Cobertura</b>. Clique para destacar a comunidade no mapa.</div></div>
 </div></section>
 
 <!-- ECONOMIA -->
@@ -166,7 +168,7 @@ html.pm-locked,html.pm-locked body{overflow:hidden!important}
 <div style="margin-top:42px">
 <div class="headRow"><div><div class="section-kicker">Consumo por categoria</div><h3 style="font-size:28px;color:var(--blue);margin:6px 0 0">Onde o orçamento das famílias circula</h3></div><div class="toggle"><button data-p="annual" class="active">Anual</button><button data-p="monthly">Mensal</button></div></div>
 <div id="cats" class="cats"></div>
-<p class="source">A distribuição cruza dados territoriais do Geofusion com a POF/IBGE para estimar a composição do consumo das 18 comunidades selecionadas.</p>
+<p class="source">A distribuição cruza dados territoriais do Geofusion com a POF/IBGE para estimar a composição do consumo das comunidades selecionadas.</p>
 </div>
 </div></section>
 
@@ -174,7 +176,7 @@ html.pm-locked,html.pm-locked body{overflow:hidden!important}
 <section class="section alt" id="distribuicao"><div class="shell">
 <div class="section-head"><div><div class="section-kicker">Distribuição e otimização</div><h2 class="condensed">Cobrir a anatomia,<br>depois pressionar</h2></div><p>Primeiro cobrimos a anatomia do território. Depois aumentamos a pressão onde ela vale mais.</p></div>
 <div class="dist">
-<div class="base"><span>BASE DE COBERTURA</span><b class="amt">90 faces</b><p>5 faces × 18 comunidades. Uma face por rota obrigatória: Entrada, Comércio, Lazer, Circulação e Cuidado.</p></div>
+<div class="base"><span>BASE DE COBERTURA</span><b class="amt">90 faces</b><p>5 faces por comunidade — uma por rota obrigatória: Entrada, Comércio, Lazer, Circulação e Cuidado.</p></div>
 <div class="op">+</div>
 <div class="boost"><span>REFORÇO ESTRATÉGICO</span><b class="amt">21 faces</b><p>Inventário adicional direcionado aos territórios com maior escala populacional e capacidade de gerar repetição.</p></div>
 <div class="op">=</div>
@@ -186,23 +188,23 @@ html.pm-locked,html.pm-locked body{overflow:hidden!important}
 <section class="section" id="impacto"><div class="shell">
 <div class="section-head"><div><div class="section-kicker">Impactos e eficiência</div><h2 class="condensed">Presença que vira<br>repetição</h2></div><p>A modelagem considera 15% de oportunidade diária de exposição, 45 dias de campanha e recorrência de contato nas rotas territoriais.</p></div>
 <div class="impact">
-<div class="impact-total"><div class="section-kicker" style="color:var(--yellow)">Impactos / 45 dias</div><div class="total">≈4,33<span>M</span></div><p>≈ 674 mil impactos por semana. No cenário de eficiência concentrada, a mesma verba gera CPM de ≈ R$ 46,14.</p></div>
+<div class="impact-total"><div class="section-kicker" style="color:var(--yellow)">Impactos / 45 dias</div><div class="total">≈4,33<span>M</span></div><p>≈ 674 mil impactos por semana no cenário de eficiência concentrada (5 comunidades), onde o CPM chega a ≈ R$ 53,94.</p></div>
 <div class="impact-bars"><div class="section-kicker">Top comunidades por impacto (base capilaridade)</div><div id="impactBars"></div><div class="formula">População residente × faces × <b>15%</b> × período</div></div>
 </div>
 </div></section>
 
 <!-- CENÁRIOS -->
 <section class="section alt" id="cenarios"><div class="shell">
-<div class="section-head"><div><div class="section-kicker">Cenários de execução</div><h2 class="condensed">Um investimento,<br>duas estratégias</h2></div><p>111 faces · 45 dias · R$ 199.800. O que muda é a estratégia de distribuição das faces pelo território.</p></div>
+<div class="section-head"><div><div class="section-kicker">Cenários de execução</div><h2 class="condensed">Um investimento,<br>duas estratégias</h2></div><p>111 faces · 45 dias · R$ 233.544. O que muda é a estratégia de distribuição das faces pelo território.</p></div>
 <div class="scen">
-<article><div class="tag">CENÁRIO: CAPILARIDADE TERRITORIAL</div><h3>Mais cobertura geográfica</h3><div class="scenNum">18 <span>comunidades</span></div><div class="scenM"><b>≈ 338 mil<span>/ semana</span></b><b>≈ 2,18 mi<span>/ 45 dias</span></b><b>R$ 91,86<span>CPM</span></b></div><p>Mais indicado para presença ampla, defesa territorial e cobertura simultânea de diferentes clusters.</p></article>
-<article class="opt"><div class="tag">CENÁRIO: EFICIÊNCIA CONCENTRADA</div><h3>Mais pressão e frequência</h3><div class="scenNum">5 <span>comunidades</span></div><div class="scenM"><b>≈ 674 mil<span>/ semana</span></b><b>≈ 4,33 mi<span>/ 45 dias</span></b><b>≈ R$ 46,14<span>CPM</span></b></div><p>Mais indicado quando a prioridade é eficiência de mídia, frequência e otimização de CPM.</p></article>
+<article><div class="tag">CENÁRIO: CAPILARIDADE TERRITORIAL</div><h3>Mais cobertura geográfica</h3><div class="scenNum">18 <span>comunidades</span></div><div class="scenM"><b>≈ 338 mil<span>/ semana</span></b><b>≈ 2,18 mi<span>/ 45 dias</span></b><b>≈ R$ 107,13<span>CPM</span></b></div><p>Mais indicado para presença ampla, defesa territorial e cobertura simultânea de diferentes clusters.</p></article>
+<article class="opt"><div class="tag">CENÁRIO: EFICIÊNCIA CONCENTRADA</div><h3>Mais pressão e frequência</h3><div class="scenNum">5 <span>comunidades</span></div><div class="scenM"><b>≈ 674 mil<span>/ semana</span></b><b>≈ 4,33 mi<span>/ 45 dias</span></b><b>≈ R$ 53,94<span>CPM</span></b></div><p>Mais indicado quando a prioridade é eficiência de mídia, frequência e otimização de CPM.</p></article>
 </div>
 <div class="decision"><b>Flexibilidade de execução.</b><span>A Perifa Mídia pode operar qualquer uma das duas configurações mantendo o mesmo investimento e adequando a distribuição ao objetivo comercial do Guanabara.</span></div>
 </div></section>
 
 <!-- INVESTIMENTO -->
-<section class="section" id="investimento"><div class="shell"><div class="commercial"><div><div class="section-kicker">Proposta comercial</div><h2 class="condensed">45 dias de campanha.<br>Uma jornada completa.</h2><p>A proposta contempla 111 faces de OOH territorial distribuídas em 18 comunidades de 6 clusters, com base de cobertura por rota e reforço estratégico, calibrável entre capilaridade e eficiência.</p></div><div class="price"><div class="plabel">Valor da proposta</div><div class="amount">R$ 199.800</div><div class="incl">111 faces OOH · 18 comunidades · 6 clusters · 45 dias · base de cobertura + reforço estratégico · relatório território → loja</div></div></div></div></section>
+<section class="section" id="investimento"><div class="shell"><div class="commercial"><div><div class="section-kicker">Proposta comercial</div><h2 class="condensed">45 dias de campanha.<br>Uma jornada completa.</h2><p>A proposta contempla 111 faces de OOH territorial distribuídas pelo território, com base de cobertura por rota e reforço estratégico, calibrável entre capilaridade e eficiência.</p><div class="disc-callout"><b>Desconto de 47%</b><span>aplicado sobre o valor de tabela das 111 placas</span></div></div><div class="price"><div class="plabel">Valor da proposta · 111 placas</div><div class="price-from">de <s>R$ 440.649</s> <span class="disc">−47%</span></div><div class="amount">R$ 233.544</div><div class="incl">111 faces OOH · 6 lojas Guanabara de destino · 45 dias · base de cobertura + reforço estratégico · relatório território → loja</div></div></div></div></section>
 </main>
 <footer><div class="shell">PERIFA MÍDIA × GUANABARA · Presença territorial. Rota de compra. Da casa até as lojas.</div></footer>
 
@@ -215,12 +217,36 @@ const money=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximum
 const colorOf=w=>w==='Âncora'?'#e31b23':w==='Prioritária'?'#0a64b8':'#05aee8';
 const clsOf=w=>w==='Âncora'?'wA':w==='Prioritária'?'wP':'wC';
 
+/* ---------- LOJAS (posições aproximadas por bairro — confirmar endereços exatos) ---------- */
+const GUA={
+  'Guanabara Tijuca':[-22.9245,-43.2378],
+  'Guanabara Vila Isabel / Andaraí':[-22.9175,-43.2470],
+  'Guanabara Engenho de Dentro':[-22.8888,-43.2870],
+  'Guanabara Piedade':[-22.8920,-43.3095],
+  'Guanabara Engenho da Rainha':[-22.8715,-43.2905],
+  'Guanabara Campinho':[-22.8852,-43.3438]
+};
+const MUN={
+  'Conde de Bonfim':[-22.9285,-43.2380],
+  'Santo Afonso':[-22.9302,-43.2412],
+  'Engenho Novo':[-22.9068,-43.2690],
+  'Praça Seca':[-22.8928,-43.3540],
+  'Vaz Lobo':[-22.8572,-43.3345]
+};
+function hav(a,b){const R=6371000,dLa=(b[0]-a[0])*Math.PI/180,dLo=(b[1]-a[1])*Math.PI/180,l1=a[0]*Math.PI/180,l2=b[0]*Math.PI/180;const x=Math.sin(dLa/2)**2+Math.cos(l1)*Math.cos(l2)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(x));}
+function fmtDist(m){return m<1000?Math.round(m/10)*10+' m':(m/1000).toFixed(1).replace('.',',')+' km';}
+function munFor(c){let k=Object.keys(MUN).find(k=>c.mundial.indexOf(k)>=0);if(!k)k=Object.keys(MUN).sort((a,b)=>hav([c.lat,c.lng],MUN[a])-hav([c.lat,c.lng],MUN[b]))[0];return k;}
+function storeIcon(letter,kind){return L.divIcon({className:'',html:'<div class="store-pin '+kind+'">'+letter+'</div>',iconSize:[22,22],iconAnchor:[11,11]});}
+
 /* ---------- MAPA ---------- */
-let map=null, markers={}, currentList=C;
+let map=null, markers={}, currentList=C, lineLayer=null;
 function initMap(){
   if(map) return;
   map=L.map('map',{scrollWheelZoom:false}).setView([-22.905,-43.28],12);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);
+  lineLayer=L.layerGroup().addTo(map);
+  Object.keys(GUA).forEach(n=>L.marker(GUA[n],{icon:storeIcon('G','gua'),zIndexOffset:1000}).bindTooltip(n,{direction:'top'}).addTo(map));
+  Object.keys(MUN).forEach(n=>L.marker(MUN[n],{icon:storeIcon('M','mun'),zIndexOffset:1000}).bindTooltip('Mundial '+n,{direction:'top'}).addTo(map));
   C.forEach(c=>{
     let m=L.circleMarker([c.lat,c.lng],{radius:8+Math.min(c.faces,10)/2,color:'#fff',weight:2,fillColor:colorOf(c.weight),fillOpacity:.95}).addTo(map);
     m.bindTooltip(c.name);
@@ -230,23 +256,35 @@ function initMap(){
   fitTo(C);
 }
 function fitTo(list){ if(!map||!list.length) return; let g=L.featureGroup(list.map(c=>markers[c.name])); map.fitBounds(g.getBounds().pad(.18)); }
+function drawLines(c){
+  if(!lineLayer) return {}; lineLayer.clearLayers();
+  const gs=GUA[c.store], munName=munFor(c), ms=MUN[munName]; let dg=null,dm=null;
+  if(gs){dg=hav([c.lat,c.lng],gs);L.polyline([[c.lat,c.lng],gs],{color:'#073c85',weight:3}).addTo(lineLayer);L.tooltip({permanent:true,direction:'center',className:'dist-tip'}).setLatLng([(c.lat+gs[0])/2,(c.lng+gs[1])/2]).setContent(fmtDist(dg)).addTo(lineLayer);}
+  if(ms){dm=hav([c.lat,c.lng],ms);L.polyline([[c.lat,c.lng],ms],{color:'#e67514',weight:2,dashArray:'5 5'}).addTo(lineLayer);L.tooltip({permanent:true,direction:'center',className:'dist-tip mun'}).setLatLng([(c.lat+ms[0])/2,(c.lng+ms[1])/2]).setContent(fmtDist(dm)).addTo(lineLayer);}
+  return {gs,ms,dg,dm,munName};
+}
 
 /* ---------- PANEL ---------- */
 function aggPanel(list,title){
+  if(lineLayer) lineLayer.clearLayers();
   const faces=list.reduce((s,t)=>s+t.faces,0);
   const pop=list.reduce((s,t)=>s+t.pop,0);
   const imp=list.reduce((s,t)=>s+t.imp_45,0);
   document.getElementById('panel').innerHTML=
    `<div class="section-kicker">Visão atual</div><h3>${title}</h3><div class="big">${faces}</div>`+
-   `<div class="muted">faces de OOH em ${list.length} comunidade${list.length!==1?'s':''}, ponderadas por população (base ${fmt(pop)} habitantes).</div>`+
+   `<div class="muted">faces de OOH mapeadas no território, ponderadas por população (base ${fmt(pop)} habitantes).</div>`+
    `<div class="territory-list">`+
-   `<div class="territory-row"><b>Comunidades</b><span>${list.length}</span></div>`+
    `<div class="territory-row"><b>População</b><span>${fmt(pop)} hab.</span></div>`+
    `<div class="territory-row"><b>Impactos / 45 dias</b><span>≈ ${fmt(imp/1000)} mil</span></div>`+
    `<div class="territory-row"><b>Critério OOH</b><span>população + rota + destino</span></div>`+
-   `</div>`;
+   `<div class="territory-row"><b>Lojas no mapa</b><span>6 Guanabara · 5 Mundial</span></div>`+
+   `</div>`+
+   `<div class="muted" style="margin-top:14px;font-size:12px">Clique numa comunidade para ver a distância até a loja Guanabara de destino e o Mundial concorrente.</div>`;
 }
-function commPanel(c){
+function commPanel(c,ex){
+  ex=ex||{};
+  const dg=ex.dg!=null?' · '+fmtDist(ex.dg):'';
+  const dm=ex.dm!=null?' · '+fmtDist(ex.dm):'';
   document.getElementById('panel').innerHTML=
    `<div class="chips"><span class="chip">${c.weight}</span><span class="chip">${c.strategy}</span></div>`+
    `<h3>${c.name}</h3><div class="muted" style="margin-bottom:12px;font-size:13px">${c.cluster}</div>`+
@@ -258,8 +296,8 @@ function commPanel(c){
    `<div class="m"><span>Faces</span><b>${c.faces}</b></div>`+
    `<div class="m"><span>Impactos / semana</span><b>${fmt(c.imp_week)}</b></div>`+
    `</div>`+
-   `<div class="flow"><span>Loja Guanabara de destino</span><b>${c.store}</b></div>`+
-   `<div class="flow"><span>Pressão competitiva</span><b>${c.mundial}</b></div>`;
+   `<div class="flow"><span>Loja Guanabara de destino${dg}</span><b>${c.store}</b></div>`+
+   `<div class="flow"><span>Mundial mais próximo${dm}</span><b>${ex.munName?'Mundial '+ex.munName:c.mundial}</b></div>`;
 }
 
 /* ---------- FILTERS / SELECT ---------- */
@@ -271,14 +309,15 @@ function selectGroup(g){
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.group===g));
   const list=g==='all'?C:C.filter(c=>c.weight===g);
   currentList=list; select.value='all';
-  aggPanel(list, g==='all'?'Todas as comunidades':g);
+  aggPanel(list, g==='all'?'Território mapeado':g);
   setActiveBars(list.map(c=>c.name)); highlightMarkers(list); fitTo(list);
 }
 function selectComm(name){
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   const c=C.find(x=>x.name===name); if(!c) return;
-  select.value=name; commPanel(c); setActiveBars([name]); highlightMarkers([c]);
-  if(map){ markers[name].openTooltip(); map.setView([c.lat,c.lng],14,{animate:true}); }
+  select.value=name; setActiveBars([name]); highlightMarkers([c]);
+  const ex=map?drawLines(c):{}; commPanel(c,ex);
+  if(map){ markers[name].openTooltip(); const pts=[[c.lat,c.lng]]; if(ex.gs)pts.push(ex.gs); if(ex.ms)pts.push(ex.ms); map.fitBounds(L.latLngBounds(pts).pad(0.35),{animate:true,maxZoom:15}); }
 }
 document.querySelectorAll('.filter-btn').forEach(b=>b.onclick=()=>selectGroup(b.dataset.group));
 select.addEventListener('change',e=>e.target.value==='all'?selectGroup('all'):selectComm(e.target.value));
@@ -312,7 +351,7 @@ document.querySelectorAll('.toggle button').forEach(b=>b.onclick=()=>{document.q
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');if(e.target.id==='mapa'&&!map){initMap();setTimeout(()=>{map.invalidateSize();selectGroup('all');},120);}}}),{threshold:.06});
 document.querySelectorAll('.reveal,.section').forEach(el=>{el.classList.add('reveal');obs.observe(el);});
 // init map immediately too (in case section already in view)
-if(document.getElementById('mapa').getBoundingClientRect().top<window.innerHeight){initMap();setTimeout(()=>{map.invalidateSize();selectGroup('all');},200);} else { aggPanel(C,'Todas as comunidades'); }
+if(document.getElementById('mapa').getBoundingClientRect().top<window.innerHeight){initMap();setTimeout(()=>{map.invalidateSize();selectGroup('all');},200);} else { aggPanel(C,'Território mapeado'); }
 </script>
 
 <!-- PORTÃO: script -->

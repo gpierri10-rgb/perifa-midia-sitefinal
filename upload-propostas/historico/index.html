@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="/upload-propostas/config.js"></script>
 <style>
 :root{
   --bg:#f4f2ed; --surface:#ffffff; --ink:#080807; --muted:#6b7461;
@@ -219,9 +220,26 @@ document.getElementById('export').addEventListener('click',function(){
 });
 
 /* ---------- Boot ---------- */
-fetch('/upload-propostas/historico.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];}).then(function(shared){
-  state.items=merge(Array.isArray(shared)?shared:[], loadLocal());
-  render();
+function loadFromApi(cb){
+  var api=(window.PM_BACKLOG_API||'').trim();
+  if(!api){cb(null);return;}
+  var name='pmCb_'+String(Math.random()).slice(2);
+  var s=document.createElement('script'), done=false;
+  function cleanup(){try{delete window[name];}catch(e){window[name]=undefined;}if(s.parentNode)s.parentNode.removeChild(s);}
+  window[name]=function(data){if(done)return;done=true;cb(Array.isArray(data)?data:((data&&data.rows)||null));cleanup();};
+  s.onerror=function(){if(done)return;done=true;cb(null);cleanup();};
+  s.src=api+(api.indexOf('?')<0?'?':'&')+'callback='+name+'&_='+String(Math.random()).slice(2);
+  document.head.appendChild(s);
+  setTimeout(function(){if(done)return;done=true;cb(null);cleanup();},8000);
+}
+function fromJson(){
+  fetch('/upload-propostas/historico.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];}).then(function(shared){
+    state.items=merge(Array.isArray(shared)?shared:[], loadLocal()); render();
+  });
+}
+loadFromApi(function(apiRows){
+  if(Array.isArray(apiRows)){ state.items=merge(apiRows, loadLocal()); render(); }
+  else { fromJson(); }
 });
 </script>
 </body>

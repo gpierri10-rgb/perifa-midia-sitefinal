@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="/upload-propostas/config.js"></script>
 <style>
 :root{
   --bg:#f4f2ed; --surface:#ffffff; --ink:#080807; --muted:#6b7461;
@@ -401,6 +402,13 @@ var origName = '';
 var lastBlob = null;
 var lastUrl = null;
 
+/* ---------- Backlog central (planilha Google, opcional) ---------- */
+function pmPostBacklog(entry){
+  var api=(window.PM_BACKLOG_API||'').trim();
+  if(!api)return;
+  try{ fetch(api,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(entry)}); }catch(e){}
+}
+
 /* ---------- Helpers ---------- */
 function slugify(s){
   return (s||'').toString().toLowerCase().trim()
@@ -646,11 +654,13 @@ genBtn.addEventListener('click',function(){
       if(by){try{localStorage.setItem('pm_geradaPor',by);}catch(e){}}
       var d=new Date(), iso=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
       var pretty=r.slug.replace(/-/g,' ').replace(/(^|\s)\S/g,function(c){return c.toUpperCase();});
+      var entry={cliente:pretty,slug:r.slug,url:'/propostas/'+r.slug,valor:null,data:iso,geradaPor:by||'—',faces:null,cidades:null};
       var list=[];try{list=JSON.parse(localStorage.getItem('pm_historico')||'[]');}catch(e){}
       if(!Array.isArray(list))list=[];
       list=list.filter(function(x){return x.slug!==r.slug;});
-      list.push({cliente:pretty,slug:r.slug,url:'/propostas/'+r.slug,valor:null,data:iso,geradaPor:by||'—',faces:null,cidades:null});
+      list.push(entry);
       try{localStorage.setItem('pm_historico',JSON.stringify(list));}catch(e){}
+      pmPostBacklog(entry);
     })();
     document.getElementById('r-path').textContent='propostas/'+r.slug+'/index.html';
     document.getElementById('r-folder').textContent='propostas/'+r.slug;
@@ -1083,6 +1093,7 @@ function recordHistory(slug, cfg){
   list=list.filter(function(x){return x.slug!==slug;});
   list.push(entry);
   try{localStorage.setItem('pm_historico', JSON.stringify(list));}catch(e){}
+  pmPostBacklog(entry);
 }
 
 async function runGenerate(preview){

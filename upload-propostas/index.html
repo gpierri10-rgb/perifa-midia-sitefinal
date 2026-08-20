@@ -60,6 +60,8 @@ label.lbl{display:block;font-size:13px;font-weight:700;margin-bottom:8px}
 
 input[type=text],input[type=password]{width:100%;min-height:48px;padding:12px 14px;font-size:15px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);font-family:var(--font)}
 input[type=text]:focus,input[type=password]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(103,33,255,.15)}
+select.pm-select{width:100%;min-height:48px;padding:12px 14px;font-size:15px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);font-family:var(--font);cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7461' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+select.pm-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(103,33,255,.15)}
 
 .urlprev{margin-top:9px;font-size:13px;color:var(--muted);word-break:break-all}
 .urlprev b{color:var(--ink)}
@@ -179,7 +181,18 @@ textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba
     </div>
 
     <div class="field">
-      <label class="lbl">3 · Opções</label>
+      <label class="lbl" for="hby">3 · Gerada por</label>
+      <select id="hby" class="pm-select">
+        <option value="">Selecione...</option>
+        <option>Rubens Ressutti</option>
+        <option>Clarissa Crisóstomo</option>
+        <option>Adm e Financeiro</option>
+      </select>
+      <div class="hint">Fica registrado no backlog como quem subiu/gerou a proposta.</div>
+    </div>
+
+    <div class="field">
+      <label class="lbl">4 · Opções</label>
 
       <div class="switch">
         <input type="checkbox" id="opt-pw">
@@ -269,8 +282,13 @@ textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba
     <div class="urlprev" id="gurlprev" style="margin-top:-6px;margin-bottom:4px">Endereço final: <b>perifamidia.com.br/propostas/&lt;nome&gt;</b></div>
 
     <div class="field">
-      <label class="lbl" for="gby">Seu nome (gerada por)</label>
-      <input type="text" id="gby" placeholder="ex.: Guilherme" autocomplete="name">
+      <label class="lbl" for="gby">Gerada por</label>
+      <select id="gby" class="pm-select">
+        <option value="">Selecione...</option>
+        <option>Rubens Ressutti</option>
+        <option>Clarissa Crisóstomo</option>
+        <option>Adm e Financeiro</option>
+      </select>
       <div class="dz-note">Fica registrado no backlog como quem gerou a proposta.</div>
     </div>
 
@@ -623,6 +641,17 @@ genBtn.addEventListener('click',function(){
     if(lastUrl)URL.revokeObjectURL(lastUrl);
     lastUrl=URL.createObjectURL(lastBlob);
     download(lastBlob,'index.html');
+    (function(){
+      var by=(document.getElementById('hby').value||'').trim();
+      if(by){try{localStorage.setItem('pm_geradaPor',by);}catch(e){}}
+      var d=new Date(), iso=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+      var pretty=r.slug.replace(/-/g,' ').replace(/(^|\s)\S/g,function(c){return c.toUpperCase();});
+      var list=[];try{list=JSON.parse(localStorage.getItem('pm_historico')||'[]');}catch(e){}
+      if(!Array.isArray(list))list=[];
+      list=list.filter(function(x){return x.slug!==r.slug;});
+      list.push({cliente:pretty,slug:r.slug,url:'/propostas/'+r.slug,valor:null,data:iso,geradaPor:by||'—',faces:null,cidades:null});
+      try{localStorage.setItem('pm_historico',JSON.stringify(list));}catch(e){}
+    })();
     document.getElementById('r-path').textContent='propostas/'+r.slug+'/index.html';
     document.getElementById('r-folder').textContent='propostas/'+r.slug;
     document.getElementById('r-url').textContent='https://perifamidia.com.br/propostas/'+r.slug;
@@ -645,6 +674,8 @@ previewBtn.addEventListener('click',function(){
 document.getElementById('redownload').addEventListener('click',function(){if(lastBlob)download(lastBlob,'index.html');});
 document.getElementById('reopen').addEventListener('click',function(){if(lastUrl)window.open(lastUrl,'_blank');});
 
+try{var _hp=localStorage.getItem('pm_geradaPor'); if(_hp)document.getElementById('hby').value=_hp;}catch(e){}
+document.getElementById('hby').addEventListener('change',function(){try{localStorage.setItem('pm_geradaPor',this.value);}catch(e){}});
 refreshUrl();
 </script>
 
@@ -1146,6 +1177,7 @@ document.getElementById('gpreview').addEventListener('click',function(){runGener
 document.getElementById('gredownload').addEventListener('click',function(){if(G.lastBlob)download(G.lastBlob,'index.html');});
 document.getElementById('greopen').addEventListener('click',function(){if(G.lastUrl)window.open(G.lastUrl,'_blank');});
 try{var _gp=localStorage.getItem('pm_geradaPor'); if(_gp)document.getElementById('gby').value=_gp;}catch(e){}
+document.getElementById('gby').addEventListener('change',function(){try{localStorage.setItem('pm_geradaPor',this.value);}catch(e){}});
 gRefreshUrl();
 
 })();

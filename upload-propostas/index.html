@@ -232,18 +232,20 @@ textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba
 
   <div class="result" id="result">
     <h3>Proposta gerada &#9989;</h3>
-    <p>Arquivo <b id="r-file">index.html</b> baixado. Publique no repositório neste caminho:</p>
-    <div class="codebox" id="r-path">propostas/nome/index.html</div>
-    <p style="margin:14px 0 0">Depois de publicar, a proposta fica no ar em:</p>
+    <p class="auto-only" style="display:none">Publicada automaticamente. Fica no ar em ~1 min neste link:</p>
+    <p class="manual-only">Arquivo <b id="r-file">index.html</b> baixado. Publique no repositório neste caminho:</p>
+    <div class="codebox manual-only" id="r-path">propostas/nome/index.html</div>
+    <p class="manual-only" style="margin:14px 0 0">Depois de publicar, a proposta fica no ar em:</p>
     <div class="codebox" id="r-url">https://perifamidia.com.br/propostas/nome</div>
-    <ol class="steps">
+    <ol class="steps manual-only">
       <li>Crie a pasta <code id="r-folder">propostas/nome</code> no repositório do site.</li>
       <li>Coloque o arquivo baixado dentro dela como <code>index.html</code>.</li>
-      <li>Faça o commit / push &mdash; o Vercel publica automaticamente.</li>
+      <li>Faça o commit / push &mdash; o GitHub Pages publica automaticamente.</li>
     </ol>
     <div class="actions">
-      <button class="btn primary" id="redownload">Baixar novamente</button>
-      <button class="btn ghost" id="reopen">Abrir pré-visualização</button>
+      <button class="btn primary" id="reopen">Abrir proposta</button>
+      <button class="btn ghost manual-only" id="redownload">Baixar novamente</button>
+      <a class="btn ghost" href="/upload-propostas/historico" style="text-align:center;text-decoration:none">Ver no backlog</a>
     </div>
   </div>
 
@@ -340,21 +342,21 @@ textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba
 
   <div class="result" id="gresult">
     <h3>Proposta gerada &#9989;</h3>
-    <p>Arquivo <b>index.html</b> baixado. Publique no repositório neste caminho:</p>
-    <div class="codebox" id="gr-path">propostas/nome/index.html</div>
-    <p style="margin:14px 0 0">Depois de publicar, a proposta fica no ar em:</p>
+    <p class="auto-only" style="display:none">Publicada automaticamente. Fica no ar em ~1 min neste link:</p>
+    <p class="manual-only">Arquivo <b>index.html</b> baixado. Publique no repositório neste caminho:</p>
+    <div class="codebox manual-only" id="gr-path">propostas/nome/index.html</div>
+    <p class="manual-only" style="margin:14px 0 0">Depois de publicar, a proposta fica no ar em:</p>
     <div class="codebox" id="gr-url">https://perifamidia.com.br/propostas/nome</div>
-    <ol class="steps">
+    <ol class="steps manual-only">
       <li>Crie a pasta <code id="gr-folder">propostas/nome</code> no repositório do site.</li>
       <li>Coloque o arquivo baixado dentro dela como <code>index.html</code>.</li>
-      <li>Faça o commit / push &mdash; o Vercel publica automaticamente.</li>
+      <li>Faça o commit / push &mdash; o GitHub Pages publica automaticamente.</li>
     </ol>
     <div class="actions">
-      <button class="btn primary" id="gredownload">Baixar novamente</button>
-      <button class="btn ghost" id="greopen">Abrir pré-visualização</button>
+      <button class="btn primary" id="greopen">Abrir proposta</button>
+      <button class="btn ghost manual-only" id="gredownload">Baixar novamente</button>
       <a class="btn ghost" href="/upload-propostas/historico" style="text-align:center;text-decoration:none">Ver no backlog</a>
     </div>
-    <p style="font-size:12.5px;color:var(--muted);margin:14px 0 0">Esta proposta já entrou no seu backlog local. Ela aparece como <b>publicada</b> para o time depois que você publicar (e atualizar o <code>historico.json</code>).</p>
   </div>
   </div><!-- /tab-gerar -->
 
@@ -403,10 +405,18 @@ var lastBlob = null;
 var lastUrl = null;
 
 /* ---------- Backlog central (planilha Google, opcional) ---------- */
-function pmPostBacklog(entry){
+function pmApiOn(){return !!(window.PM_BACKLOG_API||'').trim();}
+function pmPostBacklog(entry, html){
   var api=(window.PM_BACKLOG_API||'').trim();
   if(!api)return;
-  try{ fetch(api,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(entry)}); }catch(e){}
+  var payload={}; for(var k in entry){ if(entry.hasOwnProperty(k)) payload[k]=entry[k]; }
+  if(html) payload.html=html; // presença do html dispara a publicação automática no Apps Script
+  try{ fetch(api,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}); }catch(e){}
+}
+function pmSetResultMode(el){
+  if(!el)return; var auto=pmApiOn();
+  [].forEach.call(el.querySelectorAll('.manual-only'),function(x){x.style.display=auto?'none':'';});
+  [].forEach.call(el.querySelectorAll('.auto-only'),function(x){x.style.display=auto?'':'none';});
 }
 
 /* ---------- Helpers ---------- */
@@ -648,7 +658,7 @@ genBtn.addEventListener('click',function(){
     lastBlob=new Blob([r.html],{type:'text/html;charset=utf-8'});
     if(lastUrl)URL.revokeObjectURL(lastUrl);
     lastUrl=URL.createObjectURL(lastBlob);
-    download(lastBlob,'index.html');
+    if(!pmApiOn())download(lastBlob,'index.html');
     (function(){
       var by=(document.getElementById('hby').value||'').trim();
       if(by){try{localStorage.setItem('pm_geradaPor',by);}catch(e){}}
@@ -660,13 +670,15 @@ genBtn.addEventListener('click',function(){
       list=list.filter(function(x){return x.slug!==r.slug;});
       list.push(entry);
       try{localStorage.setItem('pm_historico',JSON.stringify(list));}catch(e){}
-      pmPostBacklog(entry);
+      pmPostBacklog(entry, r.html);
     })();
     document.getElementById('r-path').textContent='propostas/'+r.slug+'/index.html';
     document.getElementById('r-folder').textContent='propostas/'+r.slug;
     document.getElementById('r-url').textContent='https://perifamidia.com.br/propostas/'+r.slug;
+    pmSetResultMode(result);
     result.classList.add('on');
     result.scrollIntoView({behavior:'smooth',block:'start'});
+    try{window.open(lastUrl,'_blank');}catch(e){}
   }catch(err){showErr(err.message||String(err));}
 });
 
@@ -1082,7 +1094,7 @@ function buildFinal(){
   return {html:out, slug:slug, cfg:model.cfg};
 }
 
-function recordHistory(slug, cfg){
+function recordHistory(slug, cfg, html){
   var by=(document.getElementById('gby').value||'').trim();
   try{ if(by) localStorage.setItem('pm_geradaPor', by); }catch(e){}
   var d=new Date();
@@ -1093,7 +1105,7 @@ function recordHistory(slug, cfg){
   list=list.filter(function(x){return x.slug!==slug;});
   list.push(entry);
   try{localStorage.setItem('pm_historico', JSON.stringify(list));}catch(e){}
-  pmPostBacklog(entry);
+  pmPostBacklog(entry, html);
 }
 
 async function runGenerate(preview){
@@ -1114,13 +1126,15 @@ async function runGenerate(preview){
     if(preview){var u=URL.createObjectURL(blob);window.open(u,'_blank');setTimeout(function(){URL.revokeObjectURL(u);},6000);}
     else{
       G.lastBlob=blob; if(G.lastUrl)URL.revokeObjectURL(G.lastUrl); G.lastUrl=URL.createObjectURL(blob);
-      download(blob,'index.html');
-      recordHistory(r.slug, r.cfg);
+      if(!pmApiOn())download(blob,'index.html');
+      recordHistory(r.slug, r.cfg, r.html);
       document.getElementById('gr-path').textContent='propostas/'+r.slug+'/index.html';
       document.getElementById('gr-folder').textContent='propostas/'+r.slug;
       document.getElementById('gr-url').textContent='https://perifamidia.com.br/propostas/'+r.slug;
+      pmSetResultMode(document.getElementById('gresult'));
       document.getElementById('gresult').classList.add('on');
       document.getElementById('gresult').scrollIntoView({behavior:'smooth',block:'start'});
+      try{window.open(G.lastUrl,'_blank');}catch(e){}
     }
   }catch(err){gerr(err.message||String(err));}
   finally{prog(false);document.getElementById('ggen').disabled=false;document.getElementById('gpreview').disabled=false;}

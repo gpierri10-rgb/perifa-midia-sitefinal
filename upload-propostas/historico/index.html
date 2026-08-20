@@ -118,6 +118,7 @@ p.sub{margin:0 0 22px;color:var(--muted);font-size:14.5px}
     </div>
     <div class="search"><input type="text" id="q" placeholder="Buscar por cliente..."></div>
     <button class="btn-exp" id="export" title="Baixar o backlog atualizado (historico.json) para publicar">Exportar historico.json</button>
+    <button class="btn-exp" id="clearlocal" title="Remove os registros locais deste navegador (não afeta o backlog compartilhado)">Limpar locais</button>
   </div>
 
   <div class="list" id="list"></div>
@@ -211,6 +212,11 @@ document.getElementById('seg').addEventListener('click',function(e){
   b.classList.add('active'); state.sort=b.dataset.sort; render();
 });
 document.getElementById('q').addEventListener('input',function(){state.q=this.value;render();});
+document.getElementById('clearlocal').addEventListener('click',function(){
+  if(!confirm('Remover os registros locais deste navegador? (não afeta o backlog compartilhado)'))return;
+  try{localStorage.removeItem('pm_historico');}catch(e){}
+  location.reload();
+});
 document.getElementById('export').addEventListener('click',function(){
   // exporta o backlog COMPLETO (compartilhado + locais) como historico.json para commit
   var out=state.items.map(function(e){return {cliente:e.cliente,slug:e.slug,url:e.url||('/propostas/'+e.slug),valor:e.valor==null?null:e.valor,data:e.data,geradaPor:e.geradaPor||'—',faces:e.faces||null,cidades:e.cidades||null};});

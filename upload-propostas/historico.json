@@ -1,0 +1,6 @@
+[
+  { "cliente": "Shopee", "slug": "shopee", "url": "/propostas/shopee", "valor": 488420, "data": "2026-08-13", "geradaPor": "—", "faces": null, "cidades": null },
+  { "cliente": "Guanabara", "slug": "guanabara", "url": "/propostas/guanabara", "valor": 233544, "data": "2026-08-18", "geradaPor": "—", "faces": 111, "cidades": 1 },
+  { "cliente": "PicPay", "slug": "picpay-agosto26", "url": "/propostas/picpay-agosto26", "valor": 205390, "data": "2026-08-18", "geradaPor": "—", "faces": null, "cidades": null },
+  { "cliente": "Drogaria Princesa", "slug": "princesa", "url": "/propostas/princesa", "valor": null, "data": "2026-08-20", "geradaPor": "—", "faces": null, "cidades": null }
+]

@@ -232,14 +232,17 @@ function loadFromApi(cb){
   document.head.appendChild(s);
   setTimeout(function(){if(done)return;done=true;cb(null);cleanup();},8000);
 }
-function fromJson(){
-  fetch('/upload-propostas/historico.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];}).then(function(shared){
-    state.items=merge(Array.isArray(shared)?shared:[], loadLocal()); render();
-  });
+function combineBySlug(base, over){
+  var m={}; (base||[]).forEach(function(e){if(e&&e.slug)m[e.slug]=e;});
+  (over||[]).forEach(function(e){if(e&&e.slug)m[e.slug]=e;});
+  return Object.keys(m).map(function(k){return m[k];});
 }
 loadFromApi(function(apiRows){
-  if(Array.isArray(apiRows)){ state.items=merge(apiRows, loadLocal()); render(); }
-  else { fromJson(); }
+  fetch('/upload-propostas/historico.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];}).then(function(seed){
+    var shared=combineBySlug(Array.isArray(seed)?seed:[], Array.isArray(apiRows)?apiRows:[]);
+    state.items=merge(shared, loadLocal());
+    render();
+  });
 });
 </script>
 </body>

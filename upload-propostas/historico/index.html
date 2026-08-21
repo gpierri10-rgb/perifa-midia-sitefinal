@@ -143,6 +143,8 @@ p.sub{margin:0 0 22px;color:var(--muted);font-size:14.5px}
 /* ---------- Dados ---------- */
 var LS_KEY='pm_historico';
 var state={items:[], sort:'data', q:''};
+/* slugs escondidos do backlog (linhas antigas/duplicadas que continuam na planilha) */
+var HIDE={'princesa26':1,'drogaria-princesa':1,'princesa2026':1,'teste-auto-publicar':1,'boticario-teste':1};
 
 function money(n){return Number(n).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});}
 function fmtDate(iso){if(!iso)return '—';var p=iso.split('-');if(p.length!==3)return iso;return p[2]+'/'+p[1]+'/'+p[0];}
@@ -248,7 +250,7 @@ document.getElementById('list').innerHTML='<div class="empty">Carregando backlog
 loadFromApi(function(apiRows){
   fetch('/upload-propostas/historico.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];}).then(function(seed){
     var shared=combineBySlug(Array.isArray(seed)?seed:[], Array.isArray(apiRows)?apiRows:[]);
-    state.items=merge(shared, loadLocal());
+    state.items=merge(shared, loadLocal()).filter(function(e){return !HIDE[e.slug];});
     render();
   });
 });

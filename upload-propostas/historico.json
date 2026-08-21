@@ -1,6 +1,4 @@
 [
   { "cliente": "Shopee", "slug": "shopee", "url": "/propostas/shopee", "valor": 488420, "data": "2026-08-13", "geradaPor": "—", "faces": null, "cidades": null },
-  { "cliente": "Guanabara", "slug": "guanabara", "url": "/propostas/guanabara", "valor": 233544, "data": "2026-08-18", "geradaPor": "—", "faces": 111, "cidades": 1 },
-  { "cliente": "Drogaria Princesa", "slug": "princesa", "url": "/propostas/princesa", "valor": null, "data": "2026-08-20", "geradaPor": "—", "faces": null, "cidades": null },
-  { "cliente": "Drogaria Princesa", "slug": "princesa26", "url": "/propostas/princesa26", "valor": 193344, "data": "2026-08-20", "geradaPor": "Adm e Financeiro", "faces": 96, "cidades": 1 }
+  { "cliente": "Guanabara", "slug": "guanabara", "url": "/propostas/guanabara", "valor": 233544, "data": "2026-08-18", "geradaPor": "—", "faces": 111, "cidades": 1 }
 ]

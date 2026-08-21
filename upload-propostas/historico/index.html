@@ -243,6 +243,7 @@ function combineBySlug(base, over){
   (over||[]).forEach(function(e){if(e&&e.slug)m[e.slug]=e;});
   return Object.keys(m).map(function(k){return m[k];});
 }
+document.getElementById('list').innerHTML='<div class="empty">Carregando backlog...</div>';
 loadFromApi(function(apiRows){
   fetch('/upload-propostas/historico.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];}).then(function(seed){
     var shared=combineBySlug(Array.isArray(seed)?seed:[], Array.isArray(apiRows)?apiRows:[]);

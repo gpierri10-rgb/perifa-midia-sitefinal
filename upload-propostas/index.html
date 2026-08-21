@@ -406,6 +406,7 @@ var lastUrl = null;
 
 /* ---------- Backlog central (planilha Google, opcional) ---------- */
 function pmApiOn(){return !!(window.PM_BACKLOG_API||'').trim();}
+function pmOpenBlank(){ try{ return window.open('','_blank'); }catch(e){ return null; } } // abre a aba no clique (evita bloqueio de popup)
 function pmPostBacklog(entry, html){
   var api=(window.PM_BACKLOG_API||'').trim();
   if(!api)return;
@@ -653,6 +654,7 @@ function download(blob,name){
 
 genBtn.addEventListener('click',function(){
   clearErr();
+  var win=pmOpenBlank();
   try{
     var r=process();
     lastBlob=new Blob([r.html],{type:'text/html;charset=utf-8'});
@@ -678,19 +680,20 @@ genBtn.addEventListener('click',function(){
     pmSetResultMode(result);
     result.classList.add('on');
     result.scrollIntoView({behavior:'smooth',block:'start'});
-    try{window.open(lastUrl,'_blank');}catch(e){}
-  }catch(err){showErr(err.message||String(err));}
+    if(win){win.location.href=lastUrl;} else {try{window.open(lastUrl,'_blank');}catch(e){}}
+  }catch(err){ if(win){try{win.close();}catch(e){}} showErr(err.message||String(err)); }
 });
 
 previewBtn.addEventListener('click',function(){
   clearErr();
+  var win=pmOpenBlank();
   try{
     var r=process();
     var blob=new Blob([r.html],{type:'text/html;charset=utf-8'});
     var url=URL.createObjectURL(blob);
-    window.open(url,'_blank');
-    setTimeout(function(){URL.revokeObjectURL(url);},4000);
-  }catch(err){showErr(err.message||String(err));}
+    if(win){win.location.href=url;} else {window.open(url,'_blank');}
+    setTimeout(function(){URL.revokeObjectURL(url);},8000);
+  }catch(err){ if(win){try{win.close();}catch(e){}} showErr(err.message||String(err)); }
 });
 
 document.getElementById('redownload').addEventListener('click',function(){if(lastBlob)download(lastBlob,'index.html');});
@@ -1108,12 +1111,12 @@ function recordHistory(slug, cfg, html){
   pmPostBacklog(entry, html);
 }
 
-async function runGenerate(preview){
+async function runGenerate(preview, win){
   gerr('');
   var client=document.getElementById('gclient').value.trim();
   var slug=currentSlug();
-  if(!G.comms){gerr('Suba um Excel primeiro.');return;}
-  if(!slug){gerr('Digite um nome para a página.');return;}
+  if(!G.comms){gerr('Suba um Excel primeiro.'); if(win){try{win.close();}catch(e){}} return;}
+  if(!slug){gerr('Digite um nome para a página.'); if(win){try{win.close();}catch(e){}} return;}
   document.getElementById('ggen').disabled=true;document.getElementById('gpreview').disabled=true;
   try{
     // geocodifica se ainda não tiver coordenadas
@@ -1123,8 +1126,11 @@ async function runGenerate(preview){
     await sleep(30);
     var r=buildFinal();
     var blob=new Blob([r.html],{type:'text/html;charset=utf-8'});
-    if(preview){var u=URL.createObjectURL(blob);window.open(u,'_blank');setTimeout(function(){URL.revokeObjectURL(u);},6000);}
-    else{
+    if(preview){
+      var u=URL.createObjectURL(blob);
+      if(win){win.location.href=u;} else {window.open(u,'_blank');}
+      setTimeout(function(){URL.revokeObjectURL(u);},8000);
+    } else {
       G.lastBlob=blob; if(G.lastUrl)URL.revokeObjectURL(G.lastUrl); G.lastUrl=URL.createObjectURL(blob);
       if(!pmApiOn())download(blob,'index.html');
       recordHistory(r.slug, r.cfg, r.html);
@@ -1134,9 +1140,9 @@ async function runGenerate(preview){
       pmSetResultMode(document.getElementById('gresult'));
       document.getElementById('gresult').classList.add('on');
       document.getElementById('gresult').scrollIntoView({behavior:'smooth',block:'start'});
-      try{window.open(G.lastUrl,'_blank');}catch(e){}
+      if(win){win.location.href=G.lastUrl;} else {try{window.open(G.lastUrl,'_blank');}catch(e){}}
     }
-  }catch(err){gerr(err.message||String(err));}
+  }catch(err){ if(win){try{win.close();}catch(e){}} gerr(err.message||String(err)); }
   finally{prog(false);document.getElementById('ggen').disabled=false;document.getElementById('gpreview').disabled=false;}
 }
 
@@ -1197,8 +1203,8 @@ gdrop.addEventListener('drop',function(e){var f=e.dataTransfer.files&&e.dataTran
 gfile.addEventListener('change',function(){if(gfile.files[0])handleExcel(gfile.files[0]);});
 document.getElementById('gslug').addEventListener('input',gRefreshUrl);
 document.getElementById('gopt-pw').addEventListener('change',function(){var on=this.checked;document.getElementById('gpwrow').classList.toggle('on',on);if(on)document.getElementById('gpw').focus();});
-document.getElementById('ggen').addEventListener('click',function(){runGenerate(false);});
-document.getElementById('gpreview').addEventListener('click',function(){runGenerate(true);});
+document.getElementById('ggen').addEventListener('click',function(){runGenerate(false, pmOpenBlank());});
+document.getElementById('gpreview').addEventListener('click',function(){runGenerate(true, pmOpenBlank());});
 document.getElementById('gredownload').addEventListener('click',function(){if(G.lastBlob)download(G.lastBlob,'index.html');});
 document.getElementById('greopen').addEventListener('click',function(){if(G.lastUrl)window.open(G.lastUrl,'_blank');});
 try{var _gp=localStorage.getItem('pm_geradaPor'); if(_gp)document.getElementById('gby').value=_gp;}catch(e){}

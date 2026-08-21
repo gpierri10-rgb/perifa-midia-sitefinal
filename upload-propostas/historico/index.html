@@ -151,11 +151,12 @@ function initial(name){return (name||'?').trim().charAt(0).toUpperCase();}
 function loadLocal(){try{return JSON.parse(localStorage.getItem(LS_KEY)||'[]');}catch(e){return [];}}
 
 function merge(shared, local){
+  var autoPub = !!(window.PM_BACKLOG_API||'').trim(); // com auto-publicar ligado, gerar = já publicada
   var bySlug={};
   shared.forEach(function(e){e.publicada=true; bySlug[e.slug]=e;});
   local.forEach(function(e){
-    if(bySlug[e.slug]){ /* já publicada — mantém a versão compartilhada */ }
-    else { e.publicada=false; bySlug[e.slug]=e; }
+    if(bySlug[e.slug]){ /* já está no compartilhado — mantém essa versão */ }
+    else { e.publicada=autoPub; bySlug[e.slug]=e; }
   });
   return Object.keys(bySlug).map(function(k){return bySlug[k];});
 }
@@ -236,7 +237,7 @@ function loadFromApi(cb){
   s.onerror=function(){if(done)return;done=true;cb(null);cleanup();};
   s.src=api+(api.indexOf('?')<0?'?':'&')+'callback='+name+'&_='+String(Math.random()).slice(2);
   document.head.appendChild(s);
-  setTimeout(function(){if(done)return;done=true;cb(null);cleanup();},8000);
+  setTimeout(function(){if(done)return;done=true;cb(null);cleanup();},12000);
 }
 function combineBySlug(base, over){
   var m={}; (base||[]).forEach(function(e){if(e&&e.slug)m[e.slug]=e;});

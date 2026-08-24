@@ -30,82 +30,48 @@
 
 <!--PM-PDF-EXPORT-FEATURE-->
 <style id="pm-export-style">
-#pm-export-fab{position:fixed;right:22px;bottom:22px;z-index:2147483050;display:inline-flex;align-items:center;gap:9px;padding:13px 18px;border:none;border-radius:999px;background:#6721ff;color:#fff;font-family:Inter,Arial,Helvetica,sans-serif;font-weight:800;font-size:13px;letter-spacing:.02em;cursor:pointer;box-shadow:0 12px 34px rgba(103,33,255,.42);transition:filter .16s ease,transform .16s ease}
-#pm-export-fab:hover{filter:brightness(1.08);transform:translateY(-1px)}
-#pm-export-fab:disabled{opacity:.7;cursor:wait;transform:none}
+#pm-export-fab{position:fixed;right:22px;bottom:22px;z-index:2147483050;display:inline-flex;align-items:center;gap:9px;padding:13px 18px;border:none;border-radius:999px;background:#1f4d3a;color:#fff;font-family:Inter,Arial,Helvetica,sans-serif;font-weight:800;font-size:13px;letter-spacing:.02em;cursor:pointer;box-shadow:0 12px 34px rgba(0,0,0,.32);transition:filter .16s ease,transform .16s ease}
+#pm-export-fab:hover{filter:brightness(1.12);transform:translateY(-1px)}
 #pm-export-fab svg{width:17px;height:17px;display:block}
 @media(max-width:900px){#pm-export-fab{display:none}}
-#pm-export-overlay{position:fixed;inset:0;z-index:2147483200;display:none;align-items:center;justify-content:center;background:rgba(14,13,18,.92);backdrop-filter:blur(4px);font-family:Inter,Arial,Helvetica,sans-serif}
-#pm-export-overlay.on{display:flex}
-#pm-export-overlay .box{text-align:center;color:#fff;max-width:320px;padding:20px}
-#pm-export-overlay .spin{width:46px;height:46px;border:3px solid rgba(255,255,255,.22);border-top-color:#ebff6a;border-radius:50%;margin:0 auto 18px;animation:pmspin 1s linear infinite}
-@keyframes pmspin{to{transform:rotate(360deg)}}
-#pm-export-overlay .lbl{font-weight:800;font-size:15px}
-#pm-export-overlay .sub{margin-top:7px;font-size:12px;color:#cbccd6;line-height:1.5}
-html.pm-exporting .reveal{opacity:1!important;transform:none!important}
-html.pm-exporting #pm-export-fab{display:none!important}
-html.pm-exporting *{transition:none!important;animation:none!important}
+#pm-print-tip{position:fixed;inset:0;z-index:2147483200;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,20,15,.6);backdrop-filter:blur(3px);font-family:Inter,Arial,Helvetica,sans-serif}
+#pm-print-tip.on{display:flex}
+#pm-print-tip .box{background:#fff;color:#12241b;max-width:420px;border-radius:16px;padding:26px 26px 22px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+#pm-print-tip h4{margin:0 0 10px;font-size:18px;font-weight:800}
+#pm-print-tip p{margin:0 0 8px;font-size:13.5px;line-height:1.5;color:#4a5568}
+#pm-print-tip .btns{display:flex;gap:10px;margin-top:18px}
+#pm-print-tip button{flex:1;border:none;border-radius:10px;padding:13px;font-family:inherit;font-weight:800;font-size:13px;cursor:pointer}
+#pm-print-tip .go{background:#1f4d3a;color:#fff}
+#pm-print-tip .cancel{background:#eef0f4;color:#12241b}
+@media print{
+  @page{size:A4;margin:0}
+  html,body{margin:0 !important;background:#fff !important}
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;transition:none !important;animation:none !important}
+  #pm-export-fab,#pm-print-tip,#pm-gate,#pm-brand{display:none !important}
+  .topbar,header.topbar{position:static !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important}
+  .reveal{opacity:1 !important;transform:none !important}
+  .card,.why,.tactical,.step,.front,.premise,.hero-card,.budget,.price,.value,.section-head,.story,.journey,.kpi,.panel,figure,table,tr,img,blockquote,li{break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  img{max-width:100% !important}
+}
 </style>
-<button id="pm-export-fab" type="button" aria-label="Exportar proposta em PDF" title="Exportar em PDF (desktop)">
+<button id="pm-export-fab" type="button" aria-label="Exportar proposta em PDF" title="Exportar em PDF (Salvar como PDF)">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
   Exportar PDF
 </button>
-<div id="pm-export-overlay" role="alert" aria-live="assertive"><div class="box"><div class="spin"></div><div class="lbl" id="pm-export-lbl">Gerando PDF...</div><div class="sub" id="pm-export-sub">Renderizando a proposta em alta resolucao.</div></div></div>
+<div id="pm-print-tip" role="dialog" aria-modal="true" aria-label="Exportar em PDF"><div class="box"><h4>Salvar em PDF</h4><p>Vai abrir a janela de impress&atilde;o do navegador. Em <b>Destino</b>, escolha <b>&ldquo;Salvar como PDF&rdquo;</b> e clique em Salvar.</p><p>Para ficar id&ecirc;ntico ao layout: <b>Margens</b> = Nenhuma e <b>Gr&aacute;ficos de segundo plano</b> = ligado.</p><div class="btns"><button class="cancel" id="pm-print-cancel" type="button">Cancelar</button><button class="go" id="pm-print-go" type="button">Abrir impress&atilde;o</button></div></div></div>
 <script>/*PM-PDF-EXPORT*/
 (function(){
-  var CDN={h2c:"https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",jspdf:"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"};
-  var CAPTURE_W=1280;
-  var FILE="Proposta-orla-do-cuidado-Perifa-Midia.pdf";
-  var HAS_LOGO=true;
-  var fab=document.getElementById("pm-export-fab"),overlay=document.getElementById("pm-export-overlay"),lbl=document.getElementById("pm-export-lbl"),sub=document.getElementById("pm-export-sub");
+  var fab=document.getElementById("pm-export-fab"),tip=document.getElementById("pm-print-tip");
   if(!fab)return;
-  function loadScript(src){return new Promise(function(res,rej){if(document.querySelector('script[data-pm="'+src+'"]')){res();return;}var s=document.createElement("script");s.src=src;s.async=true;s.setAttribute("data-pm",src);s.onload=function(){res();};s.onerror=function(){rej(new Error("falha "+src));};document.head.appendChild(s);});}
-  function setMsg(l,s){if(l!=null)lbl.textContent=l;if(s!=null)sub.textContent=s;}
-  function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
-  function pageBg(){try{var c=getComputedStyle(document.body).backgroundColor;if(!c||c==="rgba(0, 0, 0, 0)"||c==="transparent")return "#ffffff";return c;}catch(e){return "#ffffff";}}
-  fab.addEventListener("click",function(){run().catch(function(err){console.error(err);setMsg("Nao foi possivel gerar o PDF","Verifique a conexao e tente novamente.");setTimeout(function(){overlay.classList.remove("on");fab.disabled=false;document.documentElement.classList.remove("pm-exporting");},2600);});});
-  function run(){fab.disabled=true;overlay.classList.add("on");setMsg("Preparando...","Carregando o gerador de PDF.");return Promise.resolve().then(function(){return loadScript(CDN.h2c);}).then(function(){return loadScript(CDN.jspdf);}).then(function(){return sleep(60);}).then(generate);}
-  function brandCanvas(bg){
-    if(!HAS_LOGO)return Promise.resolve(null);
-    var el=document.getElementById("pm-brand");var src=el&&el.querySelector("img")?el.querySelector("img").src:null;if(!src)return Promise.resolve(null);
-    var box=document.createElement("div");box.style.cssText="position:fixed;left:-99999px;top:0;width:"+CAPTURE_W+"px;background:#ffffff;padding:34px 40px;box-sizing:border-box;display:flex;align-items:center;gap:16px;font-family:Inter,Arial,sans-serif;border-bottom:1px solid #eee";
-    var im=document.createElement("img");im.src=src;im.style.cssText="height:34px;width:auto;display:block";
-    var sp=document.createElement("span");sp.textContent="Proposta comercial";sp.style.cssText="margin-left:auto;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a8a90";
-    box.appendChild(im);box.appendChild(sp);document.body.appendChild(box);
-    return window.html2canvas(box,{scale:2,backgroundColor:"#ffffff",useCORS:true,logging:false,windowWidth:CAPTURE_W,width:CAPTURE_W}).then(function(c){document.body.removeChild(box);return c;}).catch(function(){if(box.parentNode)box.parentNode.removeChild(box);return null;});
-  }
-  function generate(){
-    var jsPDFCtor=(window.jspdf&&window.jspdf.jsPDF)||window.jsPDF;
-    if(!jsPDFCtor||!window.html2canvas)throw new Error("bibliotecas indisponiveis");
-    document.documentElement.classList.add("pm-exporting");
-    var bg=pageBg();
-    var targets=[];
-    var top=document.querySelector("header.topbar");if(top)targets.push(top);
-    var main=document.querySelector("main");
-    if(main){[].slice.call(main.children).forEach(function(el){if(el.getBoundingClientRect().height>4)targets.push(el);});}
-    var foot=document.querySelector("body > footer");if(foot)targets.push(foot);
-    if(targets.length===0){var skip={"pm-brand":1,"pm-export-fab":1,"pm-export-overlay":1,"pm-gate":1};[].slice.call(document.body.children).forEach(function(el){if(el.id&&skip[el.id])return;if(el.tagName==="SCRIPT"||el.tagName==="STYLE")return;if(el.getBoundingClientRect().height>4)targets.push(el);});}
-    if(targets.length===0)targets=[document.body];
-    var opts={scale:2,backgroundColor:bg,useCORS:true,logging:false,windowWidth:CAPTURE_W,width:CAPTURE_W,scrollX:0,scrollY:0};
-    var canvases=[];
-    return brandCanvas(bg).then(function(bc){if(bc)canvases.push(bc);
-      var chain=Promise.resolve();
-      targets.forEach(function(el,i){chain=chain.then(function(){setMsg("Gerando PDF...","Renderizando secao "+(i+1)+" de "+targets.length+"...");return window.html2canvas(el,opts).then(function(c){canvases.push(c);return sleep(10);});});});
-      return chain;
-    }).then(function(){
-      setMsg("Montando o documento...","Quase la.");
-      var pdf=new jsPDFCtor({unit:"mm",format:"a4",orientation:"portrait",compress:true});
-      var pageW=pdf.internal.pageSize.getWidth(),pageH=pdf.internal.pageSize.getHeight(),M=8,contentW=pageW-2*M,contentH=pageH-2*M,GAP=4,y=M,first=true;
-      function placeCanvas(canvas){var imgW=contentW,imgH=imgW*canvas.height/canvas.width;
-        if(imgH<=contentH){if(!first&&(y+imgH>pageH-M)){pdf.addPage();y=M;}pdf.addImage(canvas.toDataURL("image/jpeg",0.95),"JPEG",M,y,imgW,imgH,undefined,"FAST");y+=imgH+GAP;first=false;}
-        else{var pxPerPage=Math.floor(canvas.width*(contentH/imgW));var sy=0;while(sy<canvas.height){var sh=Math.min(pxPerPage,canvas.height-sy);var slice=document.createElement("canvas");slice.width=canvas.width;slice.height=sh;var ctx=slice.getContext("2d");ctx.fillStyle="#ffffff";ctx.fillRect(0,0,slice.width,slice.height);ctx.drawImage(canvas,0,sy,canvas.width,sh,0,0,canvas.width,sh);if(!first){pdf.addPage();}y=M;var sliceH=imgW*sh/canvas.width;pdf.addImage(slice.toDataURL("image/jpeg",0.95),"JPEG",M,y,imgW,sliceH,undefined,"FAST");y+=sliceH+GAP;first=false;sy+=sh;}}
-      }
-      canvases.forEach(placeCanvas);
-      pdf.save(FILE);
-      document.documentElement.classList.remove("pm-exporting");
-      overlay.classList.remove("on");fab.disabled=false;
-    });
-  }
-})();</script>
+  function show(){if(tip)tip.classList.add("on");}
+  function hide(){if(tip)tip.classList.remove("on");}
+  fab.addEventListener("click",show);
+  var go=document.getElementById("pm-print-go"),cancel=document.getElementById("pm-print-cancel");
+  if(cancel)cancel.addEventListener("click",hide);
+  if(tip)tip.addEventListener("click",function(e){if(e.target===tip)hide();});
+  if(go)go.addEventListener("click",function(){hide();try{window.scrollTo(0,document.body.scrollHeight);}catch(e){}setTimeout(function(){try{window.scrollTo(0,0);}catch(e){}setTimeout(function(){window.print();},350);},400);});
+})();
+</script>
 <!--/PM-PDF-EXPORT-FEATURE-->
 </body></html>

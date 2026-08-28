@@ -276,7 +276,7 @@
             lançamentos e novidades da Perifa Mídia.
           </p>
 
-          <form class="invite-form" action="./obrigado.html" method="get">
+          <form class="invite-form" id="inviteForm" novalidate>
             <label>
               Nome
               <input type="text" name="nome" placeholder="Seu nome" required>
@@ -295,11 +295,31 @@
             <button class="invite-submit" type="submit">Fazer cadastro</button>
           </form>
 
-          <p class="invite-note">
+          <p class="invite-note" id="inviteNote">
             Ao se cadastrar, você passa a receber nossas atualizações.
+          </p>
+
+          <p class="invite-note" id="inviteThanks" hidden>
+            Recebemos seu cadastro. Obrigado por se juntar a nós — em breve entraremos em contato.
           </p>
         </aside>
       </div>
     </main>
+
+    <script>
+      (function () {
+        var form = document.getElementById("inviteForm");
+        if (!form) return;
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          if (typeof form.reportValidity === "function" && !form.reportValidity()) return;
+          var note = document.getElementById("inviteNote");
+          var thanks = document.getElementById("inviteThanks");
+          form.hidden = true;
+          if (note) note.hidden = true;
+          if (thanks) thanks.hidden = false;
+        });
+      })();
+    </script>
   </body>
 </html>

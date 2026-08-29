@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PicPay × Perifa Mídia — OOH Territorial</title>
+<style>
+:root{--green:#21C25E;--green2:#17d06b;--greenDeep:#0b7b44;--mint:#7cf0b0;--ink:#0c0c0f;--soft:#f4f2ed;--muted:#8f928a;--line:#2b2c31;}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#09090b;color:#fff;overflow-x:hidden}
+button,select{font:inherit} a{color:inherit}
+.shell{max-width:1440px;margin:auto;padding:0 28px} .condensed{font-family:Impact,'Arial Narrow',Arial,sans-serif;letter-spacing:.01em}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(9,9,11,.88);backdrop-filter:blur(16px);border-bottom:1px solid #222}
+.topbar .shell{height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px} .brand{display:flex;align-items:center;gap:14px;font-weight:900} .logo{width:36px;height:36px;border-radius:10px;background:var(--green);display:grid;place-items:center;color:#06210f;font-size:20px;font-weight:1000;box-shadow:0 6px 18px rgba(33,194,94,.35)} .sep{opacity:.3} .perifa{font-weight:900;letter-spacing:.14em} .nav{display:flex;gap:6px;flex-wrap:wrap} .nav a{font-size:12px;text-transform:uppercase;text-decoration:none;padding:9px 11px;border-radius:999px;color:#bbb} .nav a:hover{background:#1b1b20;color:#fff}
+.hero{min-height:700px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:42px;padding:74px 0 52px;position:relative} .hero:before{content:'';position:absolute;inset:-120px auto auto -280px;width:640px;height:640px;background:radial-gradient(circle,rgba(33,194,94,.20),transparent 65%);pointer-events:none} .eyebrow{color:var(--green2);font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px} .hero h1{font-size:clamp(56px,7.4vw,120px);line-height:.83;margin:0;text-transform:uppercase} .hero h1 span{color:var(--green)} .hero p{font-size:20px;line-height:1.5;color:#cacaca;max-width:720px;margin:28px 0} .hero-actions{display:flex;gap:12px;flex-wrap:wrap} .btn{border:0;border-radius:12px;padding:14px 18px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-block} .btn.primary{background:var(--green);color:#06210f} .btn.secondary{background:#17171b;color:white;border:1px solid #2d2d33} .hero-img{position:relative;border-radius:28px;overflow:hidden;border:1px solid #22322a;box-shadow:0 30px 90px rgba(0,0,0,.45);aspect-ratio:4/3;min-height:0;background:linear-gradient(180deg,#0d1712,#0a0d0b)} .hero-img svg{width:100%;height:100%;display:block}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding:8px 0 72px} .kpi{background:#141418;border:1px solid #27272c;border-radius:18px;padding:22px;min-height:138px;transition:.25s} .kpi:hover{transform:translateY(-4px);border-color:#3c5a48} .kpi .label{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.08em} .kpi .value{font-size:34px;font-weight:1000;margin:8px 0 4px} .kpi .sub{font-size:12px;color:#aaa} .kpi.green .value{color:var(--green)} .kpi.mint .value{color:var(--mint)}
+.section{padding:84px 0;border-top:1px solid #1d1d22} .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:28px} .section-head h2{font-size:clamp(40px,5vw,76px);line-height:.95;margin:0;text-transform:uppercase} .section-head p{max-width:590px;color:#aaa;line-height:1.55;margin:0} .section-kicker{color:var(--green2);font-weight:900;text-transform:uppercase;font-size:12px;letter-spacing:.08em;margin-bottom:10px}
+.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:22px 0} .filter-btn{border:1px solid #333;background:#141418;color:#bbb;border-radius:999px;padding:10px 14px;cursor:pointer;font-weight:800} .filter-btn.active,.filter-btn:hover{background:var(--green);color:#06210f;border-color:var(--green)} select{background:#141418;color:#ddd;border:1px solid #333;border-radius:12px;padding:10px 14px}
+.map-grid{display:grid;grid-template-columns:1.5fr .7fr;gap:18px} .map-card,.panel{background:#111115;border:1px solid #27272c;border-radius:22px;overflow:hidden} .map-card{padding:18px} .map-wrap{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:radial-gradient(circle at 50% 46%,#16231c 0,#0f1512 45%,#0b0c10 100%)} .map-wrap svg{width:100%;height:100%} .route{stroke:#3e5347;stroke-width:1.6;stroke-dasharray:4 7;opacity:.5} .route.active{stroke:var(--green);stroke-width:2.4;opacity:1} .node circle{fill:#17171c;stroke:#6a7d72;stroke-width:2;cursor:pointer;transition:.2s} .node text{fill:#fff;font-size:11px;font-weight:800;pointer-events:none} .node .face{fill:#9fb7a8;font-size:9px;font-weight:700} .node:hover circle,.node.active circle{fill:var(--green);stroke:#fff;stroke-width:3} .hub circle{fill:var(--green);stroke:#fff;stroke-width:4;filter:drop-shadow(0 0 12px rgba(33,194,94,.6))} .hub text{font-size:13px;fill:#06210f;font-weight:1000} .map-caption{position:absolute;left:18px;bottom:16px;background:rgba(0,0,0,.72);padding:10px 12px;border-radius:10px;color:#aaa;font-size:12px} .panel{padding:24px} .panel h3{margin:0 0 8px;font-size:24px} .panel .big{font-size:58px;font-weight:1000;color:var(--green);line-height:1} .panel .muted{color:#999;line-height:1.5} .territory-list{display:grid;gap:8px;margin-top:18px} .territory-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid #26262b;padding-top:10px;font-size:13px} .territory-row b{color:#fff} .territory-row span{color:#999}
+.rank{display:grid;gap:9px;margin-top:20px} .hbar{display:grid;grid-template-columns:150px 1fr 84px;align-items:center;gap:12px;cursor:pointer;padding:5px 6px;border-radius:10px;transition:.18s} .hbar:hover,.hbar.active{background:#181a19} .hbar .hname{font-size:12.5px;font-weight:700;color:#d7d7d7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .hbar .htrack{height:12px;background:#1e1f24;border-radius:999px;overflow:hidden} .hbar .hfill{height:100%;background:linear-gradient(90deg,var(--greenDeep),var(--green));border-radius:999px;width:var(--w);transition:.25s} .hbar.active .hfill{background:linear-gradient(90deg,var(--green),var(--mint))} .hbar .hmeta{text-align:right;font-size:11.5px;color:#9a9aa0} .hbar .hmeta b{color:#fff;font-size:13px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px} .step{background:#f5f2eb;color:#121216;border-radius:18px;padding:24px;min-height:200px;position:relative} .num{font-size:13px;background:var(--greenDeep);color:#fff;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:900} .step h4{font-size:20px;margin:16px 0 8px;color:var(--greenDeep)} .step p{font-size:13px;line-height:1.5;color:#41414a} .step:after{content:'→';position:absolute;right:-17px;top:50%;font-size:32px;color:var(--green);z-index:2} .step:last-child:after{display:none}
+.media-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px} .media-card{background:#111115;border:1px solid #29292f;border-radius:18px;padding:24px;min-height:230px} .media-icon{width:48px;height:48px;border-radius:14px;background:#12331f;display:grid;place-items:center;color:var(--mint);font-size:23px} .media-card h3{font-size:21px;margin:18px 0 8px} .media-card p{color:#9b9ba2;font-size:13px;line-height:1.5} .metric{margin-top:16px;padding-top:14px;border-top:1px solid #29292e} .metric .v{font-size:26px;font-weight:1000;color:var(--green)} .metric .l{font-size:11px;color:#888;text-transform:uppercase}
+.impact{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px} .impact-total{background:linear-gradient(145deg,#0f3320,#111115 58%);border:1px solid #234d35;border-radius:22px;padding:30px} .impact-total .total{font-size:clamp(64px,7.5vw,120px);font-weight:1000;line-height:.9;color:#fff} .impact-total .total span{color:var(--green)} .impact-total p{color:#aaa;max-width:480px;line-height:1.5} .impact-bars{background:#111115;border:1px solid #29292f;border-radius:22px;padding:26px} .impact-row{display:grid;grid-template-columns:150px 1fr 130px;align-items:center;gap:12px;margin:20px 0} .track{height:10px;background:#24242a;border-radius:999px;overflow:hidden} .fill{height:100%;background:linear-gradient(90deg,var(--greenDeep),var(--green));border-radius:999px;width:var(--w)} .impact-row .name{font-size:12px;font-weight:800} .impact-row .range{text-align:right;font-size:12px;color:#aaa}
+.impact-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px} .istat{background:#111115;border:1px solid #29292f;border-radius:18px;padding:22px} .istat .v{font-size:32px;font-weight:1000;color:var(--green)} .istat .l{font-size:12px;color:#9a9aa0;margin-top:4px}
+.commercial{background:#f2efe8;color:#0d0d10;border-radius:28px;padding:38px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center} .commercial h2{font-size:clamp(44px,5.2vw,80px);margin:0;line-height:.9;text-transform:uppercase} .commercial p{color:#51515a;line-height:1.5;max-width:620px} .price{background:#0e0e12;color:#fff;border-radius:22px;padding:28px} .price .label{font-size:11px;text-transform:uppercase;color:#999} .price .amount{font-size:clamp(48px,5vw,78px);font-weight:1000;color:var(--green);line-height:1;margin:10px 0} .price .incl{color:#aaa;font-size:12px;line-height:1.6} .price .tabela{margin-top:16px;padding-top:14px;border-top:1px solid #26262b;display:flex;justify-content:space-between;font-size:12px;color:#9a9aa0} .price .tabela s{color:#6f6f77}
+footer{padding:38px 0 60px;color:#777;font-size:12px} .reveal{opacity:0;transform:translateY(18px);transition:.6s} .reveal.show{opacity:1;transform:none}
+@media(max-width:980px){.nav{display:none} .hero{grid-template-columns:1fr;padding-top:46px} .hero-img{aspect-ratio:4/3} .kpis{grid-template-columns:repeat(2,1fr)} .map-grid,.impact,.commercial{grid-template-columns:1fr} .steps,.media-grid{grid-template-columns:repeat(2,1fr)} .impact-stats{grid-template-columns:1fr}}
+@media(max-width:620px){.shell{padding:0 16px} .hero h1{font-size:56px} .kpis,.steps,.media-grid{grid-template-columns:1fr} .step:after{display:none} .impact-row{grid-template-columns:110px 1fr} .impact-row .range{grid-column:2;text-align:left} .hbar{grid-template-columns:110px 1fr 64px}}
+</style>
+</head>
+<body>
+<style id="pm-gate-style">
+html.pm-locked, body.pm-locked{overflow:hidden!important;height:100%!important}
+.pm-gate{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(1200px 600px at 50% -10%,rgba(33,194,94,.18),transparent 60%),#09090b;font-family:Inter,Arial,Helvetica,sans-serif}
+.pm-gate__card{width:100%;max-width:400px;background:#101014;border:1px solid #26262b;border-radius:16px;padding:38px 32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+.pm-gate__brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:22px}
+.pm-gate__logo{width:34px;height:34px;border-radius:9px;background:#21C25E;display:grid;place-items:center;color:#06210f;font-size:18px;font-weight:1000}
+.pm-gate__brand b{font-weight:900;letter-spacing:.02em;font-size:15px;color:#fff}
+.pm-gate__eyebrow{color:#21C25E;text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:800;margin:0 0 6px}
+.pm-gate__card h1{font-size:22px;font-weight:900;margin:0 0 20px;line-height:1.15;color:#fff}
+.pm-gate__card input{width:100%;min-height:52px;padding:14px 16px;font-size:15px;background:#08080a;border:1px solid #2b2c31;border-radius:10px;color:#fff}
+.pm-gate__card input:focus{outline:none;border-color:#21C25E;box-shadow:0 0 0 3px rgba(33,194,94,.18)}
+.pm-gate__card button{width:100%;margin-top:14px;min-height:52px;border:none;border-radius:10px;background:#21C25E;color:#06210f;font-weight:900;text-transform:uppercase;letter-spacing:.03em;font-size:12px;cursor:pointer;transition:filter .16s ease}
+.pm-gate__card button:hover{filter:brightness(1.08)}
+.pm-gate__card button:disabled{opacity:.7;cursor:wait}
+.pm-gate__msg{margin-top:14px;font-size:13px;min-height:18px;color:#ff6b6b}
+</style>
+<div class="pm-gate" id="pm-gate" role="dialog" aria-modal="true" aria-label="Acesso restrito">
+  <form class="pm-gate__card" id="pm-gate-form" autocomplete="off">
+    <div class="pm-gate__brand"><span class="pm-gate__logo">P</span><b>PicPay &times; Perifa M&iacute;dia</b></div>
+    <p class="pm-gate__eyebrow">Acesso restrito</p>
+    <h1>Proposta confidencial</h1>
+    <input type="password" id="pm-gate-senha" placeholder="Senha de acesso" autocomplete="current-password" required autofocus>
+    <button type="submit" id="pm-gate-btn">Entrar</button>
+    <div class="pm-gate__msg" id="pm-gate-msg"></div>
+  </form>
+</div>
+
+<header class="topbar"><div class="shell"><div class="brand"><span class="logo">P</span><span>PICPAY</span><span class="sep">×</span><span class="perifa">PERIFA MÍDIA</span></div><nav class="nav"><a href="#visao">Visão geral</a><a href="#mapa">Mapa</a><a href="#estrategia">Estratégia</a><a href="#formato">Formato</a><a href="#impacto">Impacto</a><a href="#investimento">Investimento</a></nav></div></header>
+<main>
+<section class="shell hero" id="visao">
+<div><div class="eyebrow">Proposta comercial · OOH Territorial</div><h1 class="condensed">PICPAY<br><span>NA QUEBRADA</span></h1><p>115 faces de mídia OOH dentro de <b>18 comunidades de São Paulo</b> — uma campanha construída de dentro dos territórios para colocar o PicPay no dia a dia de quem movimenta a periferia.</p><div class="hero-actions"><a class="btn primary" href="#mapa">Explorar cobertura</a><a class="btn secondary" href="#investimento">Ver investimento</a></div></div>
+<div class="hero-img" aria-label="Placa de mídia OOH PicPay no território">
+<svg viewBox="0 0 600 450" role="img" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1a13"/><stop offset="1" stop-color="#0a0d0b"/></linearGradient>
+<linearGradient id="board" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25d46a"/><stop offset="1" stop-color="#12a253"/></linearGradient>
+<radialGradient id="glow" cx="50%" cy="38%" r="55%"><stop offset="0" stop-color="rgba(33,194,94,.35)"/><stop offset="1" stop-color="rgba(33,194,94,0)"/></radialGradient>
+</defs>
+<rect width="600" height="450" fill="url(#sky)"/>
+<rect width="600" height="450" fill="url(#glow)"/>
+<!-- casas da comunidade -->
+<g fill="#141d17" stroke="#1d2a21" stroke-width="2">
+<rect x="18" y="300" width="80" height="120"/><rect x="98" y="270" width="70" height="150"/><rect x="440" y="290" width="70" height="130"/><rect x="510" y="255" width="74" height="165"/>
+</g>
+<g fill="#0f1712"><rect x="34" y="322" width="18" height="18"/><rect x="64" y="322" width="18" height="18"/><rect x="116" y="296" width="18" height="18"/><rect x="118" y="340" width="18" height="18"/><rect x="458" y="316" width="18" height="18"/><rect x="528" y="286" width="18" height="18"/><rect x="528" y="330" width="18" height="18"/></g>
+<!-- chão -->
+<rect x="0" y="418" width="600" height="32" fill="#10160f"/>
+<!-- poste -->
+<rect x="291" y="250" width="18" height="175" rx="3" fill="#20241f"/>
+<!-- placa OOH retrato 0,80 x 1,20 -->
+<g>
+<rect x="205" y="70" width="190" height="210" rx="14" fill="url(#board)" stroke="#0a3a1f" stroke-width="3"/>
+<circle cx="300" cy="140" r="40" fill="#06210f"/>
+<text x="300" y="156" text-anchor="middle" font-family="Impact,Arial" font-size="46" fill="#25d46a" font-weight="900">P</text>
+<text x="300" y="210" text-anchor="middle" font-family="Impact,Arial,sans-serif" font-size="30" fill="#06210f" font-weight="900" letter-spacing="1">PicPay</text>
+<text x="300" y="240" text-anchor="middle" font-family="Inter,Arial" font-size="13" fill="#0a3a1f" font-weight="800">na sua quebrada</text>
+</g>
+<rect x="205" y="286" width="190" height="20" rx="6" fill="#0e120d"/>
+<text x="300" y="300" text-anchor="middle" font-family="Inter,Arial" font-size="11" fill="#7cf0b0" font-weight="800">0,80 × 1,20 m · MÍDIA DE PROXIMIDADE</text>
+<!-- pedestres -->
+<g fill="#1a241d"><circle cx="150" cy="392" r="9"/><rect x="143" y="400" width="14" height="22" rx="5"/><circle cx="430" cy="396" r="8"/><rect x="424" y="403" width="12" height="19" rx="5"/></g>
+</svg>
+</div>
+</section>
+<section class="shell kpis reveal">
+<div class="kpi green"><div class="label">Faces OOH</div><div class="value">115</div><div class="sub">placas em pontos de fluxo</div></div>
+<div class="kpi"><div class="label">Comunidades</div><div class="value">18</div><div class="sub">praças priorizadas em São Paulo</div></div>
+<div class="kpi mint"><div class="label">Alcance populacional</div><div class="value">115,7 mil</div><div class="sub">moradores no raio de cobertura</div></div>
+<div class="kpi green"><div class="label">Impactos estimados</div><div class="value">1,27M</div><div class="sub">potencial ao longo da veiculação</div></div>
+<div class="kpi"><div class="label">Investimento</div><div class="value">R$ 205 mil</div><div class="sub">campanha completa · 18 praças</div></div>
+</section>
+<section class="section" id="mapa"><div class="shell">
+<div class="section-head"><div><div class="section-kicker">Mapa de implementações</div><h2 class="condensed">Mapa dinâmico<br>da cobertura</h2></div><p>Selecione uma zona ou uma comunidade para visualizar a implantação local. As 115 faces são distribuídas de acordo com a densidade e o fluxo de cada território, com o PicPay no centro da rede.</p></div>
+<div class="filters"><button class="filter-btn active" data-group="all">Todas</button><button class="filter-btn" data-group="leste">Zona Leste</button><button class="filter-btn" data-group="sul">Zona Sul</button><button class="filter-btn" data-group="norte">Zona Norte</button><select id="territorySelect"><option value="all">Selecione uma comunidade</option></select></div>
+<div class="map-grid">
+<div class="map-card"><div class="map-wrap"><svg viewBox="0 0 1000 560" role="img" aria-label="Mapa esquemático das comunidades atendidas em São Paulo">
+<defs><radialGradient id="g"><stop offset="0" stop-color="#16231c"/><stop offset="1" stop-color="#0b0c10"/></radialGradient></defs><rect width="1000" height="560" fill="url(#g)"/>
+<g id="routes"></g><g id="nodes"></g></svg><div class="map-caption">Clique nas comunidades para explorar · PicPay é o hub da rede</div></div></div>
+<div class="panel"><div class="section-kicker">Visão atual</div><h3 id="panelTitle">Todas as comunidades</h3><div class="big" id="panelFaces">115</div><div class="muted" id="panelDesc">faces de OOH em 18 comunidades de São Paulo, distribuídas por densidade populacional e fluxo local.</div><div class="territory-list"><div class="territory-row"><b>Comunidades</b><span id="panelComs">18 praças</span></div><div class="territory-row"><b>Impactos estimados</b><span id="panelImp">1,27M</span></div><div class="territory-row"><b>Alcance</b><span id="panelPop">115,7 mil moradores</span></div><div class="territory-row"><b>Renda média</b><span id="panelRenda">R$ 2.070</span></div></div></div>
+</div>
+<div class="panel" style="margin-top:18px"><div class="section-head" style="margin-bottom:0"><div><div class="section-kicker">Distribuição</div><h3 style="font-size:26px;margin:0">Faces por comunidade</h3></div><p style="font-size:13px">115 faces distribuídas com maior pressão nas praças de maior população e piso de presença para preservar cobertura nas 18 comunidades.</p></div><div class="rank" id="rank"></div></div>
+</div></section>
+<section class="section" id="estrategia"><div class="shell"><div class="section-head"><div><div class="section-kicker">Estratégia de praças</div><h2 class="condensed">De dentro para<br>dentro do território</h2></div><p>A campanha não fala com a periferia de fora: ela ocupa o território. Cada praça é escolhida por relevância e ativada no ponto onde o morador circula todo dia.</p></div><div class="steps"><div class="step"><div class="num">1</div><h4>Seleção</h4><p>18 comunidades priorizadas por densidade populacional, fluxo de comércio e aderência ao público PicPay.</p></div><div class="step"><div class="num">2</div><h4>Presença</h4><p>Placas OOH 0,80×1,20 no coração do comércio, mercados, padarias e rotas de circulação diária.</p></div><div class="step"><div class="num">3</div><h4>Frequência</h4><p>15 dias de veiculação + 7 dias bonificados para fixar a marca no cotidiano do território.</p></div><div class="step"><div class="num">4</div><h4>Impacto</h4><p>1,27M de impactos potenciais e cobertura de 115,7 mil moradores em três zonas da cidade.</p></div></div></div></section>
+<section class="section" id="formato"><div class="shell"><div class="section-head"><div><div class="section-kicker">Formato & veiculação</div><h2 class="condensed">Mídia de<br>proximidade</h2></div><p>Um único formato, simples e eficiente: a placa OOH territorial, colocada onde o consumo acontece e onde a confiança se constrói — no comércio de bairro.</p></div><div class="media-grid">
+<div class="media-card"><div class="media-icon">▦</div><h3>Formato</h3><p>Placa OOH em retrato de 0,80 × 1,20 m. Escala humana, leitura próxima e integrada ao ponto de venda local.</p><div class="metric"><div class="v">0,80×1,20</div><div class="l">metros · retrato</div></div></div>
+<div class="media-card"><div class="media-icon">◷</div><h3>Período</h3><p>15 dias de veiculação com 7 dias bonificados. Bissemana estendida para garantir recorrência e memorização.</p><div class="metric"><div class="v">15 + 7</div><div class="l">dias (bonificado)</div></div></div>
+<div class="media-card"><div class="media-icon">◉</div><h3>Distribuição</h3><p>115 faces espalhadas por 18 comunidades, ponderadas pela população e pelo fluxo de cada praça.</p><div class="metric"><div class="v">115</div><div class="l">faces em 18 praças</div></div></div>
+<div class="media-card"><div class="media-icon">⚑</div><h3>Ponto</h3><p>Comércios de rua, mercados e vias de maior circulação — a mídia dentro da rotina do território.</p><div class="metric"><div class="v">Fluxo</div><div class="l">comércio local</div></div></div>
+</div></div></section>
+<section class="section" id="impacto"><div class="shell"><div class="section-head"><div><div class="section-kicker">KPIs & estimativas</div><h2 class="condensed">Impacto por<br>zona da cidade</h2></div><p>Estimativa de impactos potenciais ao longo da veiculação, distribuída pelas três zonas atendidas — reflexo direto da concentração de faces e população em cada território.</p></div><div class="impact"><div class="impact-total"><div class="section-kicker">Impactos totais estimados</div><div class="total">1,27<span>M</span></div><p>Uma plataforma de mídia territorial que coloca o PicPay no caminho diário de 115,7 mil moradores das comunidades paulistanas.</p></div><div class="impact-bars"><div class="impact-row"><div class="name">Zona Leste</div><div class="track"><div class="fill" style="--w:100%"></div></div><div class="range">≈ 695 mil</div></div><div class="impact-row"><div class="name">Zona Sul</div><div class="track"><div class="fill" style="--w:63%"></div></div><div class="range">≈ 439 mil</div></div><div class="impact-row"><div class="name">Zona Norte</div><div class="track"><div class="fill" style="--w:20%"></div></div><div class="range">≈ 138 mil</div></div></div></div>
+<div class="impact-stats"><div class="istat"><div class="v">115,7 mil</div><div class="l">moradores alcançados no raio de cobertura</div></div><div class="istat"><div class="v">≈ 11×</div><div class="l">frequência média de impacto por morador</div></div><div class="istat"><div class="v">37,9 mil</div><div class="l">domicílios nas comunidades atendidas</div></div></div>
+</div></section>
+<section class="section" id="investimento"><div class="shell"><div class="commercial"><div><div class="section-kicker">Proposta comercial</div><h2 class="condensed">Uma campanha.<br>Todo o território.</h2><p>A proposta contempla 115 faces de OOH no formato 0,80×1,20, distribuídas em 18 comunidades de São Paulo, com 15 dias de veiculação e 7 dias bonificados.</p></div><div class="price"><div class="label">Valor final da proposta</div><div class="amount">R$ 205.390</div><div class="incl">115 faces OOH · formato 0,80×1,20 · 18 comunidades · 15 dias + 7 bonificados</div><div class="tabela"><span>Valor unitário tabela <s>R$ 3.800</s></span><span>Negociado <b style="color:var(--green)">R$ 1.786</b> · −53%</span></div></div></div></div></section>
+</main>
+<footer><div class="shell">PERIFA MÍDIA × PICPAY · Presença real. Conexões reais. Mensagens que movem. Resultados com legado.</div></footer>
+<script>
+const territories=[
+{id:'paraisopolis',name:'Paraisópolis',group:'sul',x:360,y:360,faces:12,population:46631,dom:15922,renda:2581.45,imp:89918},
+{id:'heliopolis',name:'Heliópolis',group:'sul',x:470,y:370,faces:12,population:44766,dom:14734,renda:2824.95,imp:84696},
+{id:'tiradentes',name:'Cidade Tiradentes',group:'leste',x:885,y:300,faces:7,population:4076,dom:1213,renda:2311.12,imp:68806},
+{id:'campolimpo',name:'Campo Limpo',group:'sul',x:300,y:410,faces:7,population:3726,dom:1189,renda:1947.31,imp:90876},
+{id:'novomundo',name:'Parque Novo Mundo',group:'norte',x:520,y:175,faces:6,population:2535,dom:801,renda:2520.94,imp:68977},
+{id:'aecarvalho',name:'A. E. Carvalho',group:'leste',x:770,y:250,faces:6,population:2371,dom:648,renda:1978.45,imp:68977},
+{id:'cidadelider',name:'Cidade Líder',group:'leste',x:800,y:330,faces:6,population:2304,dom:639,renda:2117.23,imp:82814},
+{id:'carmosina',name:'Carmosina',group:'leste',x:820,y:275,faces:6,population:1356,dom:340,renda:1022.51,imp:68977},
+{id:'carrao',name:'Carrão',group:'leste',x:660,y:305,faces:6,population:1338,dom:398,renda:2650.62,imp:68977},
+{id:'vilamedeiros',name:'Vila Medeiros',group:'norte',x:575,y:165,faces:6,population:1295,dom:376,renda:1450.28,imp:68977},
+{id:'vilaformosa',name:'Vila Formosa',group:'leste',x:640,y:345,faces:6,population:1273,dom:404,renda:2384.51,imp:68977},
+{id:'jardimhelena',name:'Jardim Helena',group:'leste',x:790,y:180,faces:5,population:1020,dom:313,renda:1987.94,imp:68977},
+{id:'itaquera',name:'Itaquera / Cohab',group:'leste',x:840,y:310,faces:5,population:958,dom:288,renda:1867.70,imp:79736},
+{id:'americanopolis',name:'Americanópolis',group:'sul',x:500,y:435,faces:5,population:664,dom:195,renda:1634.27,imp:59298},
+{id:'jdsaoluis',name:'Jd. São Luís / Guarujá',group:'sul',x:350,y:445,faces:5,population:560,dom:148,renda:2579.28,imp:59298},
+{id:'paulistano',name:'Parque Paulistano',group:'leste',x:820,y:200,faces:5,population:546,dom:160,renda:1313.02,imp:59298},
+{id:'josebonifacio',name:'José Bonifácio',group:'leste',x:855,y:250,faces:5,population:177,dom:52,renda:1931.03,imp:59298},
+{id:'jardimmirian',name:'Jardim Mirian',group:'sul',x:465,y:445,faces:5,population:162,dom:48,renda:2153.16,imp:55284}]
+const HUB={x:560,y:290};
+const svgNodes=document.querySelector('#nodes'), svgRoutes=document.querySelector('#routes'), select=document.querySelector('#territorySelect'), rank=document.querySelector('#rank');
+const maxFaces=Math.max(...territories.map(t=>t.faces));
+const fmt=n=>new Intl.NumberFormat('pt-BR').format(n);
+const fmtM=n=>n>=1e6?(n/1e6).toFixed(2).replace('.',',')+'M':n>=1e3?(n/1e3).toFixed(0)+' mil':fmt(n);
+territories.forEach(t=>{
+  let l=document.createElementNS('http://www.w3.org/2000/svg','line');l.setAttribute('x1',HUB.x);l.setAttribute('y1',HUB.y);l.setAttribute('x2',t.x);l.setAttribute('y2',t.y);l.setAttribute('class','route');l.dataset.id=t.id;svgRoutes.appendChild(l);
+  let g=document.createElementNS('http://www.w3.org/2000/svg','g');g.setAttribute('class','node');g.dataset.id=t.id;const r=10+t.faces;g.innerHTML=`<circle cx="${t.x}" cy="${t.y}" r="${r}"></circle><text x="${t.x}" y="${t.y+4}" text-anchor="middle">${t.faces}</text><text class="face" x="${t.x}" y="${t.y+r+13}" text-anchor="middle">${t.name.split(' / ')[0].split(' ')[0]}</text>`;g.addEventListener('click',()=>selectTerritory(t.id));svgNodes.appendChild(g);
+  let o=document.createElement('option');o.value=t.id;o.textContent=t.name;select.appendChild(o);
+});
+// hub PicPay
+let hub=document.createElementNS('http://www.w3.org/2000/svg','g');hub.setAttribute('class','hub');hub.innerHTML=`<circle cx="${HUB.x}" cy="${HUB.y}" r="30"></circle><text x="${HUB.x}" y="${HUB.y+6}" text-anchor="middle">PicPay</text>`;svgNodes.appendChild(hub);
+// ranking horizontal
+[...territories].sort((a,b)=>b.faces-a.faces||b.population-a.population).forEach(t=>{
+  let row=document.createElement('div');row.className='hbar';row.dataset.id=t.id;
+  row.innerHTML=`<div class="hname">${t.name}</div><div class="htrack"><div class="hfill" style="--w:${Math.round(t.faces/maxFaces*100)}%"></div></div><div class="hmeta"><b>${t.faces}</b> faces<br>Pop. ${fmt(t.population)}</div>`;
+  row.onclick=()=>selectTerritory(t.id);rank.appendChild(row);
+});
+function updateUI(list,title){
+  const faces=list.reduce((s,t)=>s+t.faces,0), pop=list.reduce((s,t)=>s+t.population,0), imp=list.reduce((s,t)=>s+t.imp,0);
+  const renda=list.length?list.reduce((s,t)=>s+t.renda,0)/list.length:0;
+  document.querySelector('#panelTitle').textContent=title;
+  document.querySelector('#panelFaces').textContent=faces;
+  document.querySelector('#panelDesc').textContent=`faces de OOH em ${list.length} comunidade${list.length!==1?'s':''}, com base populacional de ${fmt(pop)} moradores.`;
+  document.querySelector('#panelComs').textContent=`${list.length} praça${list.length!==1?'s':''}`;
+  document.querySelector('#panelImp').textContent=fmtM(imp);
+  document.querySelector('#panelPop').textContent=`${fmt(pop)} moradores`;
+  document.querySelector('#panelRenda').textContent=`R$ ${fmt(Math.round(renda))}`;
+  document.querySelectorAll('.node').forEach(n=>n.classList.toggle('active',list.some(t=>t.id===n.dataset.id)));
+  document.querySelectorAll('.route').forEach(r=>r.classList.toggle('active',list.some(t=>t.id===r.dataset.id)));
+  document.querySelectorAll('.hbar').forEach(b=>b.classList.toggle('active',list.some(t=>t.id===b.dataset.id)));
+}
+function selectTerritory(id){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));if(id==='all'){document.querySelector('.filter-btn[data-group="all"]').classList.add('active');updateUI(territories,'Todas as comunidades');select.value='all';return}const t=territories.find(x=>x.id===id);select.value=id;updateUI([t],t.name)}
+select.addEventListener('change',e=>selectTerritory(e.target.value));
+const groupNames={all:'Todas as comunidades',leste:'Zona Leste',sul:'Zona Sul',norte:'Zona Norte'};
+document.querySelectorAll('.filter-btn').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');const gp=b.dataset.group;const list=gp==='all'?territories:territories.filter(t=>t.group===gp);select.value='all';updateUI(list,groupNames[gp])});
+const obs=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('show')),{threshold:.08});document.querySelectorAll('.reveal,.section').forEach(el=>{el.classList.add('reveal');obs.observe(el)});
+updateUI(territories,'Todas as comunidades');
+</script>
+<script>
+(function(){
+  var KEY='pm_picpay_ok';
+  var EXP=atob('cGljcGF5MjYh');
+  var root=document.documentElement, gate=document.getElementById('pm-gate'),
+      form=document.getElementById('pm-gate-form'), msg=document.getElementById('pm-gate-msg'),
+      btn=document.getElementById('pm-gate-btn'), inp=document.getElementById('pm-gate-senha');
+  function lock(){root.classList.add('pm-locked');document.body&&document.body.classList.add('pm-locked');}
+  function unlock(){gate.parentNode&&gate.parentNode.removeChild(gate);root.classList.remove('pm-locked');document.body&&document.body.classList.remove('pm-locked');}
+  lock();
+  try{if(sessionStorage.getItem(KEY)==='1'){unlock();return;}}catch(e){}
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var v=inp.value||'';
+    if(!v)return;
+    if(v===EXP){try{sessionStorage.setItem(KEY,'1');}catch(e){}unlock();}
+    else{msg.textContent='Senha incorreta.';btn.disabled=false;inp.select();}
+  });
+})();
+</script>
+
+<!--PM-PDF-EXPORT-FEATURE-->
+<style id="pm-export-style">
+#pm-export-fab{position:fixed;right:22px;bottom:22px;z-index:40;display:inline-flex;align-items:center;gap:9px;padding:13px 18px;border:none;border-radius:999px;background:#21C25E;color:#06210f;font-family:Inter,Arial,Helvetica,sans-serif;font-weight:800;font-size:13px;letter-spacing:.02em;cursor:pointer;box-shadow:0 12px 34px rgba(33,194,94,.42);transition:filter .16s ease,transform .16s ease}
+#pm-export-fab:hover{filter:brightness(1.07);transform:translateY(-1px)}
+#pm-export-fab:disabled{opacity:.7;cursor:wait;transform:none}
+#pm-export-fab svg{width:17px;height:17px;display:block}
+@media(max-width:900px){#pm-export-fab{display:none}}
+#pm-export-overlay{position:fixed;inset:0;z-index:2147483200;display:none;align-items:center;justify-content:center;background:rgba(9,9,11,.9);backdrop-filter:blur(4px);font-family:Inter,Arial,Helvetica,sans-serif}
+#pm-export-overlay.on{display:flex}
+#pm-export-overlay .box{text-align:center;color:#fff;max-width:320px;padding:20px}
+#pm-export-overlay .spin{width:46px;height:46px;border:3px solid rgba(255,255,255,.18);border-top-color:#21C25E;border-radius:50%;margin:0 auto 18px;animation:pmspin 1s linear infinite}
+@keyframes pmspin{to{transform:rotate(360deg)}}
+#pm-export-overlay .lbl{font-weight:800;font-size:15px;letter-spacing:.01em}
+#pm-export-overlay .sub{margin-top:7px;font-size:12px;color:#9a9aa2;line-height:1.5}
+html.pm-exporting .reveal{opacity:1!important;transform:none!important}
+html.pm-exporting .topbar{position:static!important;backdrop-filter:none!important;background:#09090b!important}
+html.pm-exporting #pm-export-fab{display:none!important}
+html.pm-exporting *{transition:none!important;animation:none!important}
+</style>
+
+<button id="pm-export-fab" type="button" aria-label="Exportar proposta em PDF" title="Exportar em PDF (desktop)">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+  Exportar PDF
+</button>
+<div id="pm-export-overlay" role="alert" aria-live="assertive">
+  <div class="box">
+    <div class="spin"></div>
+    <div class="lbl" id="pm-export-lbl">Gerando PDF...</div>
+    <div class="sub" id="pm-export-sub">Renderizando a proposta em alta resolucao. Isso leva alguns segundos.</div>
+  </div>
+</div>
+
+<script>/*PM-PDF-EXPORT*/
+(function(){
+  var CDN = {
+    h2c: 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',
+    jspdf: 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
+  };
+  var CAPTURE_W = 1280;
+  var fab = document.getElementById('pm-export-fab');
+  var overlay = document.getElementById('pm-export-overlay');
+  var lbl = document.getElementById('pm-export-lbl');
+  var sub = document.getElementById('pm-export-sub');
+  if(!fab) return;
+
+  function loadScript(src){
+    return new Promise(function(res, rej){
+      if(document.querySelector('script[data-pm="'+src+'"]')){res();return;}
+      var s=document.createElement('script'); s.src=src; s.async=true; s.setAttribute('data-pm',src);
+      s.onload=function(){res();}; s.onerror=function(){rej(new Error('falha ao carregar '+src));};
+      document.head.appendChild(s);
+    });
+  }
+  function setMsg(l,s){ if(l!=null)lbl.textContent=l; if(s!=null)sub.textContent=s; }
+  function sleep(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+
+  fab.addEventListener('click', function(){ run().catch(function(err){
+      console.error(err);
+      setMsg('Nao foi possivel gerar o PDF', 'Verifique a conexao e tente novamente.');
+      setTimeout(function(){ overlay.classList.remove('on'); fab.disabled=false; }, 2600);
+  }); });
+
+  function run(){
+    fab.disabled = true;
+    overlay.classList.add('on');
+    setMsg('Preparando...', 'Carregando o gerador de PDF.');
+    return Promise.resolve()
+      .then(function(){ return loadScript(CDN.h2c); })
+      .then(function(){ return loadScript(CDN.jspdf); })
+      .then(function(){ return sleep(60); })
+      .then(generate);
+  }
+
+  function generate(){
+    var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+    if(!jsPDFCtor || !window.html2canvas) throw new Error('bibliotecas indisponiveis');
+
+    document.documentElement.classList.add('pm-exporting');
+
+    var targets = [];
+    var top = document.querySelector('header.topbar'); if(top) targets.push(top);
+    var main = document.querySelector('main');
+    if(main){ [].slice.call(main.children).forEach(function(el){ if(el.getBoundingClientRect().height>4) targets.push(el); }); }
+    var foot = document.querySelector('body > footer'); if(foot) targets.push(foot);
+
+    var opts = { scale: 2, backgroundColor: '#09090b', useCORS: true, logging: false,
+                 windowWidth: CAPTURE_W, width: CAPTURE_W, scrollX: 0, scrollY: 0 };
+
+    var canvases = [];
+    var chain = Promise.resolve();
+    targets.forEach(function(el, i){
+      chain = chain.then(function(){
+        setMsg('Gerando PDF...', 'Renderizando secao ' + (i+1) + ' de ' + targets.length + '...');
+        return window.html2canvas(el, opts).then(function(c){ canvases.push(c); return sleep(10); });
+      });
+    });
+
+    return chain.then(function(){
+      setMsg('Montando o documento...', 'Quase la.');
+      var pdf = new jsPDFCtor({ unit:'mm', format:'a4', orientation:'portrait', compress:true });
+      var pageW = pdf.internal.pageSize.getWidth();
+      var pageH = pdf.internal.pageSize.getHeight();
+      var M = 8;
+      var contentW = pageW - 2*M;
+      var contentH = pageH - 2*M;
+      var GAP = 4;
+      var y = M;
+      var first = true;
+
+      function placeCanvas(canvas){
+        var imgW = contentW;
+        var imgH = imgW * canvas.height / canvas.width;
+        if(imgH <= contentH){
+          if(!first && (y + imgH > pageH - M)){ pdf.addPage(); y = M; }
+          pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', M, y, imgW, imgH, undefined, 'FAST');
+          y += imgH + GAP;
+          first = false;
+        } else {
+          var pxPerPage = Math.floor(canvas.width * (contentH / imgW));
+          var sy = 0;
+          while(sy < canvas.height){
+            var sh = Math.min(pxPerPage, canvas.height - sy);
+            var slice = document.createElement('canvas');
+            slice.width = canvas.width; slice.height = sh;
+            var ctx = slice.getContext('2d');
+            ctx.fillStyle = '#09090b'; ctx.fillRect(0,0,slice.width,slice.height);
+            ctx.drawImage(canvas, 0, sy, canvas.width, sh, 0, 0, canvas.width, sh);
+            if(!first){ pdf.addPage(); }
+            y = M;
+            var sliceH = imgW * sh / canvas.width;
+            pdf.addImage(slice.toDataURL('image/jpeg', 0.95), 'JPEG', M, y, imgW, sliceH, undefined, 'FAST');
+            y += sliceH + GAP;
+            first = false;
+            sy += sh;
+          }
+        }
+      }
+
+      canvases.forEach(placeCanvas);
+      pdf.save('Proposta-PicPay-x-Perifa-Midia.pdf');
+
+      document.documentElement.classList.remove('pm-exporting');
+      overlay.classList.remove('on');
+      fab.disabled = false;
+    });
+  }
+})();
+</script>
+<!--/PM-PDF-EXPORT-FEATURE-->
+</body>
+</html>

@@ -1,4 +1,13 @@
 [
-  { "cliente": "Shopee", "slug": "shopee", "url": "/propostas/shopee", "valor": 488420, "data": "2026-08-13", "geradaPor": "—", "faces": null, "cidades": null },
-  { "cliente": "Guanabara", "slug": "guanabara", "url": "/propostas/guanabara", "valor": 233544, "data": "2026-08-18", "geradaPor": "—", "faces": 111, "cidades": 1 }
+  { "cliente": "Prefeitura de Palmas - TO", "slug": "prefeitura-de-palmas-to", "url": "/propostas/prefeitura-de-palmas-to", "valor": 197600, "data": "2026-08-31", "geradaPor": "Rubens Ressutti", "faces": 52, "cidades": 1 },
+  { "cliente": "Mococa", "slug": "mococa", "url": "/propostas/mococa", "valor": 130910, "data": "2026-08-26", "geradaPor": "Rubens Ressutti", "faces": 65, "cidades": 1 },
+  { "cliente": "Boticário Orla do Cuidado", "slug": "boticario-orla-do-cuidado", "url": "/propostas/boticario-orla-do-cuidado", "valor": null, "data": "2026-08-26", "geradaPor": "Rubens Ressutti", "faces": null, "cidades": null },
+  { "cliente": "Orla do Cuidado (cenário PP one page) 2", "slug": "orladocuidadoboticariocenariopponepage-2", "url": "/propostas/orladocuidadoboticariocenariopponepage-2", "valor": null, "data": "2026-08-24", "geradaPor": "Rubens Ressutti", "faces": null, "cidades": null },
+  { "cliente": "Orla do Cuidado (cenário PP one page)", "slug": "orladocuidadoboticariocenariopponepage", "url": "/propostas/orladocuidadoboticariocenariopponepage", "valor": null, "data": "2026-08-24", "geradaPor": "Adm e Financeiro", "faces": null, "cidades": null },
+  { "cliente": "Boticário", "slug": "boticario", "url": "/propostas/boticario", "valor": 68400, "data": "2026-08-24", "geradaPor": "—", "faces": 60, "cidades": 6 },
+  { "cliente": "Orla do Cuidado", "slug": "orla-do-cuidado", "url": "/propostas/orla-do-cuidado", "valor": null, "data": "2026-08-24", "geradaPor": "Clarissa Crisóstomo", "faces": null, "cidades": null },
+  { "cliente": "Credicard", "slug": "credicard", "url": "/propostas/credicard", "valor": 48412, "data": "2026-08-22", "geradaPor": "Rubens Ressutti", "faces": 26, "cidades": 1 },
+  { "cliente": "Boticário", "slug": "boti-2026", "url": "/propostas/boti-2026", "valor": 68400, "data": "2026-08-21", "geradaPor": "Adm e Financeiro", "faces": 60, "cidades": 6 },
+  { "cliente": "Guanabara", "slug": "guanabara", "url": "/propostas/guanabara", "valor": 233544, "data": "2026-08-18", "geradaPor": "—", "faces": 111, "cidades": 1 },
+  { "cliente": "Shopee", "slug": "shopee", "url": "/propostas/shopee", "valor": 488420, "data": "2026-08-13", "geradaPor": "—", "faces": null, "cidades": null }
 ]

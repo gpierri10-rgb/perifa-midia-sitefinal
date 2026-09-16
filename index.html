@@ -1,325 +1,161 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Perifa Mídia | Convite</title>
-    <meta
-      name="description"
-      content="Um convite para acompanhar de perto a construção da maior infraestrutura de mídia e bem-estar periférico do país."
-    >
-    <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#0d0d0d">
-    <link rel="canonical" href="https://perifamidia.com.br/">
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="pt_BR">
-    <meta property="og:site_name" content="Perifa Mídia">
-    <meta property="og:title" content="Perifa Mídia | Convite">
-    <meta
-      property="og:description"
-      content="Faça seu cadastro e acompanhe de perto a construção da maior infraestrutura de mídia e bem-estar periférico do país."
-    >
-    <meta property="og:url" content="https://perifamidia.com.br/">
-    <meta property="og:image" content="https://perifamidia.com.br/index3-hero-clean.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    >
-    <style>
-      :root {
-        --bg: #0d0d0d;
-        --surface: rgba(8, 8, 8, 0.72);
-        --line: rgba(255, 255, 255, 0.14);
-        --text: #f6f2eb;
-        --muted: rgba(246, 242, 235, 0.78);
-        --accent: #e46ea3;
-        --accent-strong: #f28bb6;
-        --font-display: "Anton", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-        --font-body: "Inter", Arial, Helvetica, sans-serif;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perifa Mídia — A mídia onde a vida acontece</title>
+  <meta name="description" content="Conectamos marcas ao Brasil real. Dados, estratégia e execução em mídia OOH periférica." />
 
-      * {
-        box-sizing: border-box;
-      }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-      html,
-      body {
-        margin: 0;
-        min-height: 100%;
-      }
+  <!-- CSS -->
+  <link rel="stylesheet" href="./style.css" />
 
-      body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: var(--font-body);
-      }
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'SEU_PIXEL_ID');
+    fbq('track', 'PageView');
+  </script>
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXX');
+  </script>
+</head>
 
-      img {
-        display: block;
-        max-width: 100%;
-      }
+<body>
 
-      button,
-      input {
-        font: inherit;
-      }
+  <!-- ========== HERO ========== -->
+  <header class="hero" id="topo">
+    <nav class="nav">
+      <a href="#contato" class="nav__link">
+        <span class="nav__link-text">Fale conosco</span>
+        <span class="nav__link-arrow">→</span>
+      </a>
+    </nav>
 
-      .invite-page {
-        position: relative;
-        min-height: 100vh;
-        overflow: hidden;
-        background:
-          linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.68) 24%, rgba(0, 0, 0, 0.16) 56%, rgba(0, 0, 0, 0.34) 100%),
-          url("./index3-hero-clean.png") center center / cover no-repeat fixed;
-      }
+    <div class="hero__inner">
+      <div class="hero__content">
+        <p class="hero__kicker">
+          <span class="hero__kicker-dot"></span>
+          <span class="hero__kicker-spacer" aria-hidden="true"></span>
+        </p>
 
-      .invite-shell {
-        position: relative;
-        z-index: 1;
-        min-height: 100vh;
-        width: min(1280px, calc(100% - 56px));
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: minmax(0, 1.15fr) minmax(320px, 430px);
-        gap: 36px;
-        align-items: center;
-        padding: 48px 0;
-      }
+        <h1 class="hero__title">
+          <span class="hero__line">A mídia</span>
+          <span class="hero__line hero__line--indent">onde <em>a vida</em></span>
+          <span class="hero__line hero__line--shift">acontece.</span>
+        </h1>
 
-      .invite-copy {
-        width: min(100%, 430px);
-        max-width: 430px;
-      }
+        <p class="hero__lede">
+          Conectamos marcas ao Brasil real — não por audiência, por <strong>presença</strong>.
+          Onde o país trabalha, estuda, cuida e se movimenta, sua marca também está.
+        </p>
 
-      .invite-eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        margin: 0 0 20px;
-        font-size: 13px;
-        font-weight: 800;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-
-      .invite-eyebrow::before {
-        width: 54px;
-        height: 3px;
-        border-radius: 999px;
-        background: var(--accent);
-        content: "";
-      }
-
-      .invite-title {
-        margin: 0;
-        max-width: 430px;
-        font-family: var(--font-display);
-        font-size: clamp(38px, 4.6vw, 64px);
-        line-height: 0.96;
-        letter-spacing: 0.01em;
-        text-transform: uppercase;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
-      }
-
-      .invite-title span {
-        display: block;
-        white-space: nowrap;
-      }
-
-      .invite-title .accent {
-        color: var(--accent-strong);
-      }
-
-      .invite-description {
-        max-width: 430px;
-        margin: 20px 0 0;
-        font-size: clamp(15px, 1.2vw, 17px);
-        line-height: 1.5;
-        color: var(--muted);
-      }
-
-      .invite-card {
-        padding: 28px;
-        border: 1px solid var(--line);
-        border-radius: 24px;
-        background: var(--surface);
-        backdrop-filter: blur(14px);
-        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
-      }
-
-      .invite-card h2 {
-        margin: 0 0 12px;
-        font-family: var(--font-display);
-        font-size: 42px;
-        line-height: 1;
-        text-transform: uppercase;
-      }
-
-      .invite-card p {
-        margin: 0 0 22px;
-        color: var(--muted);
-        line-height: 1.55;
-      }
-
-      .invite-form {
-        display: grid;
-        gap: 14px;
-      }
-
-      .invite-form label {
-        display: grid;
-        gap: 8px;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-      }
-
-      .invite-form input {
-        width: 100%;
-        padding: 15px 16px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.06);
-        color: var(--text);
-      }
-
-      .invite-form input::placeholder {
-        color: rgba(246, 242, 235, 0.46);
-      }
-
-      .invite-form input:focus-visible {
-        outline: 2px solid var(--accent-strong);
-        outline-offset: 2px;
-      }
-
-      .invite-submit {
-        margin-top: 6px;
-        padding: 16px 20px;
-        border: 0;
-        border-radius: 999px;
-        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
-        color: #111;
-        font-weight: 900;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-
-      .invite-note {
-        margin: 14px 0 0;
-        font-size: 13px;
-        color: rgba(246, 242, 235, 0.6);
-      }
-
-      @media (max-width: 980px) {
-        .invite-shell {
-          width: min(100%, calc(100% - 32px));
-          grid-template-columns: 1fr;
-          gap: 24px;
-          align-items: end;
-          padding: 28px 0 36px;
-        }
-
-        .invite-page {
-          background:
-            linear-gradient(180deg, rgba(0, 0, 0, 0.54) 0%, rgba(0, 0, 0, 0.42) 30%, rgba(0, 0, 0, 0.84) 100%),
-            url("./index3-hero-clean.png") 58% center / cover no-repeat;
-        }
-
-        .invite-title {
-          max-width: 100%;
-          font-size: clamp(34px, 9vw, 56px);
-        }
-
-        .invite-title span {
-          display: inline;
-          white-space: normal;
-        }
-
-        .invite-card h2 {
-          font-size: 34px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <main class="invite-page">
-      <div class="invite-shell">
-        <section class="invite-copy" aria-labelledby="invite-title">
-          <p class="invite-eyebrow">Perifa Mídia</p>
-          <h1 class="invite-title" id="invite-title">
-            <span>Um convite para</span>
-            <span>acompanhar de</span>
-            <span>perto a construção</span>
-            <span class="accent">da maior infraestrutura</span>
-            <span>de mídia e bem-estar</span>
-            <span>periférico do país.</span>
-          </h1>
-          <p class="invite-description">
-            Faça seu cadastro e receba nossas novidades.
-          </p>
-        </section>
-
-        <aside class="invite-card" aria-label="Cadastro">
-          <h2>Receba Novidades</h2>
-          <p>
-            Entre para a nossa lista e acompanhe de perto os próximos movimentos,
-            lançamentos e novidades da Perifa Mídia.
-          </p>
-
-          <form class="invite-form" id="inviteForm" novalidate>
-            <label>
-              Nome
-              <input type="text" name="nome" placeholder="Seu nome" required>
-            </label>
-
-            <label>
-              E-mail
-              <input type="email" name="email" placeholder="voce@empresa.com" required>
-            </label>
-
-            <label>
-              Telefone
-              <input type="tel" name="telefone" placeholder="(11) 99999-9999">
-            </label>
-
-            <button class="invite-submit" type="submit">Fazer cadastro</button>
-          </form>
-
-          <p class="invite-note" id="inviteNote">
-            Ao se cadastrar, você passa a receber nossas atualizações.
-          </p>
-
-          <p class="invite-note" id="inviteThanks" hidden>
-            Recebemos seu cadastro. Obrigado por se juntar a nós — em breve entraremos em contato.
-          </p>
-        </aside>
+        <div class="hero__actions">
+          <a href="#contato" class="btn btn--primary">
+            <span>Fale Conosco</span>
+            <span class="btn__arrow">↗</span>
+          </a>
+          <a href="https://www.instagram.com/perifa.midia" target="_blank" rel="noopener" class="btn btn--ghost">
+            Ver no Instagram
+          </a>
+        </div>
       </div>
-    </main>
+    </div>
 
-    <script>
-      (function () {
-        var form = document.getElementById("inviteForm");
-        if (!form) return;
-        form.addEventListener("submit", function (event) {
-          event.preventDefault();
-          if (typeof form.reportValidity === "function" && !form.reportValidity()) return;
-          var note = document.getElementById("inviteNote");
-          var thanks = document.getElementById("inviteThanks");
-          form.hidden = true;
-          if (note) note.hidden = true;
-          if (thanks) thanks.hidden = false;
-        });
-      })();
-    </script>
-  </body>
+    <div class="hero__media">
+      <video
+        class="hero__video"
+        src="./hero-video.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        aria-hidden="true"
+      ></video>
+    </div>
+
+  </header>
+
+  <!-- ========== CONTATO / FORMULÁRIO ========== -->
+  <section class="contato" id="contato">
+    <div class="contato__inner">
+
+      <div class="contato__left">
+        <h2 class="contato__title">
+          Sua marca mais perto de onde o <em>Brasil</em><br />
+          vive, compra e escolhe.
+        </h2>
+
+        <ul class="contato__list">
+          <li>
+            <span class="contato__list-key">E-mail</span>
+            <span class="contato__list-val">comerical@perifamidia.com.br</span>
+          </li>
+          <li>
+            <span class="contato__list-key">WhatsApp</span>
+            <span class="contato__list-val">+55 (11) 98261-3323</span>
+          </li>
+        </ul>
+      </div>
+
+      <form class="form" id="leadForm" novalidate>
+
+        <div class="form__row">
+          <label class="form__label" for="nome">Nome</label>
+          <input class="form__input" type="text" id="nome" name="nome" required autocomplete="name" />
+        </div>
+
+        <div class="form__row">
+          <label class="form__label" for="email">E-mail</label>
+          <input class="form__input" type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+
+        <div class="form__row">
+          <label class="form__label" for="whatsapp">WhatsApp</label>
+          <input class="form__input" type="tel" id="whatsapp" name="whatsapp" required placeholder="(11) 9XXXX-XXXX" autocomplete="tel" />
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--block">
+          <span>Fale Conosco</span>
+          <span class="btn__arrow">↗</span>
+        </button>
+
+        <p class="form__small">Seus dados não serão compartilhados.</p>
+
+        <div class="form__success" id="formSuccess" hidden>
+          <strong>Recebido.</strong> A gente volta em até 24h úteis.
+        </div>
+
+      </form>
+
+    </div>
+
+    <footer class="footer">
+      <div class="footer__left">
+        <span class="footer__brand">PERIFA/MÍDIA</span>
+        <span class="footer__sep">·</span>
+        <span>© 2026</span>
+      </div>
+      <div class="footer__right">
+        <a href="https://www.instagram.com/perifa.midia" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/5511982613323" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:comerical@perifamidia.com.br">comerical@perifamidia.com.br</a>
+      </div>
+    </footer>
+
+  </section>
+
+  <!-- JS -->
+  <script src="./script.js"></script>
+</body>
 </html>
